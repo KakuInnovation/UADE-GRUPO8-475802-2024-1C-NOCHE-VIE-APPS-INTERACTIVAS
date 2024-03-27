@@ -1,0 +1,23 @@
+{
+  "name": "uade-grupo8-475802-2024-1c-noche-vie-apps-interactivas",
+  "version": "1.0.0",
+  "description": "UADE GRUPO 8 - 475802 - 2024-1C - NOCHE - VIE - APLICACIONES INTERACTIVAS",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KakuInnovation/UADE-GRUPO8-475802-2024-1C-NOCHE-VIE-APPS-INTERACTIVAS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KakuInnovation/UADE-GRUPO8-475802-2024-1C-NOCHE-VIE-APPS-INTERACTIVAS/issues"
+  },
+  "homepage": "https://github.com/KakuInnovation/UADE-GRUPO8-475802-2024-1C-NOCHE-VIE-APPS-INTERACTIVAS#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
