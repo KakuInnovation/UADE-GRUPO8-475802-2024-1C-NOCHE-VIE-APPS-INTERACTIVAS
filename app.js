@@ -1,16 +1,19 @@
 const express = require('express');
-const static = require('./modules/static');
+//const static = require('./modules/static');
 const app = express();
-const port = process.env.PORT || 3030;
+
+//PREPARO EL SERVER
+const port = process.env.PORT || 3000;
 const listen = () => console.log(`Servidor corriendo en puerto ${port}`);
 
-app.set('views', './views')
+//app.set('views', './views')
 app.listen(port, listen());
 
-app.use(static('../public'))
-
+//app.use(static('../public'))
 app.get('/', (req, res) => {
+    //    console.log(__dirname + '/views/home.html');
     res.sendFile(__dirname + '/views/home.html');
 })
 
-//app.use(require('./routes/main.routes'));
+// RUTAS
+//app.use('/', require('./routes/main.routes'));
