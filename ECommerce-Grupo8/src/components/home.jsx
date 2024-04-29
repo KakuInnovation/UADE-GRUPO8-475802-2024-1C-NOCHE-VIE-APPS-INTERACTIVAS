@@ -1,8 +1,21 @@
+import Header from './Header.jsx'
+import Footer from './Footer.jsx'
+
 function Home() {
   return (
-    <div>
-      <h1>Holaa soy el Home!!!! :-)</h1>
-    </div>
+    <>
+      <div>
+        <Header />
+      </div>
+
+      <div>
+        <h1>Holaa soy el Home!!!! :-)</h1>
+      </div>
+
+      <div>
+        <Footer />
+      </div>
+    </>
   );
 }
 
