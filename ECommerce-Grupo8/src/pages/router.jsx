@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import Login from "./login.jsx";
 import SignUp from "./signup.jsx";
-import Home from "../components/home.jsx";
+import Home from "./home.jsx";
 import Publicar from "./publicar.jsx";
 import Editar from "./editar.jsx";
 

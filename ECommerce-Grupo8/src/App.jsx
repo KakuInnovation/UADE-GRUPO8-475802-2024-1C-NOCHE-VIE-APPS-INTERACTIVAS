@@ -1,4 +1,4 @@
-import './assets/css/app.css'
+//import './assets/css/app.css'
 import {RouterProvider} from "react-router-dom";
 import router from "./pages/router.jsx";
 
