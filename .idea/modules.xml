@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/TPO-API.iml" filepath="$PROJECT_DIR$/.idea/TPO-API.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/UADE-GRUPO8.iml" filepath="$PROJECT_DIR$/.idea/UADE-GRUPO8.iml" />
+>>>>>>> 2c00d6d8911392a73d79bb8031e90e7b2f69fa47
     </modules>
   </component>
 </project>

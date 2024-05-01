@@ -1,5 +1,4 @@
 
-
 import {Container} from "@mui/material";
 import Navbar from "./components/navbar/Navbar.jsx";
 import Catalogo from "./views/Catalogo.jsx";
