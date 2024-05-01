@@ -57,7 +57,7 @@ export default function Navbar() {
         },
 
         login:{
-            color:'#9f9e9e'
+            color:'#636363'
         },
         items_button:{
             borderBottomLeftRadius:'10px',
@@ -133,7 +133,7 @@ export default function Navbar() {
 
                             {navbarList.map(item => (
                                 <IconButton sx={{...sx_navbar.items_button}}>
-                                    <Typography sx={{ fontFamily:'Tisa Sans Pro Regular', color:'#9f9e9e', fontSize:'13px'}}>{item}</Typography>
+                                    <Typography sx={{ fontFamily:'Tisa Sans Pro Regular', color:'#636363', fontSize:'13px'}}>{item}</Typography>
                                 </IconButton>
                             ))
                             }
@@ -141,7 +141,7 @@ export default function Navbar() {
                         <Box  sx={{...sx_navbar.input_field}}>
                             <TextField sx={{...sx_navbar.input}}  inputProps={{style: {fontSize: 10}}}  size={"small"} id="outlined-basic"  />
                             <IconButton sx={{display:'flex',justifyContent:'center',backgroundImage:background, boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)', }}>
-                                <SearchIcon sx={{color:'#9f9e9e',}}></SearchIcon>
+                                <SearchIcon sx={{color:'#636363'}}></SearchIcon>
                             </IconButton>
                         </Box>
 

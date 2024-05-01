@@ -44,7 +44,7 @@ const SidebarFilter = () => {
             borderBottom:{xs:'',md:"2px solid #e4e4e4"},
         },
         button:{
-            color:'#9f9e9e',
+            color:'#636363',
             border:'1px solid #fffefe',
 
             marginRight:'10px',
@@ -80,7 +80,7 @@ const SidebarFilter = () => {
             display:'flex',
             justifyContent:'center',
             alignItems: 'center',
-            color:'#9f9e9e',
+            color:'#636363',
         }
     }
 
@@ -105,7 +105,7 @@ const SidebarFilter = () => {
             </Box>
             <Box sx={{...sideBar_sx.types}}>
                 <Box sx={{...sideBar_sx.title}}>
-                    <Typography sx={{color:'#9f9e9e'}}>Filtrar por:</Typography>
+                    <Typography sx={{color:'#636363',}}>Filtrar por:</Typography>
                 </Box>
                 {
                     data_navbar.map((item, i) => (
@@ -131,7 +131,7 @@ const SidebarFilter = () => {
                                                     control={<Checkbox />}
                                                     label= {capitalize(tag)}
                                                     labelPlacement="end"
-                                                    style={{color:'#9f9e9e', fontSize:'14px'}}
+                                                    style={{color:'#636363', fontSize:'14px'}}
                                                     onClick= {(event) => handleChange(event,item.title,tag)}
                                                             />
                                             </ThemeProvider>
