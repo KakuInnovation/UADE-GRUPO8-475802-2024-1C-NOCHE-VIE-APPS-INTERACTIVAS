@@ -1,5 +1,6 @@
-import Header from "../components/header.jsx";
-import Footer from "../components/footer.jsx";
+import Header from "../components/Header.jsx";
+import HomeComp from "../components/Home.jsx";
+import Footer from "../components/Footer.jsx";
 
 function Home() {
   return (
@@ -9,7 +10,7 @@ function Home() {
       </div>
 
       <div>
-        <h1>Holaa soy el Home!!!! :-)</h1>
+        <HomeComp />
       </div>
 
       <div>
@@ -17,6 +18,6 @@ function Home() {
       </div>
     </>
   );
-}
+};
 
 export default Home;
