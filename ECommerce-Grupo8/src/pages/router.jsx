@@ -5,7 +5,7 @@ import Home from "./home.jsx";
 import Publicar from "./publicar.jsx";
 import Editar from "./editar.jsx";
 import Producto from "./producto.jsx";
-import Catalogo from "../views/Catalogo.jsx";
+import Catalogo from "./Catalogo.jsx";
 
 const router = createBrowserRouter([
   {

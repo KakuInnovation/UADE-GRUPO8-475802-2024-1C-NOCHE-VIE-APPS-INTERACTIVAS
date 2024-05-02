@@ -1,7 +1,7 @@
 
 import {Container, Switch} from "@mui/material";
 import Navbar from "./components/navbar/Navbar.jsx";
-import Catalogo from "./views/Catalogo.jsx";
+import Catalogo from "./pages/Catalogo.jsx";
 import {Route, Router, RouterProvider, Routes} from "react-router-dom";
 import router from "./pages/router.jsx";
 import Home from "./pages/home.jsx";
