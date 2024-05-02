@@ -5,7 +5,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 export default function Publicar() {
     const [images, setImages] = useState([]);
 
-    console.log(images)
+    console.log(images);
 
     const submit = useCallback(() => {
 
