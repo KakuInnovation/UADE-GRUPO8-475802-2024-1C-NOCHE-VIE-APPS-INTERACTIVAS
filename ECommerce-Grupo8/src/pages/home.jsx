@@ -1,5 +1,6 @@
 import Header from "../components/Header.jsx";
 import HomeComp from "../components/Home.jsx";
+import Body from "./producto.jsx";
 import Footer from "../components/Footer.jsx";
 
 function Home() {
@@ -10,7 +11,7 @@ function Home() {
       </div>
 
       <div>
-        <HomeComp />
+        <Body />
       </div>
 
       <div>

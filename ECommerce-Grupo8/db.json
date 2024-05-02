@@ -1,6 +1,0 @@
-{
-  "products": [
-    { "id": 1, "name": "Producto 1", "price": "$100", "quantity": 10, "image": "url_de_la_imagen_1" },
-    { "id": 2, "name": "Producto 2", "price": "$80", "quantity": 15, "image": "url_de_la_imagen_2" }
-  ]
-}
