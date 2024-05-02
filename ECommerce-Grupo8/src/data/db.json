@@ -75,7 +75,7 @@
   ],
   "usuarios": [
     {
-      "id": "1",
+      "id": 1,
       "usuario": "usuario 1",
       "email": "correo1@uade.edu.ar",
       "password": "1234",
@@ -83,7 +83,7 @@
       "apellido": "apellido 1"
     },
     {
-      "id": "2",
+      "id": 2,
       "usuario": "usuario 2",
       "email": "correo2@uade.edu.ar",
       "password": "4321",
@@ -93,14 +93,14 @@
   ],
   "carritos": [
     {
-      "id": "1",
+      "id": 1,
       "usuariosId": 1,
       "productosId": 2,
       "cantidad": 15,
       "comprado": false
     },
     {
-      "id": "2",
+      "id": 2,
       "usuariosId": 2,
       "productosId": 3,
       "cantidad": 5,
