@@ -1,6 +1,6 @@
 import {useCallback, useState} from "react";
 import {Link, redirect} from "react-router-dom";
-import {FormControl, TextField} from "@mui/material";
+import {Box, FormControl, TextField} from "@mui/material";
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ export default function Login() {
     }, [email, password]);
 
     return (
-        <main>
+        <Box sx={{height:'1000px', width:'100%'}}>
             <form onSubmit={submit}>
                 <FormControl sx={{gap: 2}}>
                     <TextField
@@ -33,6 +33,6 @@ export default function Login() {
                     <Link to="/signup" className="btn btn-lg btn-primary">Sign Up</Link>
                 </FormControl>
             </form>
-        </main>
+        </Box>
     )
 }

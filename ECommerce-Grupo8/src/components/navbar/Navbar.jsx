@@ -167,8 +167,8 @@ export default function Navbar() {
 
                     </Box>
                     <Box sx={{...sx_navbar.login}}>
-                        <IconButton><ShoppingCartIcon></ShoppingCartIcon></IconButton>
-                        <Button color="inherit">Login</Button>
+                        <IconButton component={NavLink} to={'/payment'}><ShoppingCartIcon></ShoppingCartIcon></IconButton>
+                        <Button color="inherit" component={NavLink} to={'/login'}>Login</Button>
                     </Box>
 
                 </Toolbar>
