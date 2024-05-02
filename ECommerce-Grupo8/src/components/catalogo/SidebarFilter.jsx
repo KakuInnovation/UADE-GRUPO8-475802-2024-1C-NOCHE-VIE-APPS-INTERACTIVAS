@@ -3,7 +3,7 @@ import {data_navbar} from "../../utils/data_components/data.js";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { useState} from "react";
-import useDictionary from "../../utils/hooks/useDictionary.js";
+
 import '../../assets/fonts/Tisa/Tisa.css'
 import '../../assets/fonts/Inter/Inter.css'
 const theme = createTheme({
@@ -18,10 +18,11 @@ const theme = createTheme({
 
 
 
-const SidebarFilter = () => {
+const SidebarFilter = (props) => {
     const [filter,setFIlter] = useState(false);
     const [checked, setChecked] = useState(false);
-    const { dictionary, addWord, removeWord } = useDictionary();
+    // eslint-disable-next-line react/prop-types
+    const { dictionary, addWord, removeWord } = props;
 
     const sideBar_sx = {
         layout:{

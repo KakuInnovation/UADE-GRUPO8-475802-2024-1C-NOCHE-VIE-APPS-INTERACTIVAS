@@ -1,6 +1,6 @@
  const data_navbar = [
       {
-           title: 'Genero',
+           title: 'Categoria',
            tag: ['estrategia','cartas','familiar', 'RPG','cooperativo','azar']
       },
 
