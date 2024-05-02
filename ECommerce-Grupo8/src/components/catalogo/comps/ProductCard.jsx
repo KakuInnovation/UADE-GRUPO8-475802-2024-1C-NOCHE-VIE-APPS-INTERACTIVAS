@@ -12,6 +12,7 @@ import {
     ListItemText,
     Typography
 } from "@mui/material";
+import {useNavigate} from "react-router-dom";
 
 
 
@@ -19,7 +20,7 @@ import {
 
 const ProductCard = ({ item }) => {
     const background =   'radial-gradient(circle at 50% -20.71%, #cbe7e1 0, #cae7e3 6.25%, #c9e7e6 12.5%, #c9e7e8 18.75%, #c9e7eb 25%, #c9e7ed 31.25%, #cae6ef 37.5%, #cbe6f1 43.75%, #cde5f2 50%, #cfe4f3 56.25%, #d1e4f4 62.5%, #d4e3f5 68.75%, #d7e2f5 75%, #dae1f5 81.25%, #dde0f4 87.5%, #e0e0f4 93.75%, #e3dff2 100%)';
-
+    const navigate = useNavigate();
 
 
 
@@ -28,7 +29,7 @@ const ProductCard = ({ item }) => {
 
         cardLayout:{
             width: { xs: '300px', md: '300px', lg: '310px' },
-            height:{ xs: '260px', md: '260px', lg: '360px' },
+            height:{ xs: '260px', md: '260px', lg: '400px' },
             padding:'0px',
             cursor:'pointer',
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
@@ -115,10 +116,13 @@ const ProductCard = ({ item }) => {
     }
 
 
+    const goTo = (id) =>  {
+        navigate(`/producto/${id}`);
+    }
 
     return(
         <>
-            <Card sx={{...sx_cardsGrid.cardLayout, }}>
+            <Card sx={{...sx_cardsGrid.cardLayout, }} onClick={()=>{goTo(item.id)}} >
                 <CardContent sx={{...sx_cardsGrid.card_content,}} style={{ padding:"0px"}}>
                     <Box sx={{...sx_cardsGrid.box_title, }}>
 
@@ -162,6 +166,11 @@ const ProductCard = ({ item }) => {
 
 
                 </CardContent>
+                <Divider sx={{width:'100%', height:'2px',backgroundColor:'#b1afaf'}}/>
+                <CardActions sx={{display:'flex', justifyContent:'center'}}>
+                    <Button size="small" sx={{fontSize:'11px'}} >Agregar al carrito</Button>
+                    <Button size="small" sx={{fontSize:'11px'}}>Sacar del carrito</Button>
+                </CardActions>
 
             </Card>
 

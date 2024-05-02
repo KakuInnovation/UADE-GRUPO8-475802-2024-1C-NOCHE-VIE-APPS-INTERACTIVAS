@@ -5,15 +5,15 @@
       },
 
       {
-           title: 'Complejidad',
-           tag: ['facil','intermedio','dificil']
+           title: 'dificultad',
+           tag: ['Facil','Intermedio','Dificil']
       },
       {
            title: 'Duracion',
            tag: ['10 minutos','30-40 minutos','1 hora o mas',]
       },
       {
-           title:'Marca',
+           title:'marca',
            tag: ['Hasbro','Mattel'],
       },
       {

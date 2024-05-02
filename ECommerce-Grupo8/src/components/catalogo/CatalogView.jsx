@@ -5,47 +5,61 @@ import data from '../../../db.json';
 import PropTypes from 'prop-types';
 
 
-const searchInDB = (dataRequest) =>{
-        const dataResponse = [];
-        for(let key in dataRequest){
-            for(let elem in dataRequest[key]){
-                for (let product in data.productos){
-                    if(data.productos[product][key] === dataRequest[key][elem])
-                        dataResponse.push(data.productos[product]);
+const searchInDB = (dataRequest, text) =>{
+        let dataResponse = [];
+
+            for(let key in dataRequest){
+                for(let elem in dataRequest[key]){
+                    for (let product in data.productos){
+                        if(data.productos[product][key] === dataRequest[key][elem] )
+                            if(!dataResponse.includes(data.productos[product])){
+                                dataResponse.push(data.productos[product]);
+                            }
+
+                    }
                 }
             }
-        }
+
+
+
+
         return dataResponse;
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
 
+const searchInDBByName = (text) => {
+    const dataResponse = [];
+    for(let key in data.productos){
+
+            const arr = Object.values(data.productos[key]);
+            for (let elem in arr){
+               if(typeof arr[elem] === 'string'){
+                   if(arr[elem].toUpperCase() === text.toUpperCase()){
+                       dataResponse.push(data.productos[key]) ;
+                   }
+               }
+            }
+    }
+    return dataResponse;
+}
+
+// eslint-disable-next-line react/prop-types
+const CatalogView = ({text,dictionary}) => {
+    let matches = [];
+
+        if(Object.keys(dictionary).length > 0){
+            matches = searchInDB(dictionary,text);
+        }
+        else{
+            matches = data.productos;
+        }
 
 
 
-
-
-
-
-
-
-
-const CatalogView = ({dictionary}) => {
 
 
     // eslint-disable-next-line react/prop-types
-    const matches = searchInDB(dictionary);
+
 
 
 
@@ -62,7 +76,7 @@ const CatalogView = ({dictionary}) => {
     return(
         <Box sx={{...sx_catalog_view.layout}}>
             {matches.map((item,index)=>(
-                <ProductCard key={index} item={item} ></ProductCard>
+                <ProductCard key={index} item={item}  ></ProductCard>
             ))}
 
 

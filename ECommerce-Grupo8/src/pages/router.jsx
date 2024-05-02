@@ -5,6 +5,7 @@ import Home from "./home.jsx";
 import Publicar from "./publicar.jsx";
 import Editar from "./editar.jsx";
 import Producto from "./producto.jsx";
+import Catalogo from "../views/Catalogo.jsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: "/editar/:id",
     element: <Editar />,
+  },
+  {
+    path: "/catalogo",
+    element: <Catalogo />,
+  },
+  {
+    path: "/catalogo/:id",
+    element: <Catalogo />,
   },
   {
     path: "/producto/:id",

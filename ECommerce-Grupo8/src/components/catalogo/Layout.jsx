@@ -2,6 +2,7 @@ import {Grid} from "@mui/material";
 import SidebarFilter from "./SidebarFilter.jsx";
 import CatalogView from "./CatalogView.jsx";
 import {useState} from "react";
+import {useParams} from "react-router-dom";
 
 
 
@@ -9,20 +10,19 @@ import {useState} from "react";
 
 
 
-const Layout = () => {
+// eslint-disable-next-line react/prop-types
+const Layout = ({text}) => {
     const [dictionary, setDictionary] = useState({});
 
-    // Funcion para agregar una palabra a una clave existente o crear una nueva clave
+
     const addWord = (key, word) => {
         setDictionary(prevDictionary => {
-            // Si la clave ya existe, agrega la palabra al array
             if (key in prevDictionary) {
                 return {
                     ...prevDictionary,
                     [key]: [...prevDictionary[key], word]
                 };
             } else {
-                // Si la clave no existe, crea una nueva clave con un nuevo array
                 return {
                     ...prevDictionary,
                     [key]: [word]
@@ -42,10 +42,12 @@ const Layout = () => {
                     [key]: updatedArray
                 };
             }
-            // Si la clave no existe o la palabra no esta en el array,retorna el diccionario sin cambios
+
             return prevDictionary;
         });
     };
+
+
 
 
 
@@ -57,7 +59,7 @@ const Layout = () => {
                 <SidebarFilter dictionary={dictionary} addWord={addWord} removeWord={removeWord}></SidebarFilter>
             </Grid>
             <Grid item xs={4} sm={4} md={10} sx={{padding:'5px'}} >
-                <CatalogView dictionary={dictionary}></CatalogView>
+                <CatalogView dictionary={dictionary} text={text} ></CatalogView>
             </Grid>
         </Grid>
     );
