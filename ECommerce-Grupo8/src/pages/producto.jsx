@@ -131,8 +131,8 @@ const Producto = () => {
 
   return (
     <Grid>
-      <Container>
-        <Box sx={{ textAlign: "left" }}>
+      <Container sx={{height:'2000px',color:'black' }}>
+        <Box sx={{ textAlign: "left",}}>
           <Typography variant="h6">{product.categoria}</Typography>
         </Box>
         <Grid container>

@@ -1,0 +1,99 @@
+[
+  {
+    "user" : "Profe 1",
+    "img" : "https://images.pexels.com/photos/1261427/pexels-photo-1261427.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "categoria" : "programación",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "5 estrellas",
+    "tipo de clase" : "individual",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  },
+  {
+    "user" : "Profe 2",
+    "img" : "https://images.pexels.com/photos/6325951/pexels-photo-6325951.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "categoria" : "cálculo",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "3 estrellas",
+    "tipo de clase" : "grupal",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  },
+  {
+    "user" : "Profe 3",
+    "img" : "https://img.freepik.com/fotos-premium/profesor-quimica-realiza-experimento-liquidos-matraz-explica-alumnos-nuevo-tema_359031-17596.jpg?w=360",
+    "categoria" : "química",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "4 estrellas",
+    "tipo de clase" : "individual",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  },
+  {
+    "user" : "Profe 4",
+    "img" : "https://api.new.buscatuprofesor.es/uploads/SEO%20photo/10.jpg",
+    "categoria" : "programación",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "4 estrellas",
+    "tipo de clase" : "grupal",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  },
+  {
+    "user" : "Profe 5",
+    "img" : "https://ia-colombia.co/wp-content/uploads/2022/09/Shutterstock_2161048459.jpg",
+    "categoria" : "programación",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "5 estrellas",
+    "tipo de clase" : "individual",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  },
+  {
+    "user" : "Profe 6",
+    "img" : "https://www.innovaspain.com/wp-content/uploads/2019/08/IMG_8531.jpg",
+    "categoria" : "cálculo",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "5 estrellas",
+    "tipo de clase" : "individual",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  },
+  {
+    "user" : "Profe 7",
+    "img" : "https://www.laguiago.com/wp-content/uploads/2015/09/pelcula_la_profesora_de_historia2.jpg",
+    "categoria" : "historia",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "4 estrellas",
+    "tipo de clase" : "individual",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  },
+  {
+    "user" : "Profe 8",
+    "img" : "https://previews.123rf.com/images/poznyakov/poznyakov1605/poznyakov160500098/56786121-profesora-de-qu%C3%ADmica-con-tubo-de-ensayo-en-el-aula-profesor-de-qu%C3%ADmica-en-la-clase-solo.jpg",
+    "categoria" : "química",
+    "ubicacion" : "Buenos Aires, Argentina",
+    "calificacion" : "2 estrellas",
+    "tipo de clase" : "individual",
+    "modalidad" : "virtual",
+    "frecuencia" : "semanal",
+    "precio" : "3500"
+
+  }
+
+]
