@@ -11,8 +11,8 @@ const Producto = () => {
     detalle: "",
     precio: "",
     categoria: "",
-    cantidad: "",
     foto: "",
+    cantidad: "",
   });
   const [cantidad, setCantidad] = useState(1);
   const [idUsuario, setIdUsuario] = useState(null);

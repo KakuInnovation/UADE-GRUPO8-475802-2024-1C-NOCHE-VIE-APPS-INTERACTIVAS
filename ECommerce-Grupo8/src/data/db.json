@@ -51,7 +51,7 @@
       "detalle": "Test Alejandro",
       "precio": 5000,
       "categoria": "categoria 1",
-      "foto": "foto.webp",
+      "foto": "./src/assets/img/img-estrategia.webp",
       "cantidad": 100
     },
     {
@@ -60,7 +60,7 @@
       "detalle": "Test 2 Alejandro",
       "precio": 5000,
       "categoria": "categoria 1",
-      "foto": "foto2.webp",
+      "foto": "./src/assets/img/img-familiares.webp",
       "cantidad": 200
     },
     {
@@ -69,7 +69,7 @@
       "detalle": "Test 3 Alejandro",
       "precio": 3000,
       "categoria": "categoria 1",
-      "foto": "foto3.webp",
+      "foto": "./src/assets/img/img-previa.webp",
       "cantidad": 2
     }
   ],
@@ -94,15 +94,15 @@
   "carritos": [
     {
       "id": "1",
-      "usuarioId": 1,
-      "productoId": 2,
+      "usuariosId": 1,
+      "productosId": 2,
       "cantidad": 15,
       "comprado": false
     },
     {
       "id": "2",
-      "usuarioId": 2,
-      "productoId": 3,
+      "usuariosId": 2,
+      "productosId": 3,
       "cantidad": 5,
       "comprado": false
     }
