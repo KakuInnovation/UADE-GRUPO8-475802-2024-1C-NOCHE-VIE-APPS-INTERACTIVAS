@@ -167,11 +167,6 @@ const ProductCard = ({ item }) => {
 
                 </CardContent>
                 <Divider sx={{width:'100%', height:'2px',backgroundColor:'#b1afaf'}}/>
-                <CardActions sx={{display:'flex', justifyContent:'center'}}>
-                    <Button size="small" sx={{fontSize:'11px'}} >Agregar al carrito</Button>
-                    <Button size="small" sx={{fontSize:'11px'}}>Sacar del carrito</Button>
-                </CardActions>
-
             </Card>
 
 

@@ -6,13 +6,15 @@ import { alignProperty } from "@mui/material/styles/cssUtils.js";
 const Producto = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({
-    id: "",
     titulo: "",
+    id: "",
     detalle: "",
     precio: "",
-    categoria: "",
-    foto: "",
-    cantidad: "",
+    Categoria: "",
+    img: "",
+    stock: "",
+    marca: "",
+    dificultad: "",
   });
   const [cantidad, setCantidad] = useState(1);
   const [idUsuario, setIdUsuario] = useState(null);
@@ -34,7 +36,7 @@ const Producto = () => {
 
   // Función para agregar unidades
   const addProduct = () => {
-    if (cantidad < product.cantidad) {
+    if (cantidad < product.stock) {
       setCantidad(cantidad + 1);
     }
   };
@@ -44,7 +46,6 @@ const Producto = () => {
     let emailIngresado = document.getElementById("id-email").value;
     if (document.getElementById("id-email").value !== "") {
       const url = `http://localhost:3000/usuarios?email=${emailIngresado}`;
-      console.log();
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -102,7 +103,7 @@ const Producto = () => {
     let cantidadCarrito = await uniXCarPro();
 
     // Verificamos si el usuario está ok y si la cantidad a agregar no supera el stock
-    if (idUsuario != null && cantidadCarrito + cantidad <= product.cantidad) {
+    if (idUsuario != null && cantidadCarrito + cantidad <= product.stock) {
       fetch(url, {
         method: "POST",
         headers: {
@@ -133,13 +134,13 @@ const Producto = () => {
     <Grid>
       <Container sx={{height:'2000px',color:'black' }}>
         <Box sx={{ textAlign: "left",}}>
-          <Typography variant="h6">{product.categoria}</Typography>
+          <Typography variant="h6">{product.Categoria}</Typography>
         </Box>
         <Grid container>
           <Grid item xs={12} sm={6}>
             <Container
               component="img"
-              src={product.foto}
+              src={product.img}
               alt={product.titulo}
             />
           </Grid>
@@ -154,7 +155,7 @@ const Producto = () => {
               AR$ {product.precio}
             </Typography>
             <Typography variant="body2" sx={{ textAlign: "left" }}>
-              Stock: {product.cantidad}
+              Stock: {product.stock}
             </Typography>
             <Container>
               <Button onClick={removeProduct}>-</Button>
