@@ -28,7 +28,7 @@ function Copyright() {
     );
 }
 
-const steps = ['Datos del cliente', 'Metodos de Pago', 'Revision de Mensaje'];
+const steps = ['Datos del Alumno', 'Metodos de Pago', 'Revision de Mensaje'];
 
 function getStepContent(step) {
     switch (step) {
