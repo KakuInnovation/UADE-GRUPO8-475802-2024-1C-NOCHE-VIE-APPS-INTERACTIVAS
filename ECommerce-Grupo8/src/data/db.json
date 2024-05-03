@@ -114,23 +114,9 @@
   "carritos": [
     {
       "id": 1,
-      "usuario": 3,
-      "producto": 2,
-      "cantidad": 6,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": "3",
-      "producto": "3",
-      "cantidad": 3,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": "3",
-      "producto": "3",
-      "cantidad": 1,
+      "usuario": "1",
+      "producto": "4",
+      "cantidad": 7,
       "comprado": false
     }
   ],
