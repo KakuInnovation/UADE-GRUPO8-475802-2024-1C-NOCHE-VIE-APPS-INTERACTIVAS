@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Grid, Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import Carousel from 'react-bootstrap/Carousel';
@@ -12,7 +12,7 @@ const Home = () => {
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching productos:', error));
-  }, []);
+  }, );
 
   return (
     <Container>
