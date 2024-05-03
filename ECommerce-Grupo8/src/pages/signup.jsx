@@ -1,5 +1,5 @@
 import {useCallback, useState} from "react";
-import {FormControl, TextField} from "@mui/material";
+import {FormControl, TextField, Button} from "@mui/material";
 import {Link, redirect} from "react-router-dom";
 
 export default function SignUp() {
@@ -10,7 +10,8 @@ export default function SignUp() {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    const submit = useCallback(() => {
+    const submit = useCallback((e) => {
+        e.preventDefault();
         // check username
         localStorage.setItem("username", username);
         localStorage.setItem("password", password);
@@ -21,7 +22,7 @@ export default function SignUp() {
     }, [username, password, email, firstName, lastName]);
 
     return (
-        <main>
+        <main style={{ height: "90vh", display: "flex", alignItems: "center", justifyContent: "center", background: "whitesmoke" }}>
             <form onSubmit={submit}>
                 <FormControl sx={{gap: 2}}>
                     <TextField
@@ -29,38 +30,35 @@ export default function SignUp() {
                         autoComplete="email"
                         name="email" type="email" value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        variant="outlined"
                     />
                     <TextField
                         placeholder="contraseña123"
                         autoComplete="new-password"
                         name="password" type="password" value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        variant="outlined"
                     />
                     <TextField
                         placeholder="nombre"
                         autocomplete="given-name"
                         name="firstName" value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        variant="outlined"
                     />
                     <TextField
                         placeholder="apellido"
                         autocomplete="family-name"
                         name="lastName" value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        variant="outlined"
                     />
                     <TextField
                         placeholder="username"
                         autocomplete="nickname"
                         name="username" value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        variant="outlined"
                     />
-                    <button type="submit">Sign Up</button>
+                    <Button type="submit" variant="contained">Sign Up</Button>
+                    <Button variant="text">
                     <Link to="/login">Login</Link>
+                    </Button>
                 </FormControl>
             </form>
         </main>
