@@ -1,19 +1,19 @@
 import {Box, Button, Card, CardActions, CardContent, CardMedia, Typography} from '@mui/material';
 import '../../assets/fonts/Tisa/Tisa.css';
 import ProductCard from '../catalogo/comps/ProductCard.jsx'
-import data from '../../../db.json';
+//import BKPdata from '../../../db.json';
 import PropTypes from 'prop-types';
+import {useState, useEffect} from 'react';
 
-
-const searchInDB = (dataRequest, text) =>{
+const searchInDB = (dataRequest, text, productos) =>{
         let dataResponse = [];
 
             for(let key in dataRequest){
                 for(let elem in dataRequest[key]){
-                    for (let product in data.productos){
-                        if(data.productos[product][key] === dataRequest[key][elem] )
-                            if(!dataResponse.includes(data.productos[product])){
-                                dataResponse.push(data.productos[product]);
+                    for (let product in productos){
+                        if(productos[product][key] === dataRequest[key][elem] )
+                            if(!dataResponse.includes(productos[product])){
+                                dataResponse.push(productos[product]);
                             }
 
                     }
@@ -27,7 +27,7 @@ const searchInDB = (dataRequest, text) =>{
 }
 
 
-const searchInDBByName = (text) => {
+/*const searchInDBByName = (text) => {
     const dataResponse = [];
     for(let key in data.productos){
 
@@ -41,17 +41,26 @@ const searchInDBByName = (text) => {
             }
     }
     return dataResponse;
-}
+}*/
 
 // eslint-disable-next-line react/prop-types
-const CatalogView = ({text,dictionary}) => {
+const CatalogView = ({ text, dictionary }) => {
+  const [productos, setProducts] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/productos")
+      .then(response => response.json())
+      .then(data => setProducts(data))
+      .catch(error => console.error('Error fetching productos:', error));
+  }, []);
+    
     let matches = [];
 
         if(Object.keys(dictionary).length > 0){
-            matches = searchInDB(dictionary,text);
+            matches = searchInDB(dictionary,text,productos);
         }
         else{
-            matches = data.productos;
+            matches = productos;
         }
 
 

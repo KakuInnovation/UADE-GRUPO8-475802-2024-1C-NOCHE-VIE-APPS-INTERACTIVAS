@@ -102,7 +102,8 @@ const Producto = () => {
     let cantidadCarrito = await uniXCarPro();
 
     // Verificamos si el usuario está ok y si la cantidad a agregar no supera el stock
-    if (idUsuario != null && cantidadCarrito + cantidad <= product.cantidad) {
+    //    if (idUsuario != null && cantidadCarrito + cantidad <= product.cantidad) {
+    //if (cantidadCarrito + cantidad <= product.cantidad) {
       fetch(url, {
         method: "POST",
         headers: {
@@ -124,9 +125,9 @@ const Producto = () => {
         .catch((error) => {
           console.error("Error:", error);
         });
-    } else {
+   // } else {
       setUserOk("✗");
-    }
+   // }
   };
 
   return (
@@ -139,7 +140,7 @@ const Producto = () => {
           <Grid item xs={12} sm={6}>
             <Container
               component="img"
-              src={product.foto}
+              src={product.img}
               alt={product.titulo}
             />
           </Grid>

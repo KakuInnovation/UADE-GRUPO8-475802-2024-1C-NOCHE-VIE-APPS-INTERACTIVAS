@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Grid, Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Header from "../components/Header.jsx";
-import Footer from "../components/Footer.jsx";
+import Header from "../components/navbar/Navbar.jsx";
 
 const Home = () => {
   const [productos, setProducts] = useState([]);
 
   useEffect(() => {
-    //fetch("http://localhost:3000/productos")
-    fetch("db.json")
+    fetch("http://localhost:3000/productos")
       .then(response => response.json())
-      .then(data => setProducts(data.productos))
+      .then(data => setProducts(data))
       .catch(error => console.error('Error fetching productos:', error));
   }, []);
 
@@ -32,7 +30,7 @@ const Home = () => {
                 <CardMedia
                   component="img"
                   height="200"
-                  image={producto.foto}
+                  image={producto.img}
                   alt={producto.titulo}
                 />
                 <CardContent>
@@ -46,19 +44,11 @@ const Home = () => {
                     Precio: {producto.precio}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Categoría: {producto.categoria}
+                    Categoría: {producto.Categoria}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    Cantidad disponible: {producto.cantidad}
+                    Cantidad disponible: {producto.stock}
                   </Typography>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<ShoppingCartIcon />}
-                    onClick={() => handleAddToCart(producto)}
-                  >
-                    Agregar al carrito
-                  </Button>
                 </CardContent>
               </Card>
             </Grid>
@@ -67,10 +57,7 @@ const Home = () => {
             <Typography variant="body1">Cargando productos...</Typography>
           )
           }
-      </Grid>
-      
-      <Footer />
-      
+      </Grid>     
     </Container>
   );
 };
