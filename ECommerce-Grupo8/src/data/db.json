@@ -2,7 +2,7 @@
   "productos": [
     {
       "titulo": "Catan",
-      "id": 1,
+      "id": "1",
       "detalle": "Un juego de estrategia donde los jugadores construyen colonias y ciudades en una isla ficticia.",
       "precio": 30.99,
       "Categoria": "estrategia",
@@ -13,7 +13,7 @@
     },
     {
       "titulo": "Risk",
-      "id": 2,
+      "id": "2",
       "detalle": "Un juego de guerra donde los jugadores conquistan territorios y luchan por el dominio mundial.",
       "precio": 25.5,
       "Categoria": "estrategia",
@@ -24,7 +24,7 @@
     },
     {
       "titulo": "Scrabble",
-      "id": 3,
+      "id": "3",
       "detalle": "Un juego de palabras donde los jugadores forman palabras en un tablero utilizando fichas con letras.",
       "precio": 19.99,
       "Categoria": "Palabras",
@@ -35,7 +35,7 @@
     },
     {
       "titulo": "Monopoly",
-      "id": 4,
+      "id": "4",
       "detalle": "Un juego de negocios donde los jugadores compran, venden e intercambian propiedades para acumular riquezas.",
       "precio": 29.75,
       "Categoria": "estrategia",
@@ -46,7 +46,7 @@
     },
     {
       "titulo": "Ajedrez",
-      "id": 5,
+      "id": "5",
       "detalle": "Un juego de mesa milenario de estrategia donde los jugadores mueven piezas en un tablero para capturar al rey oponente.",
       "precio": 15.99,
       "Categoria": "estrategia",
@@ -57,7 +57,7 @@
     },
     {
       "titulo": "Ticket to Ride",
-      "id": 6,
+      "id": "6",
       "detalle": "Un juego de aventura ferroviaria donde los jugadores construyen rutas de tren a través de América del Norte.",
       "precio": 34.95,
       "Categoria": "estrategia",
@@ -68,7 +68,7 @@
     },
     {
       "titulo": "Puerto Rico",
-      "id": 7,
+      "id": "7",
       "detalle": "Un juego de gestión de recursos y desarrollo de colonias donde los jugadores compiten por el control de la isla de Puerto Rico.",
       "precio": 39.99,
       "Categoria": "estrategia",
@@ -79,7 +79,7 @@
     },
     {
       "titulo": "Terraforming Mars",
-      "id": 8,
+      "id": "8",
       "detalle": "Un juego de construcción y gestión de recursos donde los jugadores intentan terraformar el planeta Marte.",
       "precio": 49.99,
       "Categoria": "estrategia",
@@ -90,7 +90,7 @@
     },
     {
       "titulo": "7 Wonders",
-      "id": 9,
+      "id": "9",
       "detalle": "Un juego de construcción de civilizaciones donde los jugadores construyen maravillas y desarrollan su civilización a lo largo de tres eras.",
       "precio": 44.95,
       "Categoria": "estrategia",
@@ -101,7 +101,7 @@
     },
     {
       "titulo": "Dominion",
-      "id": 10,
+      "id": "10",
       "detalle": "Un juego de construcción de mazos donde los jugadores reclutan cartas para construir un reino más poderoso que el de sus oponentes.",
       "precio": 29.99,
       "Categoria": "cartas",
@@ -114,92 +114,29 @@
   "carritos": [
     {
       "id": 1,
-      "usuario": 1,
-      "producto": 2,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 1,
-      "producto": 2,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 1,
-      "producto": 2,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 1,
-      "producto": 2,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 1,
-      "producto": 2,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 1,
-      "producto": 2,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 2,
-      "producto": 3,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
       "usuario": 3,
-      "producto": 5,
-      "cantidad": 1,
+      "producto": 2,
+      "cantidad": 6,
       "comprado": false
     },
     {
       "id": 1,
-      "usuario": 3,
-      "producto": 4,
-      "cantidad": 1,
+      "usuario": "3",
+      "producto": "3",
+      "cantidad": 3,
       "comprado": false
     },
     {
       "id": 1,
-      "usuario": 3,
-      "producto": 4,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 3,
-      "producto": 4,
-      "cantidad": 1,
-      "comprado": false
-    },
-    {
-      "id": 1,
-      "usuario": 3,
-      "producto": 4,
+      "usuario": "3",
+      "producto": "3",
       "cantidad": 1,
       "comprado": false
     }
   ],
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "usuario": "usuario 1",
       "email": "correo1@uade.edu.ar",
       "password": "1234",
@@ -207,15 +144,7 @@
       "apellido": "apellido 1"
     },
     {
-      "id": 2,
-      "usuario": "usuario 2",
-      "email": "correo2@uade.edu.ar",
-      "password": "4321",
-      "nombre": "nombre 2",
-      "apellido": "apellido 2"
-    },
-    {
-      "id": 3,
+      "id": "3",
       "usuario": "Alejandro",
       "email": "alejandro@uade.edu.ar",
       "password": "123",
