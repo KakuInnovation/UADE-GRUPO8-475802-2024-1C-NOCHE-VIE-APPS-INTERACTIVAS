@@ -112,12 +112,12 @@ export default function Navbar() {
 
     }
 
-    const navbarList = [{title:'Catalogo',route:'/catalogo'},{title:'Nosotros',route:'/nosotros'},{title:'Contacto',route:'/contacto'}]
+    const navbarList = [{title:'Home',route:'/'},{title:'Catalogo',route:'/catalogo'},{title:'Nosotros',route:'/nosotros'},{title:'Contacto',route:'/contacto'}]
     const [searchText, setSearchText] = useState('');
     const navigate = useNavigate();
     const handleSearch = () => {
         if(searchText === ''){
-            navigate('/catalogo')
+            navigate('/')
 
 
         }
@@ -127,6 +127,10 @@ export default function Navbar() {
 
     }
 
+    const handleCartClick = () => {
+        // Navega a la página de catálogo al hacer clic en el carrito
+        navigate('/login');
+    };
 
     return (
         <Box >
@@ -167,8 +171,8 @@ export default function Navbar() {
 
                     </Box>
                     <Box sx={{...sx_navbar.login}}>
-                        <IconButton><ShoppingCartIcon></ShoppingCartIcon></IconButton>
-                        <Button color="inherit">Login</Button>
+                        <IconButton><ShoppingCartIcon /></IconButton>
+                        <Button onClick={handleCartClick} color="inherit">Login</Button>
                     </Box>
 
                 </Toolbar>
