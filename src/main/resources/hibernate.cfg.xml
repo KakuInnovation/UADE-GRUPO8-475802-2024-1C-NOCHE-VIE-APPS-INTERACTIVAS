@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+        <!--
+
+        Hibernate, Relational Persistence for. Idiomatic Java
+
+        N License: GNU Lesser General Public License (LGPL), version 2.1 or later.
+        w See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+        -->
+        <!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+
+        <hibernate-configuration>
+        <!-- Objeto que abre la sesion y permite usar hibernate. Es el equivalente al objectConnection de jdbc-->
+                <session-factory>
+
+                <!-- Database connection settings. Mismo seteo que jdbc-->
+                        <!-- Es el class.forName() del jdbc-->
+                <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+                <property name="connection.url">jdbc:mysql://127.0.0.1:3306/rollnplayDB</property>
+                <property name="connection.username">root</property>
+                <property name="connection.password">123456</property>
+
+                        <!--JDBC connection pool (use the built-in)-->
+                        <property name="connection.pool_size">1</property>
+
+                        <!--SQL dialect-->
+                        <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+                        <!--Disable the second-level cache-->
+                        <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+                        <!--Echo all executed SQL to stdout-->
+                        <property name="show_sql">true</property>
+
+                        <!--Drop and re-create the database schema on startup. lee la metadata de las entidades y compararlas con la ddbb. si coincide no hace nada. si esta distinta, actualiza la base-->
+                        <property name="hbm2ddl.auto"> update</property>
+
+                        <!--Configuracion de mapeo . indicar que se tiene una clase que referencia a una tabla . el qualified name es el path completo hacia la clase a mapear-->
+
+                        <mapping class="com.example.serverapi.model.User"></mapping>
+                        <mapping class="com.example.serverapi.model.Product"></mapping>
+                        <mapping class="com.example.serverapi.model.Listing"></mapping>
+                </session-factory>
+        </hibernate-configuration>
