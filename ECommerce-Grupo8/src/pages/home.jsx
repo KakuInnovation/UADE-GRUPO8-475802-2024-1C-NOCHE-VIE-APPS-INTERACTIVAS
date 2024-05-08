@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Container, Grid, Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Header from "../components/navbar/Navbar.jsx";
+import Carousel from 'react-bootstrap/Carousel';
+import Navbar from "../components/navbar/Navbar.jsx";
 
 const Home = () => {
   const [productos, setProducts] = useState([]);
@@ -11,16 +12,40 @@ const Home = () => {
       .then(response => response.json())
       .then(data => setProducts(data))
       .catch(error => console.error('Error fetching productos:', error));
-  }, []);
-
-  const handleAddToCart = (producto) => {
-    console.log('Producto agregado al carrito:', producto);
-  };
+  }, );
 
   return (
     <Container>
-      
-      <Header />
+      <Navbar />
+
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '40%' }}>
+
+      <Carousel style={{padding: '20px'}}>
+        {productos && productos.length > 0 ? (
+          productos.map(producto => (
+            <Carousel.Item key={producto.id}>
+              <img
+                className="d-block w-100"
+                src={producto.img}
+                alt={producto.titulo}
+              />
+              <Carousel.Caption style={{ color: 'white', background: 'rgba(0, 0, 0, 0.7)', padding: '10px' }}>
+                <h3>{producto.titulo}</h3>
+                <p>{producto.detalle}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))
+        ) : (
+          <Carousel.Item>
+            <Carousel.Caption>
+              <h3>No hay productos disponibles</h3>
+            </Carousel.Caption>
+          </Carousel.Item>
+        )}
+      </Carousel>
+      </div>
+      </div>
 
         <Grid container spacing={3}>
           { productos && productos.length > 0 ? (

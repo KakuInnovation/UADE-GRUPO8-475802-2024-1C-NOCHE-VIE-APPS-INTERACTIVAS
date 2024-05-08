@@ -1,12 +1,13 @@
 import {useCallback, useState} from "react";
 import {Link, redirect} from "react-router-dom";
-import {Box, FormControl, TextField} from "@mui/material";
+import {FormControl, TextField, Button} from "@mui/material";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const submit = useCallback(() => {
+    const submit = useCallback((e) => {
+        e.preventDefault();
         // check db
         localStorage.setItem("email", email);
         localStorage.setItem("password", password);
@@ -14,25 +15,25 @@ export default function Login() {
     }, [email, password]);
 
     return (
-        <Box sx={{height:'1000px', width:'100%'}}>
+        <main style={{ height: "90vh", display: "flex", alignItems: "center", justifyContent: "center", background: "whitesmoke" }}>
             <form onSubmit={submit}>
                 <FormControl sx={{gap: 2}}>
                     <TextField
                         placeholder="correo@gmail.com"
                         name="email" type="email" value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        variant="outlined"
                     />
                     <TextField
                         placeholder="contraseña123"
                         name="password" type="password" value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        variant="outlined"
                     />
-                    <button type="submit">Login</button>
-                    <Link to="/signup" className="btn btn-lg btn-primary">Sign Up</Link>
+                    <Button type="submit" variant="contained">Login</Button>
+                    <Button variant="text">
+                    <Link to="/signup">Sign Up</Link>
+                    </Button>
                 </FormControl>
             </form>
-        </Box>
+        </main>
     )
 }
