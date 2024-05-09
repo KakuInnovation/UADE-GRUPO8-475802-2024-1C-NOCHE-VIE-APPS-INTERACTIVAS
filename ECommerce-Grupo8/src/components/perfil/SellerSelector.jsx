@@ -14,9 +14,19 @@ const SellerSelector = () => {
         setOpen(false);
     };
 
+    const sx_Selector ={
+        box:{
+            display:'flex',
+            padding: {xs:'',md:'10px'},
+            cursor:'pointer',
+            width:'100%',
+            justifyContent:'end',
+        }
+    }
+
     return(
-        <Box>
-            <Typography variant="h4" component="div" color={"white"} onClick={handleOpen}>Queres ser vendedor? Hacé click acá.</Typography>
+        <Box sx={{...sx_Selector.box}}>
+            <Typography  color={'#3eabc6'} onClick={handleOpen} sx={{textDecoration: "underline", paddingRight:{xs:'',md:'20px'} }}>Queres ser vendedor? Hacé click acá.</Typography>
 
                 <SellerSelectorDialog open={open} handleClose={handleClose}></SellerSelectorDialog>
 

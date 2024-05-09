@@ -154,6 +154,7 @@ export default function Navbar() {
                         </Box>
                         <Box  sx={{...sx_navbar.input_field}}>
                             <TextField
+                                placeholder={"Buscar"}
                                 sx={{...sx_navbar.input}}
                                 inputProps={{style: {fontSize: 10,color:'#636363'}}}
                                 size={"small"}
