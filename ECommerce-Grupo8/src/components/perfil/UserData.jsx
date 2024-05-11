@@ -61,7 +61,7 @@ const UserData = () => {
         <Box sx={{...sx_userData.layout}}>
             <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                 <Box sx={{...sx_userData.title}}>
-                    <Typography sx={{fontFamily:'Tisa Sans Pro Bold', fontSize:{xs:'', md:'20px'}}}>Mis datos</Typography>
+                    <Typography sx={{fontFamily:'Tisa Sans Pro Bold', fontSize:{xs:'', md:'25px'}}}>MIS DATOS</Typography>
                 </Box>
                 <Divider sx={{width:'100%', height:'2px',backgroundColor:'#eae7e7'}}/>
                 <Box sx={{...sx_userData.userData}}>

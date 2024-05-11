@@ -1,6 +1,7 @@
-import {Box, Drawer, Typography} from "@mui/material";
+import {Box, Divider, Drawer, Typography} from "@mui/material";
 import SellerSelectorDialog from "./comps/SellerSelectorDialog.jsx";
 import {useState} from "react";
+import * as React from "react";
 
 const SellerSelector = () => {
     const [open, setOpen] = useState(false);
@@ -17,10 +18,11 @@ const SellerSelector = () => {
     const sx_Selector ={
         box:{
             display:'flex',
-            padding: {xs:'',md:'10px'},
             cursor:'pointer',
             width:'100%',
             justifyContent:'end',
+
+
         }
     }
 

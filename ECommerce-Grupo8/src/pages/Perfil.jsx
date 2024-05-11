@@ -3,6 +3,7 @@ import UserData from "../components/perfil/UserData.jsx";
 import SellerSelector from "../components/perfil/SellerSelector.jsx";
 import '../assets/fonts/Tisa/Tisa.css'
 import * as React from "react";
+import Listings from "../components/perfil/Listings.jsx";
 const Perfil = () => {
     const background = 'radial-gradient(circle at 50% -20.71%, #d6d4f1 0, #dad3ef 6.25%, #dfd2ed 12.5%, #e3d0ea 18.75%, #e7cfe8 25%, #eacfe4 31.25%, #edcee1 37.5%, #f0cdde 43.75%, #f2cdda 50%, #f4cdd6 56.25%, #f5cdd3 62.5%, #f5cdcf 68.75%, #f5cdcb 75%, #f5cec8 81.25%, #f4cec5 87.5%, #f3cfc2 93.75%, #f1d0c0 100%)'
     const backgroundGrid = ' radial-gradient(circle at 50% -20.71%, #c9e7e9 0, #c9e7eb 10%, #c9e6ed 20%, #cae6ef 30%, #cbe6f1 40%, #cde5f2 50%, #cfe4f3 60%, #d1e4f4 70%, #d4e3f5 80%, #d6e2f5 90%, #d9e1f5 100%)'
@@ -10,6 +11,7 @@ const Perfil = () => {
         grid:{
             backgroundImage:backgroundGrid,
             boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
+            justifyContent:'center',
 
         },
         firstGrid_Box:{
@@ -45,12 +47,14 @@ const Perfil = () => {
 
                 <Grid item xs={12} md={12}>
                     <UserData></UserData>
+
                 </Grid>
                 <Grid item  xs={12} md={12}>
                     <SellerSelector></SellerSelector>
                 </Grid>
-                <Grid item>
+                <Grid item xs={12} md={12}>
 
+                    <Listings></Listings>
                 </Grid>
 
 
