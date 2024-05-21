@@ -23,17 +23,19 @@ const CreateListing = () => {
             display: 'flex',
             justifyContent: 'start',
             flexDirection: 'column',
+            alignItems: 'center',
             backgroundColor:'pink',
+            gap:'20px',
 
         },
         dialogContentText: {
-            width: '100%',
+            width: '90%',
             display: 'flex',
             justifyContent: 'center',
+            alignItems:'center',
             flexDirection: 'column',
             color: 'white',
             backgroundColor: 'black',
-            padding:{xs:"",md:"",xl:"10px"},
         },
         dialogContentText_typo:{
             display: 'flex',
@@ -52,7 +54,7 @@ const CreateListing = () => {
             justifyContent:'center',
             flexDirection:'column',
             alignItems:'center',
-            backgroundColor: "white",
+            backgroundColor: "pink",
 
 
         },
@@ -61,6 +63,7 @@ const CreateListing = () => {
             justifyContent:'center',
             flexDirection:'column',
             padding:5,
+            backgroundColor:"white",
         }
     };
 
@@ -70,10 +73,11 @@ const CreateListing = () => {
                 <DialogContentText sx={{...sx_dialog.dialogContentText}}>
                     <Typography variant="h4" sx={{ ...sx_dialog.dialogContentText_typo }}>Crea tu publicación!</Typography>
                 </DialogContentText>
-                <Box component="form" sx={{...sx_dialog.firstBox, width: '100%' }}>
-                    <Grid container >
+                <Box component="form" sx={{...sx_dialog.firstBox, width: '100%' ,}}>
+                    <Grid container sx={{display:'flex', gap:'10px'}}>
                         <Grid item xs={12} sx={{...sx_dialog.formControl}}>
-                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%'}}>
+                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%',backgroundColor:"white"}}>
+                                <Typography>Titulo:</Typography>
                                 <TextField
                                     fullWidth
                                     label="Titulo"
@@ -83,20 +87,20 @@ const CreateListing = () => {
 
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center', gap:'10px'}}>
-                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%'}}>
+                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%',backgroundColor:"white"}}>
                                 <Typography>Buscar producto</Typography>
                                 <ComboBox />
                             </Box>
 
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, width:'90%',}}>
-                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%'}}>
+                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%',backgroundColor:"white"}}>
                                 <SelectPhoto />
                             </Box>
 
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center',}}>
-                            <Box sx={{ display: 'flex',  alignItems:'start' , justifyContent:'start', gap:'10px',padding:'35px', border: "1px solid black",width:'90%'}}>
+                            <Box sx={{ display: 'flex',  alignItems:'start' , justifyContent:'start', gap:'10px',padding:'35px', border: "1px solid black",width:'90%',backgroundColor:"white"}}>
                                 <Box sx={{display: 'flex', alignItems:'center' ,gap:'10px'  }}>
                                     <Typography>Precio:</Typography>
                                     <TextField fullWidth size="small" />
@@ -108,26 +112,29 @@ const CreateListing = () => {
                             </Box>
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
-                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%'}}>
+                            <Box sx={{ display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'20px', padding:'35px',border: "1px solid black",width:'90%',backgroundColor:"white"}}>
                                 <Typography>Categoria:</Typography>
                                 <ComboBox></ComboBox>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
-                            <Box sx={{display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'10px', padding:'35px',border: "1px solid black",width:'90%'}}>
+                            <Box sx={{display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'10px', padding:'35px',border: "1px solid black",width:'90%',backgroundColor:"white"}}>
                                 <Typography>Descripcion del producto:</Typography>
                                 <ComboBox></ComboBox>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
-                            <Box sx={{display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'10px', padding:'35px',border: "1px solid black",width:'90%'}}>
+                            <Box sx={{display: 'flex',  alignItems:'center' , justifyContent:'start', gap:'10px', padding:'35px',border: "1px solid black",width:'90%',backgroundColor:"white"}}>
                                 <Typography>Cantidad de jugadores:</Typography>
                                <ComboBox></ComboBox>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} sx={sx_dialog.formControl}>
-                            <Typography>Descripción:</Typography>
-                            <TextField fullWidth multiline rows={4} />
+                        <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center',}}>
+                            <Box sx={{display: 'flex',  alignItems:'start' , justifyContent:'start', flexDirection:'column', gap:'10px', padding:'35px',border: "1px solid black",width:'90%' ,backgroundColor:"white"}}>
+                                <Typography>Descripción:</Typography>
+                                <TextField fullWidth multiline rows={4} />
+                            </Box>
+
                         </Grid>
                     </Grid>
                 </Box>
