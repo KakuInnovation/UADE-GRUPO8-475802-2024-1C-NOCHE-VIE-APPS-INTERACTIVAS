@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../assets/fonts/Tisa/Tisa.css'
+import '../../../assets/fonts/Tisa/Tisa.css'
 import {
     Box, Button,
     Dialog,
@@ -10,10 +10,11 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import SelectPhoto from "./comps/SelectPhoto.jsx";
-import ComboBox from "./comps/ComboBox.jsx";
+import SelectPhoto from "./SelectPhoto.jsx";
+import ComboBox from "./ComboBox.jsx";
 
-const CreateListing = () => {
+// eslint-disable-next-line react/prop-types
+const CreateListingDialog = ({open,handleClose}) => {
 
     const background = 'radial-gradient(circle at 50% -20.71%, #d6d4f1 0, #dad3ef 6.25%, #dfd2ed 12.5%, #e3d0ea 18.75%, #e7cfe8 25%, #eacfe4 31.25%, #edcee1 37.5%, #f0cdde 43.75%, #f2cdda 50%, #f4cdd6 56.25%, #f5cdd3 62.5%, #f5cdcf 68.75%, #f5cdcb 75%, #f5cec8 81.25%, #f4cec5 87.5%, #f3cfc2 93.75%, #f1d0c0 100%)'
 
@@ -97,7 +98,7 @@ const CreateListing = () => {
     };
 
     return (
-        <Dialog open={true} sx={{...sx_dialog.layout}} maxWidth='md' fullWidth>
+        <Dialog open={open} sx={{...sx_dialog.layout}} maxWidth='md' fullWidth>
             <DialogContent sx={{...sx_dialog.dialogContext}}>
                 <DialogContentText sx={{...sx_dialog.dialogContentText}}>
                     <Typography variant="h4" sx={{ ...sx_dialog.dialogContentText_typo }}>Crea tu publicación!</Typography>
@@ -205,7 +206,7 @@ const CreateListing = () => {
                 </Box>
             </DialogContent>
             <DialogActions sx={{backgroundImage:background,display:'flex', justifyContent:'space-around',boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',}}>
-                <Button style={{backgroundColor:"red",color:"#fff",height:'50px',width:'100px',fontFamily:'Tisa Sans Pro Regular'}}onClick={() => console.log('Cancel')}>Cancel</Button>
+                <Button style={{backgroundColor:"red",color:"#fff",height:'50px',width:'100px',fontFamily:'Tisa Sans Pro Regular'}}onClick={handleClose}>Cancel</Button>
                 <Button style={{backgroundColor:"green",color:"#fff",height:'50px',width:'100px',fontFamily:'Tisa Sans Pro Regular'}}onClick={() => console.log('Submit')}>Submit</Button>
 
             </DialogActions>
@@ -213,4 +214,4 @@ const CreateListing = () => {
     );
 };
 
-export default CreateListing;
+export default CreateListingDialog;

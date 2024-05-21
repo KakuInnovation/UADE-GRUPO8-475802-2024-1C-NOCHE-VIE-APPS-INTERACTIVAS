@@ -15,11 +15,13 @@ const SellerSelector = () => {
         setOpen(false);
     };
 
+
+
     const sx_Selector ={
         box:{
             display:'flex',
             cursor:'pointer',
-            width:'100%',
+            width:'70%',
             justifyContent:'end',
 
 
