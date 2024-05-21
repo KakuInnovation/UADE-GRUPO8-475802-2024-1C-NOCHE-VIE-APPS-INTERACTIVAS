@@ -1,7 +1,8 @@
-import {Box, Button, ImageList, ImageListItem} from "@mui/material";
+import { Box, Button, ImageList, ImageListItem } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import {useState} from "react";
+import { useState } from "react";
+
 const SelectPhoto = () => {
     const [images, setImages] = useState(Array(4).fill(null));
 
@@ -27,7 +28,7 @@ const SelectPhoto = () => {
         });
 
         try {
-            const response = await fetch('http://localhost:3000/api/upload', {
+            const response = await fetch('http://localhost:8080/%userid/listing-products', {
                 method: 'POST',
                 body: formData,
             });
@@ -43,22 +44,55 @@ const SelectPhoto = () => {
         }
     };
 
-
-
-
-    return(
-        <Box >
-            <ImageList sx={{ width: 500, height: 450 }} cols={2} rowHeight={164}>
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minHeight: '50vh',
+                padding: 1,
+            }}
+        >
+            <ImageList
+                sx={{
+                    width: 500,
+                    height: 'auto',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    gap: 16,
+                }}
+                cols={2}
+                rowHeight={164}
+            >
                 {images.map((image, index) => (
-                    <ImageListItem key={index} onClick={() => handleImageClick(index)}>
+                    <ImageListItem
+                        key={index}
+                        sx={{
+                            width: 'calc(50% - 16px)',
+                            height: 200,
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: '#f0f0f0',
+                            cursor: 'pointer',
+                        }}
+                        onClick={() => handleImageClick(index)}
+                    >
                         {image ? (
-                            <img src={image} alt={`Imagen ${index + 1}`} loading="lazy" />
+                            <img
+                                src={image}
+                                alt={`Imagen ${index + 1}`}
+                                loading="lazy"
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
                         ) : (
                             <IconButton
                                 color="primary"
                                 aria-label="upload picture"
                                 component="span"
-                                style={{ width: '100%', height: '100%' }}
+                                sx={{ width: '100%', height: '100%' }}
                             >
                                 <AddPhotoAlternateIcon style={{ fontSize: 50 }} />
                             </IconButton>
@@ -73,9 +107,11 @@ const SelectPhoto = () => {
                     </ImageListItem>
                 ))}
             </ImageList>
-            <Button onClick={handleSubmit}>Subir Fotos</Button>
+            <Button onClick={handleSubmit} variant="contained" sx={{ mt: 2 }}>
+                Subir Fotos
+            </Button>
         </Box>
-    )
-}
+    );
+};
 
 export default SelectPhoto;
