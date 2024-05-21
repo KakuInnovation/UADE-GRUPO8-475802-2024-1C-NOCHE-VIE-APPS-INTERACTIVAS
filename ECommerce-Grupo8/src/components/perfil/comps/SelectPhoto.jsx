@@ -47,7 +47,7 @@ const SelectPhoto = () => {
 
 
     return(
-        <Box>
+        <Box >
             <ImageList sx={{ width: 500, height: 450 }} cols={2} rowHeight={164}>
                 {images.map((image, index) => (
                     <ImageListItem key={index} onClick={() => handleImageClick(index)}>
