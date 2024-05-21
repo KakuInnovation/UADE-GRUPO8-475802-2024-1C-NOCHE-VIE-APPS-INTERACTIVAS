@@ -116,13 +116,13 @@ const CreateListingDialog = ({open,handleClose}) => {
                                         sx: {
                                             '& .MuiInputBase-input': {
                                                 fontSize: '25px',
-                                                fontFamily:'Tisa Sans Pro bold',// Cambia el tamaño de la fuente aquí
+                                                fontFamily:'Tisa Sans Pro bold',
                                             },
                                         },
                                     }}
                                     InputLabelProps={{
                                         sx: {
-                                            fontSize: '20px', // Cambia el tamaño de la fuente de la etiqueta aquí
+                                            fontSize: '20px',
                                         },
                                     }}
                                 />
