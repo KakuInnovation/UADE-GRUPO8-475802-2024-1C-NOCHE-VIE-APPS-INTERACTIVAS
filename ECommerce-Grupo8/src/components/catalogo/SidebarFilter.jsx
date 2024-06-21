@@ -2,10 +2,12 @@ import {Box, Button, createTheme, ThemeProvider, Typography} from "@mui/material
 import {data_navbar} from "../../utils/data_components/data.js";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { useState} from "react";
+import {useEffect, useState} from "react";
 
 import '../../assets/fonts/Tisa/Tisa.css'
 import '../../assets/fonts/Inter/Inter.css'
+
+
 const theme = createTheme({
     typography: {
         fontFamily: 'Tisa Sans Pro Regular',
@@ -19,10 +21,8 @@ const theme = createTheme({
 
 
 const SidebarFilter = (props) => {
-    const [filter,setFIlter] = useState(false);
-    const [checked, setChecked] = useState(false);
-    // eslint-disable-next-line react/prop-types
-    const { dictionary, addWord, removeWord } = props;
+
+
 
     const sideBar_sx = {
         layout:{
@@ -85,19 +85,22 @@ const SidebarFilter = (props) => {
         }
     }
 
-    const handleChange = (event,title, tag) => {
-        setChecked(event.target.checked);
-        if (event.target.checked) {
-            addWord(title,tag)
-        }
-        else{
-            removeWord(title,tag);
-        }
-    }
 
-    const capitalize = (tag) => {
-        return tag.charAt(0).toUpperCase() + tag.slice(1);
-    }
+
+    const handleChange = (event, category, tag) => {
+        const categoryType = category.toLowerCase(); // Asume que el título del item es el tipo de categoría
+        const tagWithType = `${categoryType}:${tag}`;
+
+        // eslint-disable-next-line react/prop-types
+        props.setSelectedCategories(prev => {
+            const currentIndex = prev.indexOf(tagWithType);
+            if (currentIndex === -1) {
+                return [...prev, tagWithType];
+            } else {
+                return prev.filter(item => item !== tagWithType);
+            }
+        });
+    };
 
     return(
         <Box sx={{...sideBar_sx.layout}}>
@@ -130,7 +133,7 @@ const SidebarFilter = (props) => {
                                                 <FormControlLabel
                                                     value="end"
                                                     control={<Checkbox />}
-                                                    label= {capitalize(tag)}
+                                                    label= {tag}
                                                     labelPlacement="end"
                                                     style={{color:'#636363', fontSize:'14px'}}
                                                     onClick= {(event) => handleChange(event,item.title,tag)}

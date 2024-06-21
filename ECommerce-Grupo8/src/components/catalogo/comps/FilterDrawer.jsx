@@ -55,7 +55,7 @@ const FilterDrawer = ({open,categories,handleClose,setCategory,setCardData,jsonD
                         {
                             categories.map((category,index) => (
 
-                                <Box display="flex" alignItems={'center'} sx={{width:'100%'}}>
+                                <Box display="flex" alignItems={'center'} sx={{width:'100%'}} key={index}>
                                     <Checkbox
 
                                         checked={Object.values(checkedItems)[index]}
