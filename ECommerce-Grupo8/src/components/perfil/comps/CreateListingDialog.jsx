@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import '../../../assets/fonts/Tisa/Tisa.css'
 import {
     Box, Button,
@@ -13,8 +13,10 @@ import {
 import SelectPhoto from "./SelectPhoto.jsx";
 import ComboBox from "./ComboBox.jsx";
 
+import {useFetchProducts} from "../../../hooks/product_hooks.js";
+
 // eslint-disable-next-line react/prop-types
-const CreateListingDialog = ({open,handleClose}) => {
+const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
 
     const background = 'radial-gradient(circle at 50% -20.71%, #d6d4f1 0, #dad3ef 6.25%, #dfd2ed 12.5%, #e3d0ea 18.75%, #e7cfe8 25%, #eacfe4 31.25%, #edcee1 37.5%, #f0cdde 43.75%, #f2cdda 50%, #f4cdd6 56.25%, #f5cdd3 62.5%, #f5cdcf 68.75%, #f5cdcb 75%, #f5cec8 81.25%, #f4cec5 87.5%, #f3cfc2 93.75%, #f1d0c0 100%)'
 
@@ -97,6 +99,43 @@ const CreateListingDialog = ({open,handleClose}) => {
         }
     };
 
+
+
+
+    const products = useFetchProducts();
+
+
+    const [category,setCategory] = useState("");
+    const [playerCounter, setPlayerCount] = useState("");
+    const [description, setDescription] = useState("");
+    const [brandName, setBrandName] = useState("");
+    const [duration, setDuration] = useState("");
+    const [difficulty,setDifficulty] = useState("");
+    const [productDescription, setProductDescription] = useState("");
+
+    const [selectedGame, setSelectedGame] = useState("");
+    const [product, setProduct] = useState("");
+
+    useEffect(() => {
+        const getGame = () => {
+            const game = products.find((product) => product.productName === selectedGame);
+            setProduct(game);
+            if(game){
+                setCategory(game.categoryName)
+                setPlayerCount(game.playerCounter)
+                setProductDescription(game.productDescription);
+                setDifficulty(game.difficulty);
+                setDuration(game.duration);
+                setBrandName(game.brandName)
+            }
+        }
+        getGame();
+    }, [selectedGame]);
+
+    const productNames = products.map((product) => product.productName);
+
+
+
     return (
         <Dialog open={open} sx={{...sx_dialog.layout}} maxWidth='md' fullWidth>
             <DialogContent sx={{...sx_dialog.dialogContext}}>
@@ -112,6 +151,7 @@ const CreateListingDialog = ({open,handleClose}) => {
                                     fullWidth
                                     label="Titulo"
                                     size="large"
+                                    onChange={e => setTitle(e.target.value)}
                                     InputProps={{
                                         sx: {
                                             '& .MuiInputBase-input': {
@@ -132,7 +172,7 @@ const CreateListingDialog = ({open,handleClose}) => {
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center', gap:'10px'}}>
                             <Box sx={{ ...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular',}}>Buscar producto</Typography>
-                                <ComboBox />
+                                <ComboBox  data={productNames} selectedItem = {selectedGame } setSelectedItem ={setSelectedGame} type={" tu juego"}/>
                             </Box>
 
                         </Grid>
@@ -158,34 +198,73 @@ const CreateListingDialog = ({open,handleClose}) => {
                             </Box>
 
                         </Grid>
+
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center',}}>
                             <Box sx={{ ...sx_dialog.box, justifyContent:'center' }}>
                                 <Box sx={{display: 'flex', alignItems:'center' ,gap:'10px'  }}>
                                     <Typography sx={{fontFamily:'Tisa Sans Pro Regular',}}> Precio:</Typography>
-                                    <TextField fullWidth size="small" />
+                                    <TextField fullWidth size="small" onChange={event => setPrice(event.target.value)} />
                                 </Box>
                                 <Box sx={{display: 'flex', justifyContent:'center', alignItems:'center' ,gap:'10px' }}>
                                     <Typography sx={{fontFamily:'Tisa Sans Pro Regular',}}>Stock:</Typography>
-                                    <TextField fullWidth size="small" />
+                                    <TextField fullWidth size="small" onChange={event => setStock(event.target.value)} />
                                 </Box>
                             </Box>
                         </Grid>
+
+                        <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
+                            <Box sx={{ ...sx_dialog.box }}>
+                                <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Marca:</Typography>
+                                <ComboBox data={productNames} selectedItem = {brandName } setSelectedItem ={setBrandName} type={"la categoria de tu juego"}
+                                ></ComboBox >
+                            </Box>
+                        </Grid>
+
+                        <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
+                            <Box sx={{ ...sx_dialog.box }}>
+                                <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Duracion:</Typography>
+                                <ComboBox data={productNames} selectedItem = {duration } setSelectedItem ={setDuration} type={"la categoria de tu juego"}
+                                ></ComboBox >
+                            </Box>
+                        </Grid>
+
+                        <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
+                            <Box sx={{ ...sx_dialog.box }}>
+                                <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Dificultad:</Typography>
+                                <ComboBox data={productNames} selectedItem = {difficulty } setSelectedItem ={setDifficulty} type={"la categoria de tu juego"}
+                                ></ComboBox >
+                            </Box>
+                        </Grid>
+
+
+
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{ ...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Categoria:</Typography>
-                                <ComboBox></ComboBox>
+                                <ComboBox data={productNames} selectedItem = {category } setSelectedItem ={setCategory} type={"la categoria de tu juego"}
+                                ></ComboBox >
                             </Box>
                         </Grid>
+
+
+
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular',}}>Descripcion del producto:</Typography>
-                                <ComboBox></ComboBox>
+                                <TextField
+                                    fullWidth multiline rows={4}
+                                    onChange={event => setProductDescription(event.target.value)}
+                                    defaultValue={productDescription}
+                                    InputProps={{
+                                        readOnly: productDescription !== "", // Bloquear si hay contenido
+                                    }}
+                                />
                             </Box>
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular',width:{lg:'26%'}}}>Cantidad de jugadores:</Typography>
-                               <ComboBox></ComboBox>
+                               <ComboBox data={productNames} selectedItem = {playerCounter } setSelectedItem ={setPlayerCount}  type={"la cantidad de jugadores"}></ComboBox>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center',}}>
@@ -198,7 +277,7 @@ const CreateListingDialog = ({open,handleClose}) => {
                                     boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
 
                                 }}>Describi tu juego</Typography>
-                                <TextField fullWidth multiline rows={4} />
+                                <TextField fullWidth multiline rows={4} onChange={event => setDescription(event.target.value)} />
                             </Box>
 
                         </Grid>

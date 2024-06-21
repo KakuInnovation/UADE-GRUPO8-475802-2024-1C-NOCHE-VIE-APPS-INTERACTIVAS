@@ -2,118 +2,27 @@ import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function ComboBox() {
+
+
+
+// eslint-disable-next-line react/prop-types
+export default function ComboBox({data,setSelectedItem, selectedItem,type}) {
+
+
+
+
     return (
         <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={top100Games}
+            options={data}
             sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Busca tu juego..." />}
+            value = {selectedItem !== "" ? selectedItem : ""}
+            onChange = {(event,newValue) => setSelectedItem(newValue)}
+            renderInput={(params) => <TextField {...params}  disabled={selectedItem !== ""} label={"Busca "+type+"..." }/>}
         />
     );
 }
 
 
-const top100Games = [
-{ label: 'Gloomhaven', year: 2017 },
-{ label: 'Pandemic Legacy: Season 1', year: 2015 },
-{ label: 'Terraforming Mars', year: 2016 },
-{ label: 'Brass: Birmingham', year: 2018 },
-{ label: 'Twilight Imperium: Fourth Edition', year: 2017 },
-{ label: 'Scythe', year: 2016 },
-{ label: 'Gaia Project', year: 2017 },
-{ label: 'Root', year: 2018 },
-{ label: 'The 7th Continent', year: 2017 },
-{ label: 'Through the Ages: A New Story of Civilization', year: 2015 },
-{ label: 'Star Wars: Rebellion', year: 2016 },
-{ label: 'Great Western Trail', year: 2016 },
-{ label: 'Spirit Island', year: 2017 },
-{ label: 'Viticulture Essential Edition', year: 2015 },
-{ label: 'Twilight Struggle', year: 2005 },
-{ label: 'Everdell', year: 2018 },
-{ label: 'A Feast for Odin', year: 2016 },
-{ label: 'Codenames', year: 2015 },
-{ label: 'Wingspan', year: 2019 },
-{ label: '7 Wonders Duel', year: 2015 },
-{ label: 'Dominion: Second Edition', year: 2016 },
-{ label: 'The Castles of Burgundy', year: 2011 },
-{ label: 'Mage Knight Board Game', year: 2011 },
-{ label: 'Raiders of the North Sea', year: 2015 },
-{ label: 'Clank!: A Deck-Building Adventure', year: 2016 },
-{ label: 'Azul', year: 2017 },
-{ label: 'The Quacks of Quedlinburg', year: 2018 },
-{ label: 'Catan', year: 1995 },
-{ label: 'Carcassonne', year: 2000 },
-{ label: 'Ticket to Ride', year: 2004 },
-{ label: 'Dominion', year: 2008 },
-{ label: 'Puerto Rico', year: 2002 },
-{ label: 'Agricola', year: 2007 },
-{ label: 'Power Grid', year: 2004 },
-{ label: 'Pandemic', year: 2008 },
-{ label: 'Eclipse', year: 2011 },
-{ label: 'Mansions of Madness: Second Edition', year: 2016 },
-{ label: 'Dixit', year: 2008 },
-{ label: 'Kingdomino', year: 2016 },
-{ label: 'T.I.M.E Stories', year: 2015 },
-{ label: 'Terra Mystica', year: 2012 },
-{ label: 'Tzolk in: The Mayan Calendar', year: 2012 },
-    { label: 'Concordia', year: 2013 },
-    { label: 'Patchwork', year: 2014 },
-    { label: 'Orléans', year: 2014 },
-    { label: 'The Resistance: Avalon', year: 2012 },
-    { label: '7 Wonders', year: 2010 },
-    { label: 'Lords of Waterdeep', year: 2012 },
-    { label: 'Hanabi', year: 2010 },
-    { label: 'Forbidden Island', year: 2010 },
-    { label: 'Betrayal at House on the Hill', year: 2004 },
-    { label: 'Blood Rage', year: 2015 },
-    { label: 'Sherlock Holmes Consulting Detective', year: 1981 },
-    { label: 'Arkham Horror: The Card Game', year: 2016 },
-    { label: 'Dead of Winter: A Crossroads Game', year: 2014 },
-    { label: 'Jaipur', year: 2009 },
-    { label: 'Sagrada', year: 2017 },
-    { label: 'Pandemic Legacy: Season 2', year: 2017 },
-    { label: 'Santorini', year: 2016 },
-    { label: 'Memoir 44', year: 2004 },
-        { label: 'Love Letter', year: 2012 },
-        { label: 'Splendor', year: 2014 },
-        { label: 'Race for the Galaxy', year: 2007 },
-        { label: 'Eldritch Horror', year: 2013 },
-        { label: 'Terraforming Mars: Hellas & Elysium', year: 2017 },
-        { label: 'Brass: Lancashire', year: 2007 },
-        { label: 'Gloomhaven: Jaws of the Lion', year: 2020 },
-        { label: 'El Grande', year: 1995 },
-        { label: 'Hive', year: 2001 },
-        { label: 'Keyflower', year: 2012 },
-        { label: 'Codenames: Duet', year: 2017 },
-        { label: 'Nemesis', year: 2018 },
-        { label: 'Viticulture', year: 2013 },
-        { label: 'Santorini', year: 2016 },
-        { label: 'The Mind', year: 2018 },
-        { label: 'On Mars', year: 2020 },
-        { label: 'Rising Sun', year: 2018 },
-        { label: 'Teotihuacan: City of Gods', year: 2018 },
-        { label: 'Underwater Cities', year: 2018 },
-        { label: 'Clans of Caledonia', year: 2017 },
-        { label: 'Pax Pamir: Second Edition', year: 2019 },
-        { label: 'Gloomhaven: Forgotten Circles', year: 2018 },
-        { label: 'Architects of the West Kingdom', year: 2018 },
-        { label: 'Maracaibo', year: 2019 },
-        { label: 'Paladins of the West Kingdom', year: 2019 },
-        { label: 'Lost Ruins of Arnak', year: 2020 },
-        { label: 'Beyond the Sun', year: 2020 },
-        { label: 'Tapestry', year: 2019 },
-        { label: 'Concordia Venus', year: 2018 },
-        { label: 'Star Realms', year: 2014 },
-        { label: 'The Crew: The Quest for Planet Nine', year: 2019 },
-        { label: 'Cartographers: A Roll Player Tale', year: 2019 },
-        { label: 'Rococo: Deluxe Edition', year: 2020 },
-        { label: 'Anachrony', year: 2017 },
-        { label: 'The Quacks of Quedlinburg: The Herb Witches', year: 2019 },
-        { label: 'Lisboa', year: 2017 },
-        { label: 'Pandemic: Iberia', year: 2016 },
-        { label: 'Gaia Project', year: 2017 },
-        { label: 'Onitama', year: 2014 },
-        { label: 'The Crew: Mission Deep Sea', year: 2021 },
-    ];
+
