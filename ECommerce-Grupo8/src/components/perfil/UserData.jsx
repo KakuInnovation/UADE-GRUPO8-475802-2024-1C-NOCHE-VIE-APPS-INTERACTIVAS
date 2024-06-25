@@ -1,12 +1,33 @@
-import {Box, Button, Checkbox, Divider, List, ListItem, TextField, Typography} from "@mui/material";
+import {Box, Button, Checkbox, Divider, InputAdornment, List, ListItem, TextField, Typography} from "@mui/material";
 import * as React from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import '../../assets/fonts/Tisa/Tisa.css'
 import {useState} from "react";
+import PropTypes from "prop-types";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import {useSelector} from "react-redux";
 
-const UserData = () => {
-    const userData = ['Nombre','Nickname','Email','Telefono','Direccion','Tipo usuario']
+const UserData = ({userInfo}) => {
 
+    const user = userInfo;
+    const userData = [
+        ['Nombre' , user.firstName],
+        ['Apellido', user.lastName],
+        ['Email', useSelector((state) => state.auth.email)],
+        ["Contraseña",useSelector((state) => state.auth.password)],
+        ["Telefono", user.phoneNumber],
+        ["Direccion", user.address],
+        ["Documento", user.document],
+        ["Tipo usuario", user.role]
+
+    ]
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
 
     const sx_userData = {
@@ -71,13 +92,14 @@ const UserData = () => {
 
                             <ListItem key={index} sx={{...sx_userData.userDataItem}}>
                                 <Box sx={{...sx_userData.userDataListBox,}}>
-                                    <Typography sx={{width:{xs:'',md:'30%'},display:{xs:'',md:'flex'},justifyContent:'end', fontFamily:'Tisa Sans Pro Bold'}}>{item}:</Typography>
+                                    <Typography sx={{width:{xs:'',md:'30%'},display:{xs:'',md:'flex'},justifyContent:'end', fontFamily:'Tisa Sans Pro Bold'}}>{item[0]}:</Typography>
                                     {item === 'Tipo usuario'?
-                                        <Typography sx={{}}>Vendedor</Typography>
+                                        <Typography sx={{}}>{item[1]}</Typography>
                                         :
                                         <TextField
-                                            defaultValue="Texto predefinido"
-
+                                            defaultValue={item[1]}
+                                            type={item[0] === "Contraseña" ? (showPassword ? 'text' : 'password') : 'text'}
+                                            onClick={item[0] === "Contraseña" ?handleTogglePasswordVisibility:''}
                                             sx={{width:{xs:'auto',md:'300px'},
                                                 "& fieldset": { border: 'none' },
                                                 backgroundColor: '#bdbdbd',
@@ -85,6 +107,20 @@ const UserData = () => {
                                             inputProps={{style: {fontSize: 10,color:'#636363',width:'100%',border:'none'}}}
                                             size={"small"}
                                             id="outlined-basic"
+
+                                            InputProps={{
+                                                endAdornment: item[0] === "Contraseña" && (
+                                                    <InputAdornment position="end">
+                                                        <IconButton
+                                                            aria-label="toggle password visibility"
+                                                            onClick={handleTogglePasswordVisibility}
+                                                            edge="end"
+                                                        >
+                                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                        </IconButton>
+                                                    </InputAdornment>
+                                                ),
+                                            }}
 
                                         />
                                     }
@@ -104,5 +140,18 @@ const UserData = () => {
         </Box>
     )
 }
+
+UserData.propTypes = {
+    userInfo: PropTypes.shape({
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        username: PropTypes.string,
+        password: PropTypes.string,
+        phoneNumber: PropTypes.string,
+        address : PropTypes.string,
+        document: PropTypes.string,
+        role: PropTypes.string,
+    }).isRequired
+};
 
 export default UserData;

@@ -7,6 +7,10 @@ import Listings from "../components/perfil/Listings.jsx";
 import Shopping from "../components/perfil/Shopping.jsx";
 import Sales from "../components/perfil/Sales.jsx";
 import CreateListing from "../components/perfil/comps/CreateListing.jsx";
+import {useFetchUserData} from "../hooks/user-hooks.js";
+import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
+
 const Perfil = () => {
     const background = 'radial-gradient(circle at 50% -20.71%, #d6d4f1 0, #dad3ef 6.25%, #dfd2ed 12.5%, #e3d0ea 18.75%, #e7cfe8 25%, #eacfe4 31.25%, #edcee1 37.5%, #f0cdde 43.75%, #f2cdda 50%, #f4cdd6 56.25%, #f5cdd3 62.5%, #f5cdcf 68.75%, #f5cdcb 75%, #f5cec8 81.25%, #f4cec5 87.5%, #f3cfc2 93.75%, #f1d0c0 100%)'
     const backgroundGrid = ' radial-gradient(circle at 50% -20.71%, #c9e7e9 0, #c9e7eb 10%, #c9e6ed 20%, #cae6ef 30%, #cbe6f1 40%, #cde5f2 50%, #cfe4f3 60%, #d1e4f4 70%, #d4e3f5 80%, #d6e2f5 90%, #d9e1f5 100%)'
@@ -37,7 +41,21 @@ const Perfil = () => {
         }
 
     }
+    const email = useSelector((state) => state.auth.email);
 
+    const {listingsDTO , salesDTO, purchasesDTO,...userData } = useFetchUserData(email);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        if (Object.keys(userData).length > 0) {
+            setIsLoading(false);
+            console.log(userData);
+        }
+    }, [userData]);
+
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
     return(
         <Container sx={{backgroundImage:background,padding:'20px'}}>
             <Grid container sx={{...sx_perfil.grid}}>
@@ -49,7 +67,7 @@ const Perfil = () => {
                 </Grid>
 
                 <Grid item xs={12} md={12}>
-                    <UserData></UserData>
+                    <UserData userInfo={userData}></UserData>
 
                 </Grid>
                 <Grid item  xs={12} md={12}>
@@ -60,13 +78,13 @@ const Perfil = () => {
 
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    <Listings></Listings>
+                    <Listings listingsDTO={listingsDTO}></Listings>
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    <Shopping></Shopping>
+                    <Shopping purchasesDTO={purchasesDTO}></Shopping>
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    <Sales></Sales>
+                    <Sales salesDTO ={salesDTO}></Sales>
                 </Grid>
 
 
