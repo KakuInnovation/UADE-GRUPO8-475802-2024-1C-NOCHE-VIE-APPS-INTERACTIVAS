@@ -1,4 +1,5 @@
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 const useFetchListingsCreate = () => {
     const [userId, setUserId] = useState("");
@@ -32,15 +33,13 @@ const useFetchListingsCreate = () => {
 }
 
 const useFetchListingDialog = (data) => {
-
+    const token = useSelector(state => state.auth.token);
 // Configuración de la solicitud
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'token': "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0" +
-                "OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0Ypc" +
-                "Hc4WIZdClPLC06wMLzGTdMGhuiE9gXng" //localStorage.getItem("token"),
+            'token': "Bearer " + token //localStorage.getItem("token"),
         },
         body: JSON.stringify(data)
     };
@@ -59,11 +58,12 @@ const useFetchListingDialog = (data) => {
 
 const useFetchListings = (selectedCategories = []) => {
     const [productos, setProducts] = useState([]);
+    const token = useSelector(state => state.auth.token);
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0YpcHc4WIZdClPLC06wMLzGTdMGhuiE9gXng"
+            'Authorization': "Bearer " + token
         }
     };
 
@@ -127,5 +127,32 @@ const useFetchListings = (selectedCategories = []) => {
 };
 
 
+const useFetchListingsByUser  = (userId)  =>  {
+    const [listings, setListings] = useState([]);
+    const token = useSelector(state => state.auth.token);
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + token
+        }
+    };
+    useEffect(() => {
+        const fetchListings = async () => {
+            try{
+                const request = await fetch(`http://localhost:8080/user/get-listing?id=${userId}`, options)
+                const data = await request.json();
+                setListings(data);
+            } catch (error){
+                console.log("Errorfetching lisings:", error)
+            }
 
-export {useFetchListingDialog, useState,useFetchListings}
+        }
+        fetchListings();
+    } , []);
+    return listings;
+}
+
+
+
+export {useFetchListingDialog, useState,useFetchListings,useFetchListingsByUser}

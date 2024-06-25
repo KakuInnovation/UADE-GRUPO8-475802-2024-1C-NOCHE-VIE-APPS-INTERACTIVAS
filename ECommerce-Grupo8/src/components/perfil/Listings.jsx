@@ -16,7 +16,33 @@ import '../../assets/fonts/Tisa/Tisa.css'
 import * as React from "react";
 
 const Listings = () => {
-    const status = [['Publicar', 'Pausar', 'Modificar', 'Eliminar'],['Publicar', 'Pausar', 'Modificar', 'Eliminar'],['Publicar', 'Pausar', 'Modificar', 'Eliminar'],['Publicar', 'Pausar', 'Modificar', 'Eliminar']];
+    const status =
+        [
+            [
+                'Publicar',
+                'Pausar',
+                'Modificar',
+                'Eliminar'
+            ],
+            [
+                'Publicar',
+                'Pausar',
+                'Modificar',
+                'Eliminar'
+            ],
+            [
+                'Publicar',
+                'Pausar',
+                'Modificar',
+                'Eliminar'
+            ],
+            [
+                'Publicar',
+                'Pausar',
+                'Modificar',
+                'Eliminar'
+            ]
+        ];
     const sx_grid = {
         grid:{
             display:'flex',
@@ -112,47 +138,67 @@ const Listings = () => {
             gap:{xs:'',md:'',lg:'10px'},
             padding:{xs:'',md:'',lg:'5px'},
 
-
         }
-
-
-
-
-
-
     }
 
     return(
 
         <>
 
-        <Grid item xs={12} sm={12} md={12} sx={{...sx_grid.grid}}>
-            <Divider sx={{width:'100%', height:'2px',backgroundColor:'#686868'}}/>
-            <Box sx={{...sx_grid.tipoBox}}>
-                <Typography   backgroundColor='white' textAlign={'center'} sx={{...sx_grid.tipography}}>PANEL DE PUBLICACIONES</Typography>
-            </Box>
+            <Grid item xs={12} sm={12} md={12} sx={{...sx_grid.grid}}>
+                <Divider sx={{width:'100%', height:'2px',backgroundColor:'#686868'}}/>
+                <Box sx={{...sx_grid.tipoBox}}>
+                    <Typography
+                        backgroundColor='white'
+                        textAlign={'center'}
+                        sx={{...sx_grid.tipography}}>
+                        PANEL DE PUBLICACIONES
+                    </Typography>
+                </Box>
 
-            <TableContainer component={Paper} sx={{...sx_grid.tableContainer}}>
-                <Table aria-label="simple table" sx={{...sx_grid.table}}>
-                    <TableBody sx={{...sx_grid.tableBody}}>
-                        {status.map((item, index ) => (
-                            <Box key={index} sx={{...sx_grid.tableBox}}>
-                                <Typography sx={{...sx_grid.boxTypo}}>Publicacion {index+1}</Typography>
-                                <Box sx={{...sx_grid.buttonBox}}>
-                                    <TableRow key={index} sx={{...sx_grid.button}}>{
-                                        item.map((button, key) => (
-                                            <Button key={key} style={{backgroundColor:'#cfa5a5',color:'#fff', fontFamily:'Tisa Sans Pro Bold', boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',}}>{button}</Button>
-                                        ))
-                                    }
-                                    </TableRow>
+                <TableContainer component={Paper} sx={{...sx_grid.tableContainer}}>
+                    <Table aria-label="simple table" sx={{...sx_grid.table}}>
+                        <TableBody sx={{...sx_grid.tableBody}}>
+                            {status.map((item, index ) => (
+                                <Box
+                                    key={index}
+                                    sx={{...sx_grid.tableBox}}>
+
+                                    <Typography
+                                        sx={{...sx_grid.boxTypo}}>
+                                        Publicacion {index+1/*aca van los id de publicacioens*/}
+
+                                    </Typography>
+                                    <Box
+                                        sx={{...sx_grid.buttonBox}}>
+
+                                        <TableRow
+                                            key={index}
+                                            sx={{...sx_grid.button}}>{
+                                            item.map((button, key) => (
+                                                <Button
+                                                    key={key}
+                                                    style={{
+                                                        backgroundColor:'#cfa5a5',
+                                                        color:'#fff',
+                                                        fontFamily:'Tisa Sans Pro Bold',
+                                                        boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
+                                                    }}
+
+                                                >
+                                                    {button}
+                                                </Button>
+                                            ))
+                                        }
+                                        </TableRow>
+                                    </Box>
                                 </Box>
-                            </Box>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Grid>
-            </>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Grid>
+        </>
 
 
 

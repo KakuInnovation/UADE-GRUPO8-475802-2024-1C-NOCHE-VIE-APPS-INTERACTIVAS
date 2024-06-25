@@ -152,6 +152,8 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                                     label="Titulo"
                                     size="large"
                                     onChange={e => setTitle(e.target.value)}
+                                    /* eslint-disable-next-line react/prop-types */
+                                    defaultValue={listingToEdit !== undefined ? listingToEdit.title : ''}
                                     InputProps={{
                                         sx: {
                                             '& .MuiInputBase-input': {
@@ -171,28 +173,36 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center', gap:'10px'}}>
                             <Box sx={{ ...sx_dialog.box }}>
-                                <Typography sx={{fontFamily:'Tisa Sans Pro Regular',}}>Buscar producto</Typography>
-                                <ComboBox  data={productNames} selectedItem = {selectedGame } setSelectedItem ={setSelectedGame} type={" tu juego"}/>
+                                <Typography sx={{
+                                    fontFamily:'Tisa Sans Pro Regular',
+                                }}>
+                                    Buscar producto
+                                </Typography>
+                                <ComboBox
+                                    data={productNames}
+                                    selectedItem = {selectedGame }
+                                    setSelectedItem ={setSelectedGame}
+                                    type={" tu juego"}/>
                             </Box>
 
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, width:'90%',}}>
                             <Box sx={{ ...sx_dialog.box,  justifyContent:'center',  flexDirection:'column', alignItems:'start', }}>
-                                <Typography sx={{fontFamily:'Tisa Sans Pro bold', fontSize:{lg:'20px'},width:'100%',
-                                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
-                                    padding:{lg:'10px'},
-                                    textAlign:'center',
-                                    backgroundImage:background
-
-                                }
-
-                                }
+                                <Typography
+                                    sx={{
+                                        fontFamily:'Tisa Sans Pro bold', fontSize:{lg:'20px'},width:'100%',
+                                        boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
+                                        padding:{lg:'10px'},
+                                        textAlign:'center',
+                                        backgroundImage:background
+                                        }
+                                    }
 
                                 >
                                     Subi hasta cuatro fotos
                                 </Typography>
                                 <Box sx={{width:'100%'}}>
-                                    <SelectPhoto />
+                                    <SelectPhoto /> {/*enviar fotos como prop en caso de que exista la publicacion*/}
                                 </Box>
 
                             </Box>
@@ -203,11 +213,20 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                             <Box sx={{ ...sx_dialog.box, justifyContent:'center' }}>
                                 <Box sx={{display: 'flex', alignItems:'center' ,gap:'10px'  }}>
                                     <Typography sx={{fontFamily:'Tisa Sans Pro Regular',}}> Precio:</Typography>
-                                    <TextField fullWidth size="small" onChange={event => setPrice(event.target.value)} />
+                                    <TextField
+                                        fullWidth size="small"
+                                        onChange={event => setPrice(event.target.value)}
+                                        /* eslint-disable-next-line react/prop-types */
+                                        defaultValue={listingToEdit !==undefined? listingToEdit.price: ''}
+                                    />
                                 </Box>
                                 <Box sx={{display: 'flex', justifyContent:'center', alignItems:'center' ,gap:'10px' }}>
                                     <Typography sx={{fontFamily:'Tisa Sans Pro Regular',}}>Stock:</Typography>
-                                    <TextField fullWidth size="small" onChange={event => setStock(event.target.value)} />
+                                    <TextField
+                                        fullWidth size="small"
+                                        onChange={event => setStock(event.target.value)}
+                                        defaultValue={listingToEdit !==undefined? listingToEdit.stock: ''}
+                                    />
                                 </Box>
                             </Box>
                         </Grid>
@@ -215,15 +234,20 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{ ...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Marca:</Typography>
-                                <ComboBox data={productNames} selectedItem = {brandName } setSelectedItem ={setBrandName} type={"la categoria de tu juego"}
+                                <ComboBox
+                                    data={productNames}
+                                    selectedItem = {listingToEdit !== undefined ? listingToEdit.productDTO.brandName : brandName }
+                                    setSelectedItem ={setBrandName}
+                                    type={"la categoria de tu juego"}
                                 ></ComboBox >
                             </Box>
                         </Grid>
 
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{ ...sx_dialog.box }}>
-                                <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Duracion:</Typography>
-                                <ComboBox data={productNames} selectedItem = {duration } setSelectedItem ={setDuration} type={"la categoria de tu juego"}
+                                <Typography
+                                    sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Duracion:</Typography>
+                                <ComboBox data={productNames} selectedItem = {listingToEdit !== undefined ? listingToEdit.productDTO.duration :  duration } setSelectedItem ={setDuration} type={"la categoria de tu juego"}
                                 ></ComboBox >
                             </Box>
                         </Grid>
@@ -231,17 +255,22 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{ ...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Dificultad:</Typography>
-                                <ComboBox data={productNames} selectedItem = {difficulty } setSelectedItem ={setDifficulty} type={"la categoria de tu juego"}
+                                <ComboBox
+                                    data={productNames}
+                                    selectedItem = {listingToEdit !== undefined ? listingToEdit.productDTO.difficulty : difficulty }
+                                    setSelectedItem ={setDifficulty}
+                                    type={"la categoria de tu juego"}
                                 ></ComboBox >
                             </Box>
                         </Grid>
 
-
-
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{ ...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Categoria:</Typography>
-                                <ComboBox data={productNames} selectedItem = {category } setSelectedItem ={setCategory} type={"la categoria de tu juego"}
+                                <ComboBox
+                                    data={productNames}
+                                    selectedItem = {listingToEdit !== undefined ? listingToEdit.productDTO.category : category }
+                                    setSelectedItem ={setCategory} type={"la categoria de tu juego"}
                                 ></ComboBox >
                             </Box>
                         </Grid>
@@ -254,7 +283,7 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                                 <TextField
                                     fullWidth multiline rows={4}
                                     onChange={event => setProductDescription(event.target.value)}
-                                    defaultValue={productDescription}
+                                    defaultValue={listingToEdit !== undefined ? listingToEdit.productDTO.productDescription : productDescription}
                                     InputProps={{
                                         readOnly: productDescription !== "", // Bloquear si hay contenido
                                     }}
@@ -264,7 +293,7 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center'}}>
                             <Box sx={{...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular',width:{lg:'26%'}}}>Cantidad de jugadores:</Typography>
-                               <ComboBox data={productNames} selectedItem = {playerCounter } setSelectedItem ={setPlayerCount}  type={"la cantidad de jugadores"}></ComboBox>
+                               <ComboBox data={productNames} selectedItem = {listingToEdit !== undefined ? listingToEdit.productDTO.playerCounter:playerCounter } setSelectedItem ={setPlayerCount}  type={"la cantidad de jugadores"}></ComboBox>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sx={{...sx_dialog.formControl, alignItems:'center',}}>
@@ -277,7 +306,10 @@ const CreateListingDialog = ({open,handleClose, listingToEdit}) => {
                                     boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
 
                                 }}>Describi tu juego</Typography>
-                                <TextField fullWidth multiline rows={4} onChange={event => setDescription(event.target.value)} />
+                                <TextField
+                                            fullWidth multiline rows={4}
+                                           onChange={event => setDescription(event.target.value)}
+                                           defaultValue={listingToEdit !== undefined ? listingToEdit.description : ''}/>
                             </Box>
 
                         </Grid>
