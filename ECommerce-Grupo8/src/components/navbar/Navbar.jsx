@@ -10,7 +10,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import {Icon, TextField} from "@mui/material";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {NavLink, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {logOut} from "../../redux/slices/authSlice.js";
+
 
 
 
@@ -114,6 +117,8 @@ export default function Navbar() {
 
     const navbarList = [{title:'Home',route:'/'},{title:'Catalogo',route:'/catalogo'},{title:'Nosotros',route:'/nosotros'},{title:'Contacto',route:'/contacto'}]
     const [searchText, setSearchText] = useState('');
+    const { isLoading } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleSearch = () => {
         if(searchText === ''){
@@ -127,10 +132,24 @@ export default function Navbar() {
 
     }
 
-    const handleCartClick = () => {
+    const handleOptionsClick = (option) => {
         // Navega a la página de catálogo al hacer clic en el carrito
-        navigate('/login');
+        switch (option) {
+            case 'login':
+                navigate('/login');
+                break;
+            case 'micuenta':
+                navigate('/profile');
+                break;
+            case 'logout':
+                dispatch(logOut());
+                break;
+            default: return 'opcion no reconocida'
+
+        }
+
     };
+
 
     return (
         <Box >
@@ -138,7 +157,7 @@ export default function Navbar() {
                 <Toolbar sx={{...sx_navbar.layout_toolbar}} style={{padding:'0px'}}>
                     <Box sx={{...sx_navbar.logo}}>
                         <Typography variant="h6" component="div" >
-                            Logo
+                            Roll N' Play
                         </Typography>
                     </Box>
                   
@@ -173,7 +192,18 @@ export default function Navbar() {
                     </Box>
                     <Box sx={{...sx_navbar.login}}>
                         <IconButton><ShoppingCartIcon /></IconButton>
-                        <Button onClick={handleCartClick} color="inherit">Login</Button>
+                        {isLoading != true?
+                            <>
+                                <Button onClick={()=> handleOptionsClick('micuenta')} color="inherit">Mi cuenta</Button>
+                                <Button onClick={()=> handleOptionsClick('logout')} color="inherit">Logout</Button>
+                            </>
+                            :
+
+                            <Button onClick={()=> handleOptionsClick('login')} color="inherit">Login</Button>
+
+                        }
+
+
                     </Box>
 
                 </Toolbar>
