@@ -1,90 +1,52 @@
-import { useState, useEffect } from 'react';
-import { Container, Grid, Card, CardMedia, CardContent, Typography, Button } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import Carousel from 'react-bootstrap/Carousel';
-import Navbar from "../components/navbar/Navbar.jsx";
+import {sx_user_styles} from "../assets/styles/sx_user_styles.js";
+import {Box, Container, Grid, Typography} from "@mui/material";
+
+import Exhibitor from "../components/home/exhibitor/Exhibitor.jsx";
+import Carousel from "../components/home/carousel/Carousel.jsx";
+
+
+
 
 const Home = () => {
-  const [productos, setProducts] = useState([]);
+    return(
+        <Container  maxWidth={false} sx={{...sx_user_styles.container}}>
+            <Grid container sx={{...sx_user_styles.grid_container}} >
+                <Grid item xs={12} sm={6} md={4} lg={12} sx={{...sx_user_styles.grid_item}}>
+                    <Box sx={{...sx_user_styles.grid_item_title_container}}>
+                        <Box sx={{...sx_user_styles.grid_item_title_box}}>
+                            <Typography sx={{...sx_user_styles.grid_item_main_title}}>Tu Juego Ideal</Typography>
+                        </Box>
+                    </Box>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={12} sx={{...sx_user_styles.grid_item,...sx_user_styles.grid_item_dos}}>
+                   <Box sx={{...sx_user_styles.grid_item_dos_box_container}}>
+                       <Box  sx={{...sx_user_styles.grid_item_title_container}}>
+                           <Typography sx={{...sx_user_styles.grid_item_title}}>Mas vendidos!</Typography>
+                       </Box>
+                       <Box sx={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                           <Carousel></Carousel>
 
-  useEffect(() => {
-    fetch("http://localhost:3000/productos")
-      .then(response => response.json())
-      .then(data => setProducts(data))
-      .catch(error => console.error('Error fetching productos:', error));
-  }, );
+                       </Box>
+                   </Box>
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={12} sx={{...sx_user_styles.grid_item, ...sx_user_styles.grid_item_tres}}>
+                    <Box sx={{...sx_user_styles.grid_item_tres_box_container}}>
+                        <Box  sx={{...sx_user_styles.item_tres_box_title}}>
+                            <Typography sx={{...sx_user_styles.item_tres_typography}}>Agregados recientemente</Typography>
+                        </Box>
 
-  return (
-    <Container>
-      <Navbar />
 
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ width: '40%' }}>
 
-      <Carousel style={{padding: '20px'}}>
-        {productos && productos.length > 0 ? (
-          productos.map(producto => (
-            <Carousel.Item key={producto.id}>
-              <img
-                className="d-block w-100"
-                src={producto.img}
-                alt={producto.titulo}
-              />
-              <Carousel.Caption style={{ color: 'white', background: 'rgba(0, 0, 0, 0.7)', padding: '10px' }}>
-                <h3>{producto.titulo}</h3>
-                <p>{producto.detalle}</p>
-              </Carousel.Caption>
-            </Carousel.Item>
-          ))
-        ) : (
-          <Carousel.Item>
-            <Carousel.Caption>
-              <h3>No hay productos disponibles</h3>
-            </Carousel.Caption>
-          </Carousel.Item>
-        )}
-      </Carousel>
-      </div>
-      </div>
+                        <Box sx={{...sx_user_styles.item_tres_box_exhibitor}}>
+                            <Exhibitor></Exhibitor>
+                        </Box>
 
-        <Grid container spacing={3}>
-          { productos && productos.length > 0 ? (
-              productos.map(producto => (
-            <Grid item key={producto.id} xs={12} sm={6} md={4} lg={3}>
-              <Card>
-                <CardMedia
-                  component="img"
-                  height="200"
-                  image={producto.img}
-                  alt={producto.titulo}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {producto.titulo}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Detalle: {producto.detalle}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Precio: {producto.precio}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Categoría: {producto.Categoria}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Cantidad disponible: {producto.stock}
-                  </Typography>
-                </CardContent>
-              </Card>
+
+                    </Box>
+                </Grid>
             </Grid>
-          ))
-          ) : (
-            <Typography variant="body1">Cargando productos...</Typography>
-          )
-          }
-      </Grid>     
-    </Container>
-  );
-};
+        </Container>
+    )
+}
 
 export default Home;
