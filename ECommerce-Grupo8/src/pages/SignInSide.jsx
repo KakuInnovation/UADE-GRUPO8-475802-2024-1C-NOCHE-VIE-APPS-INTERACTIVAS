@@ -12,6 +12,10 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useFetchUserData, useLogin} from "../hooks/user-hooks.js";
+import {useDispatch} from "react-redux";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -29,15 +33,26 @@ function Copyright(props) {
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const login = useLogin();
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const handleSubmit = async (event) =>  {
+        event.preventDefault();
+         const data = new FormData(event.currentTarget);
+         const email = data.get("email");
+         const password = data.get("password");
+
+        const token = await  login(data.get("email"), data.get("password"),dispatch);
+        if(token !== ''){
+            navigate('/')
+        }
+
+
+
+
   };
 
   return (
@@ -114,7 +129,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link href="#" variant="body2">
+                  <Link href="/signup" variant="body2">
                     {"Don't have an account? Sign Up"}
                   </Link>
                 </Grid>
