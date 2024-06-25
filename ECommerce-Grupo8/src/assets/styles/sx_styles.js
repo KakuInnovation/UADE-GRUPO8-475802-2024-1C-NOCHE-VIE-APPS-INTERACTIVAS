@@ -85,7 +85,6 @@ const sx_cardsGrid = {
         textAlign:'center'
     }
 
-
 }
 
 export {sx_cardsGrid}
