@@ -1,14 +1,14 @@
 import {useEffect, useState} from "react";
+import {useSelector} from "react-redux";
 
 const useFetchGetCategories = async () => {
     const [categories, setCategories] = useState([]);
+    const token = useSelector(state => state.auth.token);
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'token': "Bearer " +  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0" +
-                "OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0Ypc" +
-                "Hc4WIZdClPLC06wMLzGTdMGhuiE9gXng"//localStorage.getItem("token"),
+            'token': "Bearer " +  token
         },
 
     };
@@ -24,13 +24,12 @@ const useFetchGetCategories = async () => {
 
 const useFetchProducts =  () => {
     const [products, setProducts] = useState([]);
+    const token = useSelector(state => state.auth.token);
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'token': "Bearer " +  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0" +
-                "OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0Ypc" +
-                "Hc4WIZdClPLC06wMLzGTdMGhuiE9gXng" //localStorage.getItem("token"),
+            'token': "Bearer " + token
         },
     };
 
@@ -48,13 +47,12 @@ const useFetchProducts =  () => {
 
 const useFetchPlayers =  () => {
     const [players, setPlayers] = useState([]);
+    const token = useSelector(state => state.auth.token);
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'token': "Bearer " +  "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0" +
-                "OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0Ypc" +
-                "Hc4WIZdClPLC06wMLzGTdMGhuiE9gXng"//localStorage.getItem("token"),
+            'token': "Bearer " +  token
         },
     };
 
@@ -72,13 +70,12 @@ const useFetchPlayers =  () => {
 
 const useFetchBrand =  () => {
     const [brands, setBrands] = useState([]);
+    const token = useSelector(state => state.auth.token);
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'token': "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0" +
-                "OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0Ypc" +
-                "Hc4WIZdClPLC06wMLzGTdMGhuiE9gXng"//localStorage.getItem("token"),
+            'token': "Bearer " + token
         },
     };
 
@@ -96,13 +93,12 @@ const useFetchBrand =  () => {
 
 const useFetchDifficulty =  () => {
     const [difficulty, setDifficulty] = useState([]);
+    const token = useSelector(state => state.auth.token);
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'token': "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0" +
-                "OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0Ypc" +
-                "Hc4WIZdClPLC06wMLzGTdMGhuiE9gXng"//localStorage.getItem("token"),
+            'token': "Bearer " + token
         },
     };
 
@@ -120,13 +116,12 @@ const useFetchDifficulty =  () => {
 
 const useFetchDuration =  () => {
     const [duration, setDuration] = useState([]);
+    const token = useSelector(state => state.auth.token);
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'token': "Bearer " + "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzb3lwdEBleGFtcGxlLmNvbSIsImlhdCI6MTcxODg2NDI0" +
-                "OCwicm9sZSI6IlVTRVIiLCJleHAiOjE3MjE0NTYyNDh9.lFF1Ct82U6vL-NOcvIu8ypu589OoQvf-IVsH1ItLHTTBB6MEbD0Ypc" +
-                "Hc4WIZdClPLC06wMLzGTdMGhuiE9gXng"//localStorage.getItem("token"),
+            'token': "Bearer " + token
         },
     };
 
