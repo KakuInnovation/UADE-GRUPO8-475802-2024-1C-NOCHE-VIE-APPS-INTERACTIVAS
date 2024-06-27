@@ -4,6 +4,8 @@ import CatalogView from "./CatalogView.jsx";
 import {useEffect, useState} from "react";
 
 import {useFetchListings} from "../../hooks/listing-hooks.js";
+import {useDispatch} from "react-redux";
+import {loadingFetch} from "../../redux/slices/listingsWithStockSlice.js";
 
 
 
@@ -16,13 +18,14 @@ const Layout = ({text}) => {
 
     const [products,setProducts] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
-
-    const productos = useFetchListings(selectedCategories);
+    const dispatch = useDispatch();
+    const productos = useFetchListings(selectedCategories,dispatch);
 
     useEffect(() => {
         // Actualiza el estado de los productos con los obtenidos del hook
         setProducts(productos);
     }, [productos]);
+
 
 
     return(

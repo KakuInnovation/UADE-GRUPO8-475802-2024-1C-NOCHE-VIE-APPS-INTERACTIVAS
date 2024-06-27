@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {failedListingFetch, fetchListingsWithStock, loadingFetch} from "../redux/slices/listingsWithStockSlice.js";
 
 const useFetchListingsCreate = () => {
     const [userId, setUserId] = useState("");
@@ -56,14 +57,15 @@ const useFetchListingDialog = (data) => {
 
 }
 
-const useFetchListings = (selectedCategories = []) => {
+const useFetchListings = (selectedCategories = [],dispatch) => {
     const [productos, setProducts] = useState([]);
-    const token = useSelector(state => state.auth.token);
+
+    dispatch(loadingFetch());
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': "Bearer " + token
+
         }
     };
 
@@ -74,8 +76,14 @@ const useFetchListings = (selectedCategories = []) => {
                     const response = await fetch("http://localhost:8080/listing/get-listings", options);
                     const data = await response.json();
                     setProducts(data);
+
+
+
+
+
                 } catch (error) {
                     console.error('Error fetching all listings:', error);
+                    dispatch(failedListingFetch(error));
                 }
             } else {
                 try {
@@ -122,6 +130,14 @@ const useFetchListings = (selectedCategories = []) => {
 
         fetchListings();
     }, [selectedCategories]);
+
+
+    useEffect(() => {
+        if (productos.length > 0) {
+            const listingStock = productos.filter(listing => listing.stock > 0);
+            dispatch(fetchListingsWithStock(listingStock));
+        }
+    }, [productos, dispatch]);
 
     return productos;
 };
