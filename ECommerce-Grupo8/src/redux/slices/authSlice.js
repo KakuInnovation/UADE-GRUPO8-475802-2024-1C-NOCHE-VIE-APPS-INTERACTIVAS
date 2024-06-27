@@ -6,6 +6,7 @@ const initialState = {
     password: '',
     token: '',
     isLoading: false,
+    isAuthenticated: false,
 };
 
 export const authSlice = createSlice({
@@ -20,6 +21,7 @@ export const authSlice = createSlice({
             state.email = action.payload.email;
             state.password = action.payload.password;
             state.token = action.payload.token;
+            state.isAuthenticated = true;
             alert(state.token)
 
 
@@ -34,11 +36,10 @@ export const authSlice = createSlice({
             state.email = '';
             state.password = '';
             state.token = '';
+            state.isAuthenticated = false;
         }
     },
 
 });
 
 export const { loadingLogin,fetchLogin,failedLogin,logOut } = authSlice.actions;
-
-
