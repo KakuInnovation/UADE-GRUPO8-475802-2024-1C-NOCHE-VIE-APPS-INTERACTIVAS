@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Card, CardContent, Typography } from '@mui/material';
 import ProductCard from "../../catalogo/comps/ProductCard.jsx";
+import {useSelector} from "react-redux";
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -48,54 +49,14 @@ const useStyles = makeStyles(() => ({
 
 const Exhibitor = () => {
     const classes = useStyles();
-    const items = [
-        { title: 'Card 1', description: 'Description for Card 1' },
-        { title: 'Card 2', description: 'Description for Card 2' },
-        { title: 'Card 3', description: 'Description for Card 3' },
-    ];
-     const listing = {
-        "listingId": null,
-        "title":"vendo monopoly",
-        "description": "vendo juego familiar",
-        "stock": 10,
-        "price": 99.99,
-        "userId": "093db954-b355-4108-ab38-fda866f30f02",
-        "productDTO": {
-            "productId": null,
-            "productName" : "monopoly",
-            "productDescription": "juego familiar",
-            "productCategory": {
-                "categoryId": 1,
-                "categoryName":"familiar"
-            },
-            "productPlayers":{
-                "playerId":3,
-                "numberOfPlayers":"4 - 10 personas"
-            },
-            "productPrice": 99,
-            "productBrand":{
-                "brandId": null,
-                "brandName": "hasbro"
-            }
-        },
-        "listingState":true,
-        "images": [
-            {
-                "imageUrl":"https://images.fravega.com/f500/b0229cfbc520ab09945c663336a3981f.jpg"
-            },
-            {
-                "imageUrl":"https://m.media-amazon.com/images/I/81oC5pYhh2L._AC_SL1500_.jpg"
-            }
-        ]
-
-    }
+    const items = useSelector(state => state.listing_stock.listingsWithStock);
 
     return (
         <div className={classes.root}>
             <div className={classes.carousel}>
                 {items.map((item, index) => (
                     <div key={index} className={classes.card} style={{ transform: `rotateY(${index * (360 / items.length)}deg) translateZ(150px)` }}>
-                        <ProductCard item={listing} key={index} />
+                        <ProductCard item={item} key={index} />
                     </div>
                 ))}
             </div>
