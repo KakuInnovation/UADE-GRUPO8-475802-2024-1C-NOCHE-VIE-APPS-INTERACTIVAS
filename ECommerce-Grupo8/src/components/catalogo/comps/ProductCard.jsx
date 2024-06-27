@@ -12,20 +12,31 @@ import {
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {sx_cardsGrid} from "../../../assets/styles/sx_styles.js";
+import {addToCart, decrementToCart, removeFromCart} from "../../../redux/slices/shoppingCartSlice.js";
+import {useDispatch, useSelector} from "react-redux";
 
 const ProductCard = ({item}) => {
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const shoppingCart = useSelector((state) => state.shopping_cart.shoppingCart);
     const goTo = (id) => {
         navigate(`/producto/${id}`);
     }
 
+    const handleAddToCart = (id) => {
+        dispatch(addToCart({ id, quantity:1 }));
+    };
+
+    const handleRemoveFromCart = (id) => {
+        dispatch(removeFromCart(id));
+    };
+    console.log(shoppingCart);
     return (
         <>
-            <Card sx={{...sx_cardsGrid.cardLayout,}} onClick={() => {
-                goTo(item.id)
-            }}>
-                <CardContent sx={{...sx_cardsGrid.card_content,}} style={{padding: "0px"}}>
+            <Card sx={{...sx_cardsGrid.cardLayout,}} >
+                <CardContent sx={{...sx_cardsGrid.card_content,}} style={{padding: "0px"}} onClick={() => {
+                    goTo(item.id)
+                }}>
                     <Box sx={{...sx_cardsGrid.box_title,}}>
                         <Typography sx={{...sx_cardsGrid.title,}}>{item.productDTO.productName}</Typography>
                     </Box>
@@ -81,8 +92,8 @@ const ProductCard = ({item}) => {
                 </CardContent>
                 <Divider sx={{width: '100%', height: '2px', backgroundColor: '#b1afaf'}}/>
                 <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
-                    <Button size="small" sx={{fontSize: '11px'}}>Agregar al carrito</Button>
-                    <Button size="small" sx={{fontSize: '11px'}}>Sacar del carrito</Button>
+                    <Button size="small" sx={{fontSize: '11px'}} onClick={() => handleAddToCart(item.listingId)}>Agregar al carrito</Button>
+                    <Button size="small" sx={{fontSize: '11px'}} onClick={() => handleRemoveFromCart(item.listingId)}>Sacar del carrito</Button>
                 </CardActions>
             </Card>
 
