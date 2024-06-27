@@ -3,6 +3,7 @@ import {Box, Container, Grid, Typography} from "@mui/material";
 
 import Exhibitor from "../components/home/exhibitor/Exhibitor.jsx";
 import Carousel from "../components/home/carousel/Carousel.jsx";
+import TemporaryDrawer from "../components/home/shopping-cart/ShoppingCart.jsx";
 
 
 
@@ -45,6 +46,7 @@ const Home = () => {
                     </Box>
                 </Grid>
             </Grid>
+
         </Container>
     )
 }

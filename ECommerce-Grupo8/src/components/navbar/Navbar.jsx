@@ -13,6 +13,8 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../redux/slices/authSlice.js";
+import {openDrawer} from "../../redux/slices/drawerSlice.js";
+import TemporaryDrawer from "../home/shopping-cart/ShoppingCart.jsx";
 
 
 
@@ -117,19 +119,18 @@ export default function Navbar() {
 
     const navbarList = [{title:'Home',route:'/'},{title:'Catalogo',route:'/catalogo'},{title:'Nosotros',route:'/nosotros'},{title:'Contacto',route:'/contacto'}]
     const [searchText, setSearchText] = useState('');
-    const { isLoading } = useSelector((state) => state.auth);
+    const { token } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const productQuantity = useSelector((state) => state.shopping_cart.productQuantity);
+
     const handleSearch = () => {
         if(searchText === ''){
             navigate('/')
-
-
         }
         else{
             navigate(`/catalogo/${searchText}`);
         }
-
     }
 
     const handleOptionsClick = (option) => {
@@ -191,8 +192,8 @@ export default function Navbar() {
 
                     </Box>
                     <Box sx={{...sx_navbar.login}}>
-                        <IconButton><ShoppingCartIcon /></IconButton>
-                        {isLoading != true?
+                        <IconButton onClick={() => dispatch(openDrawer())}><ShoppingCartIcon />{ productQuantity >0?<span>{productQuantity}</span>:''}</IconButton>
+                        {token !== ''?
                             <>
                                 <Button onClick={()=> handleOptionsClick('micuenta')} color="inherit">Mi cuenta</Button>
                                 <Button onClick={()=> handleOptionsClick('logout')} color="inherit">Logout</Button>
@@ -208,6 +209,7 @@ export default function Navbar() {
 
                 </Toolbar>
             </AppBar>
+            <TemporaryDrawer></TemporaryDrawer>
         </Box>
     );
 }
