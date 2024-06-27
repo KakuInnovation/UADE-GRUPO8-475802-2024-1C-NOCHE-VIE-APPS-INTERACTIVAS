@@ -192,7 +192,26 @@ export default function Navbar() {
 
                     </Box>
                     <Box sx={{...sx_navbar.login}}>
-                        <IconButton onClick={() => dispatch(openDrawer())}><ShoppingCartIcon />{ productQuantity >0?<span>{productQuantity}</span>:''}</IconButton>
+                        <IconButton onClick={() => dispatch(openDrawer())} sx={{backgroundColor:'white',color:'#636363',  border:'2px solid #b1afaf'}}>
+                            <ShoppingCartIcon />{ productQuantity >0?<Typography
+                            sx={{
+                                position: 'absolute',
+                                top: '-8px',
+                                right: '-8px',
+                                backgroundColor: '#f50057',
+                                color: '#fff',
+                                borderRadius: '50%',
+
+                                width: '24px',
+                                height: '24px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '0.8rem',
+                            }}
+
+                        >{productQuantity}</Typography>:''}
+                        </IconButton>
                         {token !== ''?
                             <>
                                 <Button onClick={()=> handleOptionsClick('micuenta')} color="inherit">Mi cuenta</Button>

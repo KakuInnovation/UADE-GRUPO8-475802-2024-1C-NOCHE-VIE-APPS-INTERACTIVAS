@@ -17,7 +17,7 @@ import SignUp from "./pages/SignUp.jsx";
 
 import {Provider, useSelector} from "react-redux";
 import store from './redux/store.js'
-import Home from "./pages/home.jsx";
+import Home from "./pages/Home.jsx";
 import ProtectedRouteProfile from "./protected_routes/PrivateRoute.jsx";
 
 
