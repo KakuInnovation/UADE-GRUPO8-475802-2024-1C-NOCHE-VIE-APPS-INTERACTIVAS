@@ -50,12 +50,13 @@ const useStyles = makeStyles(() => ({
 const Exhibitor = () => {
     const classes = useStyles();
     const items = useSelector(state => state.listing_stock.listingsWithStock);
+    const radius = 270;
 
     return (
         <div className={classes.root}>
             <div className={classes.carousel}>
                 {items.map((item, index) => (
-                    <div key={index} className={classes.card} style={{ transform: `rotateY(${index * (360 / items.length)}deg) translateZ(150px)` }}>
+                    <div key={index} className={classes.card} style={{ transform: `rotateY(${index * (360 / items.length)}deg) translateZ(${radius}px)`}}>
                         <ProductCard item={item} key={index} />
                     </div>
                 ))}

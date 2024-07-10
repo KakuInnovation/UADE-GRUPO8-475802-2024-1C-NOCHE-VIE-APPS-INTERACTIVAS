@@ -16,7 +16,7 @@ const slide = keyframes`
 
 const Carousel = () => {
     const cards = useSelector(state => state.listing_stock.listingsWithStock);
-
+    const isLoading = useSelector(state => state.auth.isLoading);
     return (
         <Box
             sx={{
@@ -49,7 +49,7 @@ const Carousel = () => {
 
                     </ProductCard>
                 ))}
-                {/* Duplicar las tarjetas para un bucle continuo */}
+
                 {cards.map((card) => (
 
                     <ProductCard item={card} key={`duplicate-${card.id}`}>
