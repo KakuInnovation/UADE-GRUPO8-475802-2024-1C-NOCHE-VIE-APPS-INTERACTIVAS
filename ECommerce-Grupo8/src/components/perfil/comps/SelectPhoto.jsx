@@ -1,47 +1,35 @@
 import { Box, Button, ImageList, ImageListItem } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../firebase/firebase_config.js";
+import { useSelector } from "react-redux";
 
-const SelectPhoto = () => {
-    const [images, setImages] = useState(Array(4).fill(null));
+const SelectPhoto = ({ images, setImages }) => {
+    const listingToEdit = useSelector(state => state.user_slice.userListings);
 
-    const handleFileChange = (event, index) => {
+    useEffect(() => {
+        if (listingToEdit) {
+            setImages(listingToEdit.images.map(img => ({ imagesId: img.imagesId, imageUrl: img.imageUrl })));
+        }
+    }, [listingToEdit, setImages]);
+
+    const handleFileChange = async (event, index) => {
         const file = event.target.files[0];
         if (file) {
+            const storageRef = ref(storage, `images/${file.name}`);
+            const snapshot = await uploadBytes(storageRef, file);
+            const downloadURL = await getDownloadURL(snapshot.ref);
+
             const newImages = [...images];
-            newImages[index] = URL.createObjectURL(file);
+            newImages[index] = { imagesId: newImages[index]?.imagesId || null, imageUrl: downloadURL };
             setImages(newImages);
         }
     };
 
     const handleImageClick = (index) => {
         document.getElementById(`upload-photo-input-${index}`).click();
-    };
-
-    const handleSubmit = async () => {
-        const formData = new FormData();
-        images.forEach((image, index) => {
-            if (image) {
-                formData.append(`photo${index}`, image);
-            }
-        });
-
-        try {
-            const response = await fetch('http://localhost:8080/%userid/listing-products', {
-                method: 'POST',
-                body: formData,
-            });
-
-            if (!response.ok) {
-                throw new Error('Error en la respuesta del servidor');
-            }
-
-            const data = await response.json();
-            console.log('Fotos cargadas exitosamente:', data);
-        } catch (error) {
-            console.error('Error al cargar las fotos:', error);
-        }
     };
 
     return (
@@ -66,7 +54,7 @@ const SelectPhoto = () => {
                 cols={2}
                 rowHeight={164}
             >
-                {images.map((image, index) => (
+                {images ? images.map((image, index) => (
                     <ImageListItem
                         key={index}
                         sx={{
@@ -82,7 +70,7 @@ const SelectPhoto = () => {
                     >
                         {image ? (
                             <img
-                                src={image}
+                                src={image.imageUrl}
                                 alt={`Imagen ${index + 1}`}
                                 loading="lazy"
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
@@ -105,11 +93,8 @@ const SelectPhoto = () => {
                             onChange={(event) => handleFileChange(event, index)}
                         />
                     </ImageListItem>
-                ))}
+                )) : ""}
             </ImageList>
-            <Button onClick={handleSubmit} variant="contained" sx={{ mt: 2 }}>
-                Subir Fotos
-            </Button>
         </Box>
     );
 };
