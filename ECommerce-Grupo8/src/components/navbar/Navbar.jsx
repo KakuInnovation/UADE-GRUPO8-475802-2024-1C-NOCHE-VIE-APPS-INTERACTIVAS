@@ -15,7 +15,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {logOut} from "../../redux/slices/authSlice.js";
 import {openDrawer} from "../../redux/slices/drawerSlice.js";
 import TemporaryDrawer from "../home/shopping-cart/ShoppingCart.jsx";
-
+import {fetchSearchedText} from "../../redux/slices/listingsSlice.js";
+import Cookies from "js-cookie";
 
 
 
@@ -117,18 +118,24 @@ export default function Navbar() {
 
     }
 
+
+
     const navbarList = [{title:'Home',route:'/'},{title:'Catalogo',route:'/catalogo'},{title:'Nosotros',route:'/nosotros'},{title:'Contacto',route:'/contacto'}]
     const [searchText, setSearchText] = useState('');
-    const { token } = useSelector((state) => state.auth);
+    const  token = useSelector((state) => state.auth.token);
+    const userId = sessionStorage.getItem("userId");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const productQuantity = useSelector((state) => state.shopping_cart.productQuantity);
-
+    const t = sessionStorage.getItem("token");
+    const role = sessionStorage.getItem("rol");
+    const email = sessionStorage.getItem("email");
     const handleSearch = () => {
         if(searchText === ''){
-            navigate('/')
+            navigate('/catalogo')
         }
         else{
+            dispatch( fetchSearchedText(searchText))
             navigate(`/catalogo/${searchText}`);
         }
     }
@@ -140,10 +147,15 @@ export default function Navbar() {
                 navigate('/login');
                 break;
             case 'micuenta':
-                navigate('/profile');
+
+                navigate(`/profile/${email}/${userId}`);
+                break;
+            case 'admin':
+                navigate('/adminView');
                 break;
             case 'logout':
                 dispatch(logOut());
+                navigate('/');
                 break;
             default: return 'opcion no reconocida'
 
@@ -212,9 +224,12 @@ export default function Navbar() {
 
                         >{productQuantity}</Typography>:''}
                         </IconButton>
-                        {token !== ''?
+                        {t?
                             <>
                                 <Button onClick={()=> handleOptionsClick('micuenta')} color="inherit">Mi cuenta</Button>
+                                {role === 'ADMIN' && (
+                                    <Button onClick={() => handleOptionsClick('admin')} color="inherit">ADMIN</Button>
+                                )}
                                 <Button onClick={()=> handleOptionsClick('logout')} color="inherit">Logout</Button>
                             </>
                             :
