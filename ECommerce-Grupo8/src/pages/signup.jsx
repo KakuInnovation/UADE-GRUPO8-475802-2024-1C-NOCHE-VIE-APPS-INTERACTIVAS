@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {signUp} from "../hooks/user-hooks.js";
 
 function Copyright(props) {
   return (
@@ -34,10 +35,18 @@ export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const userDTO = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      address: data.get("address"),
+      document:data.get("document"),
+      phoneNumber: data.get("phoneNumber"),
       email: data.get('email'),
       password: data.get('password'),
-    });
+      role:'USER',
+    }
+
+    signUp(userDTO)
   };
 
   return (
@@ -100,6 +109,39 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    name="address"
+                    label="Direccion"
+                    type="address"
+                    id="address"
+                    autoComplete="new-address"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    name="document"
+                    label="Documento"
+                    type="document"
+                    id="document"
+                    autoComplete="new-document"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                    required
+                    fullWidth
+                    name="phoneNumber"
+                    label="Telefono"
+                    type="phoneNumber"
+                    id="phoneNumber"
+                    autoComplete="new-phoneNumber"
                 />
               </Grid>
               <Grid item xs={12}>

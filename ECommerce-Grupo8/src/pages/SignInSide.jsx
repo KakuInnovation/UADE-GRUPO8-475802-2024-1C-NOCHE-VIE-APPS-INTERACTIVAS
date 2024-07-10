@@ -12,11 +12,11 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import {useFetchUserData, useLogin} from "../hooks/user-hooks.js";
+import {fetchUserData, useFetchUserData, useLogin} from "../hooks/user-hooks.js";
 import {useDispatch} from "react-redux";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-
+import Cookies from 'js-cookie';
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -47,8 +47,11 @@ export default function SignInSide() {
 
         const token = await  login(data.get("email"), data.get("password"),dispatch);
         if(token !== ''){
+            fetchUserData(email,token, dispatch);
+
             navigate('/')
         }
+
 
 
 
