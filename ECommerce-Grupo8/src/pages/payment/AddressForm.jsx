@@ -37,98 +37,26 @@ export default function AddressForm() {
                 <Grid item xs={12}>
                     <TextField
                         required
-                        id="address1"
-                        name="address1"
+                        id="username"
+                        name="username"
                         label="Correo electronico"
                         fullWidth
                         autoComplete="Correo electronico"
                         variant="standard"
                     />
                 </Grid>
-                <Grid item xs={12} sm={12}>
-                    <TextField
-                        required
-                        id="address1"
-                        name="address1"
-                        label="Horario de contacto"
-                        fullWidth
-                        autoComplete="Horario de contacto"
-                        variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={12}>
-                    <TextField
-                        required
-                        id="address1"
-                        name="address1"
-                        label="Pais"
-                        fullWidth
-                        autoComplete="Pais"
-                        variant="standard"
-                    />
-                </Grid>
-
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="city"
-                        name="city"
-                        label="City"
-                        fullWidth
-                        autoComplete="shipping address-level2"
-                        variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        id="state"
-                        name="state"
-                        label="State/Province/Region"
-                        fullWidth
-                        variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="zip"
-                        name="zip"
-                        label="Zip / Postal code"
-                        fullWidth
-                        autoComplete="shipping postal-code"
-                        variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
-                        required
-                        id="country"
-                        name="country"
-                        label="Country"
-                        fullWidth
-                        autoComplete="shipping country"
-                        variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12} md={12}>
-                    <TextField
-                        label="Mensaje"
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        multiline
-                        name="mensaje"
-
-                        rows={4}
-                    />
-
-                </Grid>
                 <Grid item xs={12}>
-                    <FormControlLabel
-                        control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-                        label="Use this address for payment details"
+                    <TextField
+                        required
+                        id="address"
+                        name="address"
+                        label="Direccion"
+                        fullWidth
+                        autoComplete="Direccion"
+                        variant="standard"
                     />
                 </Grid>
+
             </Grid>
         </React.Fragment>
     );

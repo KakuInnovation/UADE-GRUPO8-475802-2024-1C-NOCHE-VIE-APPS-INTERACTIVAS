@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
+import {useDispatch, useSelector} from "react-redux";
+import {fetchBuy} from "../../hooks/sales-hooks.js";
 
 const steps = ['Datos del cliente', 'Metodos de Pago', 'Revision de Mensaje'];
 
@@ -32,9 +34,16 @@ function getStepContent(step) {
 
 export default function Checkout() {
     const [activeStep, setActiveStep] = React.useState(0);
-
+    const shoppingCart = useSelector (state => state.shopping_cart.shoppingCart);
+    const subtotal = useSelector(state => state.shopping_cart.subtotal);
+    const userId = useSelector(state => state.auth.userId);
+    const token = useSelector(state => state.auth.token);
+    const dispatch =  useDispatch();
     const handleNext = () => {
         setActiveStep(activeStep + 1);
+        if (activeStep === steps.length - 1) {
+            fetchBuy(shoppingCart,subtotal,dispatch)
+        }
     };
 
     const handleBack = () => {
