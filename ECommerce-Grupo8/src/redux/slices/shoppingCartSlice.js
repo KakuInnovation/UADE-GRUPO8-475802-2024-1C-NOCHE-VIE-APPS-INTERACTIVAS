@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
 
 export const shoppingCartSlice = createSlice({
     name: 'shoppingCart',
@@ -7,6 +7,7 @@ export const shoppingCartSlice = createSlice({
         listings: [],
         productQuantity: 0,
         subtotal:0,
+        coupon:"",
     },
     reducers: {
         setListings: (state, action) => {
@@ -15,7 +16,7 @@ export const shoppingCartSlice = createSlice({
         addToCart: (state, action) => {
             const { id, quantity } = action.payload;
             const listingToAdd = state.listings.find(item => item.listingId === id);
-
+            console.log(state.listings);
             if (listingToAdd && listingToAdd.stock >= quantity) {
                 const existingItemIndex = state.shoppingCart.findIndex(item => item.listingId === id);
 
@@ -71,9 +72,25 @@ export const shoppingCartSlice = createSlice({
                 state.subtotal -= (listingToDelete.price) * listingToDelete.quantity;
             }
         },
+        sellProducts: (state) => {
+            console.log(state.shoppingCart);
+        },
+        applyDiscount: (state,action) => {
+            const {coupon,discount} = action.payload;
+            state.coupon = coupon;
+            state.subtotal = state.subtotal - (discount * state.subtotal / 100);
+            alert(state.subtotal);
+
+        }
     },
 });
 
-export const { setListings, addToCart, decrementToCart, removeFromCart } = shoppingCartSlice.actions;
+export const { setListings,
+    addToCart,
+    decrementToCart,
+    removeFromCart,
+    sellProducts,
+    applyDiscount,
+} = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;
