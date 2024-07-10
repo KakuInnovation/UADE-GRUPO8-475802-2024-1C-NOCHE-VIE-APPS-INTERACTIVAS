@@ -21,6 +21,8 @@
     "bootstrap": "^5.3.3",
     "embla-carousel-react": "^8.1.5",
     "express": "^4.19.2",
+    "firebase": "^10.12.2",
+    "js-cookie": "^3.0.5",
     "json-server": "^1.0.0-alpha.23",
     "primeicons": "^7.0.0",
     "primereact": "^10.6.6",

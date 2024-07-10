@@ -3,14 +3,14 @@ import {Navigate, Outlet, Route} from "react-router-dom";
 import React from "react";
 
 // eslint-disable-next-line react/prop-types
-const PrivateRouteProfile =  ({children}) => {
-    const token = sessionStorage.getItem("token");
+const PrivateAdminRoute =  ({children}) => {
+    const rol = sessionStorage.getItem("rol");
 
 
-    if (!token) {
+    if (rol !== "ADMIN") {
         return <Navigate to="/login" replace />;
     }
     return children;
 }
 
-export default PrivateRouteProfile;
+export default PrivateAdminRoute;
