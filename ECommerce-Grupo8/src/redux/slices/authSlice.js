@@ -4,9 +4,12 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     email: '',
     password: '',
+    userId: '',
     token: '',
-    isLoading: false,
+    isLoading: null,
     isAuthenticated: false,
+    role:'',
+    userData: null
 };
 
 export const authSlice = createSlice({
@@ -18,12 +21,12 @@ export const authSlice = createSlice({
         },
         fetchLogin : (state,action) => {
             state.isLoading = false;
-            state.email = action.payload.email;
-            state.password = action.payload.password;
-            state.token = action.payload.token;
+            state.email =  sessionStorage.getItem('email')||action.payload.email;
+            state.password = sessionStorage.getItem('password')||action.payload.password;
+            state.token =  sessionStorage.getItem('token')|| action.payload.token;
+            state.userId =  sessionStorage.getItem('userId')|| action.payload.userId;
             state.isAuthenticated = true;
-            alert(state.token)
-
+            state.role =  sessionStorage.getItem('role')|| action.payload.role;
 
 
         },
@@ -36,10 +39,30 @@ export const authSlice = createSlice({
             state.email = '';
             state.password = '';
             state.token = '';
+            state.userId ='';
             state.isAuthenticated = false;
+            state.role='';
+            state.userData = null;
+            sessionStorage.removeItem('email');
+            sessionStorage.removeItem('token');
+            sessionStorage.removeItem('userId');
+            sessionStorage.removeItem('role');
+        },
+        setUserData: (state, action) => {
+            state.userData = action.payload;
         }
+
+
+
     },
 
 });
 
-export const { loadingLogin,fetchLogin,failedLogin,logOut } = authSlice.actions;
+export const {
+    loadingLogin,
+    fetchLogin,
+    failedLogin,
+    logOut,
+    setUserData
+}
+    = authSlice.actions;
