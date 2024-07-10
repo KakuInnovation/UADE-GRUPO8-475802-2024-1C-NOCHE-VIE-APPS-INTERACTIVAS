@@ -20,34 +20,49 @@ const ProductCard = ({item}) => {
     const dispatch = useDispatch();
     const shoppingCart = useSelector((state) => state.shopping_cart.shoppingCart);
     const goTo = (id) => {
-        navigate(`/producto/${id}`);
+
+        navigate(`/listing/${id}`);
     }
 
     const handleAddToCart = (id) => {
+
         dispatch(addToCart({ id, quantity:1 }));
     };
 
     const handleRemoveFromCart = (id) => {
         dispatch(removeFromCart(id));
     };
-    console.log(shoppingCart);
+
     return (
         <>
-            <Card sx={{...sx_cardsGrid.cardLayout,}} >
-                <CardContent sx={{...sx_cardsGrid.card_content,}} style={{padding: "0px"}} onClick={() => {
-                    goTo(item.id)
-                }}>
-                    <Box sx={{...sx_cardsGrid.box_title,}}>
-                        <Typography sx={{...sx_cardsGrid.title,}}>{item.productDTO.productName}</Typography>
+            <Card sx={{...sx_cardsGrid.cardLayout, cursor: item.stock > 0? "pointer":"default", filter:item.stock > 0?"brightness(100%)" : "brightness(50%)"  }} >
+
+                <CardContent sx={{...sx_cardsGrid.card_content,}} style={{padding: "0px"}} onClick={item.stock > 0 ? () => goTo(item.listingId) : null}>
+                    <Box sx={{...sx_cardsGrid.box_title, display:"flex", flexDirection:'column', gap:'5px'}}>
+                        <Typography sx={{...sx_cardsGrid.title,fontSize:'18px'}}>{item.productDTO.productName}</Typography>
+
+
                     </Box>
                     <Box sx={{...sx_cardsGrid.box_img,}}>
                         <CardMedia
                             component="img"
                             height="30%"
-                            image={item.images[0].imageUrl}
+                            image={item.images[0] !== null?item.images[0].imageUrl:""}
                             alt="game"
                             sx={{...sx_cardsGrid.img}}
                         />
+                        <Typography sx={{display:item.stock<=0? "flex":"none" ,
+                            color:"white",
+                            backgroundColor:'black',
+                            width:"30%",
+                            justifyContent:'center',
+                            padding:'2px',
+                            borderRadius:'20px',
+                            position: 'absolute',
+                            top:'60px',
+                            right:"200px"
+
+                        }}>Sin stock</Typography>
                     </Box>
                     <Box sx={{...sx_cardsGrid.box_description}}>
                         <List sx={{
@@ -90,8 +105,8 @@ const ProductCard = ({item}) => {
                         </List>
                     </Box>
                 </CardContent>
-                <Divider sx={{width: '100%', height: '2px', backgroundColor: '#b1afaf'}}/>
-                <CardActions sx={{display: 'flex', justifyContent: 'center'}}>
+                <Divider sx={{display: item.stock>0?'flex':"none",width: '100%', height: '2px', backgroundColor: '#b1afaf'}}/>
+                <CardActions sx={{display: item.stock>0?'flex':"none", justifyContent: 'center'}}>
                     <Button size="small" sx={{fontSize: '11px'}} onClick={() => handleAddToCart(item.listingId)}>Agregar al carrito</Button>
                     <Button size="small" sx={{fontSize: '11px'}} onClick={() => handleRemoveFromCart(item.listingId)}>Sacar del carrito</Button>
                 </CardActions>

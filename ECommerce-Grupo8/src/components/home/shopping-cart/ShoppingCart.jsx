@@ -10,7 +10,7 @@ import {
     Divider,
     Box,
     Button,
-    Grid, Typography
+    Grid, Typography, TextField
 } from '@mui/material';
 
 import {closeDrawer} from "../../../redux/slices/drawerSlice.js";
@@ -19,9 +19,16 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import {sx_drawer_styles} from "../../../assets/styles/home/sx_drawer_styles.js";
-import {addToCart, decrementToCart, removeFromCart, setListings} from "../../../redux/slices/shoppingCartSlice.js";
+import {
+    addToCart, applyDiscount,
+    decrementToCart,
+    removeFromCart,
+    sellProducts,
+    setListings
+} from "../../../redux/slices/shoppingCartSlice.js";
 import OutlinedAlerts from "./OutlinedAlerts.jsx";
 import Alert from "@mui/material/Alert";
+import {useNavigate} from "react-router-dom";
 const TemporaryDrawer = () => {
     const dispatch = useDispatch();
     const isOpen = useSelector((state) => state.navbar_drawer.open);
@@ -29,6 +36,63 @@ const TemporaryDrawer = () => {
     const shoppingCart = useSelector(state => state.shopping_cart.shoppingCart);
     const subtotal = useSelector(state => state.shopping_cart.subtotal).toFixed(2);
     const [alertVisible, setAlertVisible] = useState(false);
+    const navigate = useNavigate();
+    const token = sessionStorage.getItem("token");
+    const [inputValue, setInputValue] = useState('');
+    const [couponSubmited, setCouponSubmited] = useState(false);
+    const coupons = {
+        "PROMO5%":5,
+        "PROMO10%":10,
+        "PROMO20%": 20,
+        "PROMO30%": 30,
+        "PROMO40%":40,
+        "PROMO50%":50,
+    }
+
+    const handleClickDiscount = (inputValue) => {
+        let coupon = "";
+        switch (inputValue.trim()){
+            case "PROMO5%":
+                coupon = "PROMO5%";
+                dispatch(applyDiscount({coupon,discount:5}));
+                setCouponSubmited(true)
+                break;
+            case "PROMO10%":
+                coupon = "PROMO10%";
+                dispatch(applyDiscount({coupon,discount:10}));
+                setCouponSubmited(true)
+                break;
+            case "PROMO20%":
+                coupon = "PROMO20%";
+                dispatch(applyDiscount({coupon,discount:20}));
+                setCouponSubmited(true)
+                break;
+            case "PROMO30%":
+                coupon = "PROMO30%";
+                dispatch(applyDiscount({coupon,discount:30}));
+                setCouponSubmited(true)
+                break;
+            case "PROMO40%":
+                coupon = "PROMO40%";
+                dispatch(applyDiscount({coupon,discount:40}));
+                setCouponSubmited(true)
+                break;
+            case "PROMO50%":
+                coupon = "PROMO50%";
+                dispatch(applyDiscount({coupon,discount:50}));
+                setCouponSubmited(true)
+                break;
+            default:
+                alert("CUPON NO VALIDO");
+        }
+
+
+
+
+
+
+    }
+
 
     const showAlert = () => {
         setAlertVisible(true);
@@ -50,6 +114,16 @@ const TemporaryDrawer = () => {
     const handleRemoveFromCart = (id) => {
         dispatch(removeFromCart(id));
     };
+
+    const handleFinishOperation = () => {
+        if(token){
+            navigate('/payment')
+        }else{
+            navigate('/login')
+        }
+
+
+    }
 
     const DrawerList = (
         <Box sx={{...sx_drawer_styles.box_container  }} role="presentation" >
@@ -95,13 +169,36 @@ const TemporaryDrawer = () => {
                 }
             </Grid>
             <Box sx={{...sx_drawer_styles.box_container_subtotal}}>
+                <Box sx={{...sx_drawer_styles.subtotal, flexDirection:'column', justifyContent:'center',alignItems:'center',height:'120px',gap:'10px'}}>
+                    <Typography sx={{backgroundColor:'#ccc3c3', padding:'10px', borderRadius:'50px'}}>Ingresa tu cupon!</Typography>
+                    <Box sx={{display:'flex',backgroundColor:'#ccc3c3', padding:'10px'}}>
+                        <TextField
+                            value={inputValue}
+                            onChange={(e) => setInputValue(e.target.value)}
+                            label={couponSubmited?"":"Ingresa tu cupon"}
+                            variant="outlined"
+                            disabled={couponSubmited}
+                            inputProps={{
+                                style: {
+                                    padding: 10,
+                                    height:'20px',
+                                    width:'120px'
+                                }
+                            }}
+
+                        ></TextField>
+                        <Button disabled={couponSubmited} onClick={()=> handleClickDiscount(inputValue)}>Aplicar</Button>
+                    </Box>
+                </Box>
+            </Box>
+            <Box sx={{...sx_drawer_styles.box_container_subtotal}}>
                 <Box sx={{...sx_drawer_styles.subtotal}}>
                     <Typography>Subtotal:</Typography>
                     <Typography>${subtotal}</Typography>
                 </Box>
             </Box>
             <Box sx={{...sx_drawer_styles.button_container}}>
-                <Button sx={{...sx_drawer_styles.button_checkout}}>Finalizar compra</Button>
+                <Button sx={{...sx_drawer_styles.button_checkout}} onClick={handleFinishOperation}>Finalizar compra</Button>
             </Box>
 
         </Box>
