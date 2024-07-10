@@ -46,10 +46,7 @@ export const sx_user_styles = {
         fontSize: {xs:'35px'},
         padding:'10px',
         color:'#626161',
-
-
     },
-
 
     grid_item_title: {
         fontFamily:'Tisa Sans Pro Bold',
