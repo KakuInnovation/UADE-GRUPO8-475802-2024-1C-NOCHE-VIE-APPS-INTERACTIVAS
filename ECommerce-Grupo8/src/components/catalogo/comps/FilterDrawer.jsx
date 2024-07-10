@@ -13,6 +13,9 @@ import {useState} from "react";
 
 const FilterDrawer = ({open,categories,handleClose,setCategory,setCardData,jsonData,cardData , category,name}) => {
     const [item, setItem] = useState('');
+    const data = {
+
+    }
     const [checkedItems, setCheckedItems] = useState({
         item1: false,
         item2: false,
@@ -39,9 +42,9 @@ const FilterDrawer = ({open,categories,handleClose,setCategory,setCardData,jsonD
     };
 
     const handleApplyClick = () => {
-        console.log(item);
+
         setCardData( [jsonData.filter(row => row[name.toLowerCase()] === item) ] );
-        console.log(cardData);
+
     };
 
 

@@ -1,11 +1,13 @@
 import {Box, Button, createTheme, ThemeProvider, Typography} from "@mui/material";
-import {data_navbar} from "../../utils/data_components/data.js";
+
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import {useEffect, useState} from "react";
 
 import '../../assets/fonts/Tisa/Tisa.css'
 import '../../assets/fonts/Inter/Inter.css'
+import {useSelector} from "react-redux";
+import {sideBar_sx} from "../../assets/styles/listings/sidebar_filter_sx.js";
 
 
 const theme = createTheme({
@@ -24,71 +26,41 @@ const SidebarFilter = (props) => {
 
 
 
-    const sideBar_sx = {
-        layout:{
-            display:{xs:'',md:"flex"},
-            backgroundImage:  'radial-gradient(circle at 50% -20.71%, #bae0e6 0, #bbe0e9 6.25%, #bcdfeb 12.5%, ' +
-                              '#bedfed 18.75%, #c0deef 25%, #c3ddf0 31.25%, #c6dcf1 37.5%, #c9dbf2 43.75%, #cddaf2 50%, #d1d9f2 56.25%, ' +
-                              '#d5d8f1 62.5%, #d9d7f0 68.75%, #ddd6ee 75%, #e1d5ed 81.25%, #e4d4ea 87.5%, #e8d3e8 93.75%, #ebd2e5 100%)',
-            flexDirection:'column',
-            justifyContent:'center',
 
-            boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
-        },
-        apply:{
-            display:{xs:'',md:'flex'},
-            justifyContent: {xs:'',md:'end'},
-            padding:{xs:'',md:"10px"},
-            paddingRight:{xs:'',md:"12px"},
-            alignItems:'center',
+    const brand = useSelector(state => state.listing_stock.brands);
+    const difficulties = useSelector(state => state.listing_stock.difficulties);
+    const duration = useSelector(state => state.listing_stock.durations);
+    const categories = useSelector(state => state.listing_stock.categories);
+    const players = useSelector(state => state.listing_stock.players);
 
-            borderBottom:{xs:'',md:"2px solid #e4e4e4"},
+    const data_navbar = [
+        {
+            title: "Categoria",
+            tag: categories.map((item) => item.categoryName),
         },
-        button:{
-            color:'#636363',
-            border:'1px solid #fffefe',
-
-            marginRight:'10px',
+        {
+            title:"Dificultad",
+            tag: difficulties.map((item) => item.difficultyName),
         },
-        types:{
-            display:{xs:'',md:"flex"},
-            flexDirection:'column',
-            gap:'20px',
-            padding:{xs:'',md:"20px"},
+        {
+            title:"Duracion",
+            tag: duration.map(item => item.durationName),
         },
-        title:{
-            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-            padding:{md:'5px'},
-            border:{xs:'',md:"2px solid #e4e4e4"},
-            display:'flex',
+        {
+            title:"Marca",
+            tag: brand.map(item => item.brandName),
         },
-        category:{
-            display:{xs:'',md:"flex"},
-            flexDirection:'column',
-            gap:{xs:'',md:'5px'},
-            border:{xs:'',md:"2px solid #e4e4e4"},
-            boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-
-        },
-        item_category:{
-            display:{xs:'',md:"flex"},
-            flexDirection:'column',
-            padding:{xs:'',md:'10px'}
-        },
-        title_2:{
-            fontFamily:'Tisa Sans Pro Regular',
-            fontSize:'15px',
-            display:'flex',
-            justifyContent:'center',
-            alignItems: 'center',
-            color:'#636363',
+        {
+            title:"Cantidad de jugadores",
+            tag: players.map(item => item.numberOfPlayers),
         }
-    }
+
+    ]
 
 
 
     const handleChange = (event, category, tag) => {
-        const categoryType = category.toLowerCase(); // Asume que el título del item es el tipo de categoría
+        const categoryType = category.toLowerCase(); // Asume que el título del item es el tipo de categoria
         const tagWithType = `${categoryType}:${tag}`;
 
         // eslint-disable-next-line react/prop-types
