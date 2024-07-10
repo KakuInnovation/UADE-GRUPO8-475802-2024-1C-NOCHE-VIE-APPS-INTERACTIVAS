@@ -7,13 +7,21 @@ import Listings from "../components/perfil/Listings.jsx";
 import Shopping from "../components/perfil/Shopping.jsx";
 import Sales from "../components/perfil/Sales.jsx";
 import CreateListing from "../components/perfil/comps/CreateListing.jsx";
-import {useFetchUserData} from "../hooks/user-hooks.js";
+import {fetchUserData, useFetchUserData} from "../hooks/user-hooks.js";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import {setUserListings} from "../redux/slices/userSlice.js";
+import {getListingByUserMail} from "../hooks/listing-hooks.js";
+import {fetchSalesByUser, getBuys} from "../hooks/sales-hooks.js";
+import {useParams} from "react-router-dom";
+
+
 
 const Perfil = () => {
     const background = 'radial-gradient(circle at 50% -20.71%, #d6d4f1 0, #dad3ef 6.25%, #dfd2ed 12.5%, #e3d0ea 18.75%, #e7cfe8 25%, #eacfe4 31.25%, #edcee1 37.5%, #f0cdde 43.75%, #f2cdda 50%, #f4cdd6 56.25%, #f5cdd3 62.5%, #f5cdcf 68.75%, #f5cdcb 75%, #f5cec8 81.25%, #f4cec5 87.5%, #f3cfc2 93.75%, #f1d0c0 100%)'
     const backgroundGrid = ' radial-gradient(circle at 50% -20.71%, #c9e7e9 0, #c9e7eb 10%, #c9e6ed 20%, #cae6ef 30%, #cbe6f1 40%, #cde5f2 50%, #cfe4f3 60%, #d1e4f4 70%, #d4e3f5 80%, #d6e2f5 90%, #d9e1f5 100%)'
+
     const sx_perfil = {
         grid:{
             backgroundImage:backgroundGrid,
@@ -41,21 +49,108 @@ const Perfil = () => {
         }
 
     }
-    const email = useSelector((state) => state.auth.email);
+    const {email, userId} = useParams();
 
-    const {listingsDTO , salesDTO, purchasesDTO,...userData } = useFetchUserData(email);
+
+    const dispatch = useDispatch();
+    const token = useSelector(state => state.auth.token);
+
     const [isLoading, setIsLoading] = useState(true);
+    const [listingsDTO,setListingDTO] = useState([]);
+    const [salesDTO, setSalesDTO] = useState([]);
+    const [purchasesDTO, setPurchasesDTO] = useState([]);
+    const [userData,setUserData] = useState([]);
+    const [actionUser,setActionUser] = useState(false);
+    const [actionListing,setActionListing] = useState(false);
+    const [actionSale,setActionSale] = useState(false);
+    const [actionPurchase,setActionPurchase] = useState(false);
 
     useEffect(() => {
-        if (Object.keys(userData).length > 0) {
-            setIsLoading(false);
-            console.log(userData);
+        const fetchData = async () => {
+            try {
+                const listingsDTOs = await getListingByUserMail(email, email);
+                setListingDTO(listingsDTOs);
+                setIsLoading(false);
+            } catch (error) {
+                console.error('Error fetching data', error);
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
+    }, [ actionUser,userData]);
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const userInfo = await fetchUserData(token, email);
+                setUserData(userInfo); // Actualización del estado local de userData
+            } catch (error) {
+                console.error('Error fetching user data', error);
+            }
+        };
+
+        fetchData();
+    }, [actionUser]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const id = userData.userId;
+                console.log(id)
+                const sales = await fetchSalesByUser(userId, token);
+                if (sales) {
+                    setSalesDTO(sales);
+                }
+            } catch (error) {
+                console.error('Error fetching user sales', error);
+            }
+        };
+
+        if (userData && userData.userId) {
+            fetchData();
         }
     }, [userData]);
 
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+
+                const sales = await getBuys(token, userId);
+                if(sales){
+                    setPurchasesDTO(sales);
+                }
+
+            } catch (error) {
+                console.error('Error fetching user data', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+
+
+
+
+
+    const [open, setOpen] = useState(false);
+    const [editListing, setEditListing] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+
+
     return(
         <Container sx={{backgroundImage:background,padding:'20px'}}>
             <Grid container sx={{...sx_perfil.grid}}>
@@ -67,18 +162,19 @@ const Perfil = () => {
                 </Grid>
 
                 <Grid item xs={12} md={12}>
-                    <UserData userInfo={userData}></UserData>
+                    <UserData userInfo={userData} setAction={setActionUser}  action={actionUser}></UserData>
 
                 </Grid>
                 <Grid item  xs={12} md={12}>
                     <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                        <CreateListing></CreateListing>
+                        <CreateListing open={open} handleOpen={handleOpen} handleClose={handleClose} setEditListing={setEditListing} editListing={editListing}></CreateListing>
                         <SellerSelector></SellerSelector>
                     </Box>
 
                 </Grid>
                 <Grid item xs={12} md={12}>
-                    <Listings listingsDTO={listingsDTO}></Listings>
+                    <Listings listingsDTO={listingsDTO} open={open} handleOpen={handleOpen} handleClose={handleClose} setEditListing={setEditListing} setAction={setActionListing}
+                    action={actionListing}></Listings>
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <Shopping purchasesDTO={purchasesDTO}></Shopping>

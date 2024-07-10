@@ -1,11 +1,16 @@
 import {Box, Button, Checkbox, Dialog, DialogContent, DialogContentText, Divider, Typography} from "@mui/material";
 import * as React from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import {useEffect, useState} from "react";
+import {updateUserRoleToSeller} from "../../../hooks/user-hooks.js";
+import {useSelector} from "react-redux";
 
 // eslint-disable-next-line react/prop-types
 const SellerSelectorDialog = ({open,handleClose}) => {
     const background = 'radial-gradient(circle at 50% -20.71%, #d6d4f1 0, #dad3ef 6.25%, #dfd2ed 12.5%, #e3d0ea 18.75%, #e7cfe8 25%, #eacfe4 31.25%, #edcee1 37.5%, #f0cdde 43.75%, #f2cdda 50%, #f4cdd6 56.25%, #f5cdd3 62.5%, #f5cdcf 68.75%, #f5cdcb 75%, #f5cec8 81.25%, #f4cec5 87.5%, #f3cfc2 93.75%, #f1d0c0 100%)'
-
+    const [isChecked, setIsChecked] = useState(false);
+    const email = useSelector(state => state.auth.email);
+    const token = useSelector((state) => state.auth.token);
 
     const sx_Dialog = {
         dialog:{
@@ -68,6 +73,12 @@ const SellerSelectorDialog = ({open,handleClose}) => {
             justifyContent:'space-between',
         },
     }
+    const handleChangeRole = () => {
+        if(isChecked){
+            updateUserRoleToSeller(email, token)
+        }
+    }
+
     return (
         <Dialog  open={open} onClose={handleClose} sx={{...sx_Dialog.dialog}} maxWidth={"md"}>
 
@@ -113,9 +124,14 @@ const SellerSelectorDialog = ({open,handleClose}) => {
                                 label="Quiero ser vendedor"
                                 labelPlacement="start"
                                 sx={{display:'flex', alignItems:'center',paddingLeft:{xs:'',md:'10px'},  backgroundColor:'#9c9b9b',}}
+                                checked={isChecked}
+                                onChange={(e) => setIsChecked(e.target.checked)}
                             />
-                            <Button onClick={handleClose} color="primary" style={{backgroundColor:'black',color:'white'}}>
+                            <Button onClick={handleChangeRole} color="primary" style={{backgroundColor:'black',color:'white'}}>
                                 Aceptar
+                            </Button>
+                            <Button onClick={handleClose} color="primary" style={{backgroundColor:'black',color:'white'}}>
+                                Cerrar
                             </Button>
                         </Box>
 

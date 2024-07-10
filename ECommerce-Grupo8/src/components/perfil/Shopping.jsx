@@ -1,6 +1,6 @@
 import {
     Box,
-    Button,
+    Button, CircularProgress,
     Divider,
     Grid,
     Table,
@@ -11,14 +11,25 @@ import {
     Typography
 } from "@mui/material";
 import Paper from "@mui/material/Paper";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import '../../assets/fonts/Tisa/Tisa.css'
 import * as React from "react";
+import {useNavigate} from "react-router-dom";
 
-const Shopping = () => {
+const Shopping = ({purchasesDTO}) => {
     const status = [['Publicar', 'Pausar', 'Modificar', 'Eliminar'],['Publicar', 'Pausar', 'Modificar', 'Eliminar'],['Publicar', 'Pausar', 'Modificar', 'Eliminar'],['Publicar', 'Pausar', 'Modificar', 'Eliminar']];
     const shopping = [['Nro. Compra','Fecha','Producto', 'Vendedor','Publicacion']]
     const shoplist = [['1','1/1/1','TEG Estrategia','John Doe','linkapublicacion'],['1','1/1/1','TEG Estrategia','John Doe','linkapublicacion'],['1','1/1/1','TEG Estrategia','John Doe','linkapublicacion'],['1','1/1/1','TEG Estrategia','John Doe','linkapublicacion']]
+    const navigate = useNavigate()
+
+    const handleClick = (id) => {
+        navigate(`../listing/${id}`,{ replace: true });
+    }
+
+
+
+
+
     const sx_grid = {
         grid:{
             display:'flex',
@@ -166,6 +177,8 @@ const Shopping = () => {
 
     }
 
+    const purchasesArray = Array.isArray(purchasesDTO) ? purchasesDTO : [];
+
     return(
 
         <>
@@ -201,20 +214,52 @@ const Shopping = () => {
 
                         </TableHead>
                         <TableBody sx={{...sx_grid.tableBody}}>
-                            {shoplist.map((item, index ) => (
+                            {purchasesArray.map((item, index ) => (
                                 <Box key={index} sx={{...sx_grid.tableBox}}>
                                     <Typography sx={{...sx_grid.boxTypo}}>Compra {index+1}</Typography>
                                     <Box sx={{...sx_grid.buttonBox,justifyContent:'start', }}>
-                                        <TableRow key={index} sx={{...sx_grid.button,width:'100%'}}>{
-                                            item.map((button, key) => (
-                                                <Typography key={key} style={{backgroundColor:'#cfa5a5',
+                                        <TableRow key={index} sx={{...sx_grid.button,width:'100%', }}>
+
+                                            <Typography  style={{backgroundColor:'#cfa5a5',
+                                                color:'#fff', fontFamily:'Tisa Sans Pro Bold', boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
+                                                textAlign:'center',
+                                            }}
+                                                         sx={{padding:'5px',width:'20%',}}>{item.saleId}</Typography>
+
+                                                <Typography  style={{backgroundColor:'#cfa5a5',
                                                     color:'#fff', fontFamily:'Tisa Sans Pro Bold', boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
                                                     textAlign:'center',
                                                 }}
-                                                sx={{padding:'5px',width:'20%'}}>{button}</Typography>
-                                            ))
-                                        }
+                                                sx={{padding:'5px',width:'20%'}}>{item.saleDate}</Typography>
+
+                                            <Typography  style={{backgroundColor:'#cfa5a5',
+                                                color:'#fff', fontFamily:'Tisa Sans Pro Bold', boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
+                                                textAlign:'center',
+                                            }}
+                                                         sx={{padding:'5px',width:'20%'}}>{item.listingsDTO.map(listing => listing.productDTO.productName)}</Typography>
+
+                                            <Typography  style={{backgroundColor:'#cfa5a5',
+                                                color:'#fff', fontFamily:'Tisa Sans Pro Bold', boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
+                                                textAlign:'center',
+                                            }}
+                                                         sx={{padding:'5px',width:'20%'}}>{item.sellerName}</Typography>
+                                            <Typography
+                                                style={{
+                                                backgroundColor:'#cfa5a5',
+                                                color:'#fff',
+                                                fontFamily:'Tisa Sans Pro Bold',
+                                                boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
+                                                textAlign:'center',
+                                            }}
+                                                sx={{padding:'5px',width:'20%'}}
+                                                onClick={() => {handleClick(item.listingsDTO.map(listing => listing.listingId))}}
+
+
+
+                                            >    {item.listingsDTO.map(listing => listing.listingId)}</Typography>
+
                                         </TableRow>
+
                                     </Box>
                                 </Box>
                             ))}

@@ -2,32 +2,56 @@ import {Box, Button, Checkbox, Divider, InputAdornment, List, ListItem, TextFiel
 import * as React from "react";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import '../../assets/fonts/Tisa/Tisa.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import {useSelector} from "react-redux";
+import {fetchUpdateUserData} from "../../hooks/user-hooks.js";
 
-const UserData = ({userInfo}) => {
+const UserData = ({userInfo,setAction,action}) => {
+    const token = useSelector(state => state.auth.token);
+    const password = useSelector(state => state.auth.password);
+    const email = useSelector(state => state.auth.email);
 
-    const user = userInfo;
-    const userData = [
-        ['Nombre' , user.firstName],
-        ['Apellido', user.lastName],
-        ['Email', useSelector((state) => state.auth.email)],
-        ["Contraseña",useSelector((state) => state.auth.password)],
-        ["Telefono", user.phoneNumber],
-        ["Direccion", user.address],
-        ["Documento", user.document],
-        ["Tipo usuario", user.role]
+    const [userData, setUserData] = useState([]);
 
-    ]
+    useEffect(() => {
+        if (userInfo) {
+            setUserData([
+                { key: 'Nombre', data: userInfo.firstName || '' },
+                { key: 'Apellido', data: userInfo.lastName || '' },
+                { key: 'Email', data: email || '' },
+                { key: "Contraseña", data: password || '' },
+                { key: "Telefono", data: userInfo.phoneNumber || '' },
+                { key: "Direccion", data: userInfo.address || '' },
+                { key: "Documento", data: userInfo.document || '' },
+                { key: "Tipo usuario", data: userInfo.role || '' },
+                { key: 'userId', data: userInfo.userId || '' }
+            ]);
+        }
+    }, [userInfo, email, password]);
 
     const [showPassword, setShowPassword] = useState(false);
 
     const handleTogglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
+
+    const handleUpdateFieldText  = (key,newData) => {
+        setUserData((prevData) =>
+            prevData.map((item) =>
+                item.key === key ? { ...item, data: newData } : item
+            )
+        );
+    };
+
+    const handleUpdateUserData = () => {
+
+        fetchUpdateUserData(userData,token);
+        setAction(!action);
+    }
+
 
 
     const sx_userData = {
@@ -92,24 +116,24 @@ const UserData = ({userInfo}) => {
 
                             <ListItem key={index} sx={{...sx_userData.userDataItem}}>
                                 <Box sx={{...sx_userData.userDataListBox,}}>
-                                    <Typography sx={{width:{xs:'',md:'30%'},display:{xs:'',md:'flex'},justifyContent:'end', fontFamily:'Tisa Sans Pro Bold'}}>{item[0]}:</Typography>
-                                    {item === 'Tipo usuario'?
-                                        <Typography sx={{}}>{item[1]}</Typography>
+                                    <Typography sx={{width:{xs:'',md:'30%'},display:{xs:'',md:'flex'},justifyContent:'end', fontFamily:'Tisa Sans Pro Bold', fontSize:'17px'}}>{item.key}:</Typography>
+                                    {item.key === 'Tipo usuario' || item.key === 'userId'?
+                                        <Typography sx={{}}>{item.data}</Typography>
                                         :
                                         <TextField
-                                            defaultValue={item[1]}
-                                            type={item[0] === "Contraseña" ? (showPassword ? 'text' : 'password') : 'text'}
-                                            onClick={item[0] === "Contraseña" ?handleTogglePasswordVisibility:''}
+                                            value={item.data}
+                                            type={item.key === "Contraseña" ? (showPassword ? 'text' : 'password') : 'text'}
+                                            onClick={item.key === "Contraseña" ?handleTogglePasswordVisibility:''}
                                             sx={{width:{xs:'auto',md:'300px'},
                                                 "& fieldset": { border: 'none' },
                                                 backgroundColor: '#bdbdbd',
                                             }}
-                                            inputProps={{style: {fontSize: 10,color:'#636363',width:'100%',border:'none'}}}
+                                            inputProps={{style: {fontSize: '15px',color:'#636363',width:'100%',border:'none'}}}
                                             size={"small"}
                                             id="outlined-basic"
-
+                                            onChange={(e) => handleUpdateFieldText(item.key, e.target.value)}
                                             InputProps={{
-                                                endAdornment: item[0] === "Contraseña" && (
+                                                endAdornment: item.key === "Contraseña" && (
                                                     <InputAdornment position="end">
                                                         <IconButton
                                                             aria-label="toggle password visibility"
@@ -132,7 +156,7 @@ const UserData = ({userInfo}) => {
                     </List>
                 </Box>
                 <Box sx={{display:'flex',padding:{xs:'',md:'10px'},justifyContent:'end', alignItems:'end',flexDirection:'column',gap:'5px'}}>
-                    <Button style={{color:'white',width:'10%',backgroundColor:'black'}}>Aplicar</Button>
+                    <Button style={{color:'white',width:'10%',backgroundColor:'black'}} onClick={handleUpdateUserData}>Aplicar</Button>
                     <Divider sx={{width:'100%', height:'2px',backgroundColor:'#686868'}}/>
                 </Box>
 
