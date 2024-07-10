@@ -6,22 +6,41 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 
 // eslint-disable-next-line react/prop-types
-export default function ComboBox({data,setSelectedItem, selectedItem,type}) {
+export default function ComboBox({data,setSelectedItem, selectedItem,type,listingToEdit,product,admin}) {
 
+    const handleInputChange = (event, newInputValue) => {
+        setSelectedItem(newInputValue);
+    };
 
 
 
     return (
-        <Autocomplete
-            disablePortal
-            id="combo-box-demo"
-            options={data}
-            sx={{ width: 300 }}
-            value = {selectedItem !== "" ? selectedItem : ""}
-            onChange = {(event,newValue) => setSelectedItem(newValue)}
-            renderInput={(params) => <TextField {...params}  disabled={selectedItem !== ""} label={"Busca "+type+"..." }/>}
-        />
+
+            <Autocomplete
+                disablePortal
+                id="combo-box-demo"
+                options={data}
+                disabled={!!product&&!admin}
+                freeSolo={true}
+                sx={{ width: 300 }}
+                value={listingToEdit || product? selectedItem : ""}
+                onChange={handleInputChange}
+
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        label={`Busca ${type}...`}
+                        onChange={handleInputChange}
+                    />
+                )}
+            />
+
+
+
+
     );
+
+
 }
 
 
