@@ -1,41 +1,36 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {failedListingFetch, fetchListingsWithStock, loadingFetch} from "../redux/slices/listingsWithStockSlice.js";
+import {
+    failedListingFetch, fetchAlListings,
+    fetchListings,
+    loadingFetch
+} from "../redux/slices/listingsSlice.js";
+import {setListings} from "../redux/slices/shoppingCartSlice.js";
 
-const useFetchListingsCreate = () => {
-    const [userId, setUserId] = useState("");
-    const [listingId, setListingId] = useState("");
-    const [title,setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [images, setImageList] = useState([]);
-    const [price, setPrice] = useState("");
-    const [stock, setStock] = useState("");
-    const [productDTO, setProductDTO] = useState("");
-    const [listingState, setListingState] = useState("");
-    const [category, setCategory] = useState("");
+export const getListingByUserMail = async (email,token) => {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'token': "Bearer " + token //localStorage.getItem("token"),
+        },
+    };
 
+    try{
+        const response = await fetch(`http://localhost:8080/listing/get-listing/user?email=${email}`,options)
+        const data = await response.json();
+        console.log('response here');
 
-    const data = {
-        "userId": userId,
-        "listingId": listingId,
-        "title": title,
-        "description": description,
-        "images": images,
-        "price": price,
-        "stock": stock,
-        "productDTO": productDTO,
-        "listingState": listingState,
-
+        return data;
     }
-
-    return {userId, listingId, title, description, images, price, stock, setListingId, setUserId, setTitle, setDescription, setImageList, setPrice,
-        setStock, setProductDTO, setListingState};
-
+    catch(err){
+        console.log(err);
+    }
 }
 
-const useFetchListingDialog = (data) => {
-    const token = useSelector(state => state.auth.token);
-// Configuración de la solicitud
+
+//crear publicacion
+const useFetchListingDialog = (data,token) => {
     const options = {
         method: 'POST',
         headers: {
@@ -45,21 +40,21 @@ const useFetchListingDialog = (data) => {
         body: JSON.stringify(data)
     };
 
+        console.log(JSON.stringify(data));
 
-
-    useEffect( ()  => {
         const fetchData = async () => {
             const data = await fetch("http://localhost:8080/listing/create-listing", options)
+
         }
         fetchData()
-    }, []);
+
 
 
 }
-
-const useFetchListings = (selectedCategories = [],dispatch) => {
+//componente para traer las publicaciones
+const useFetchListings = (selectedCategories = [],dispatch,searchedText) => {
     const [productos, setProducts] = useState([]);
-
+    const [search,setSearch] = useState(searchedText);
     dispatch(loadingFetch());
     const options = {
         method: 'GET',
@@ -71,46 +66,47 @@ const useFetchListings = (selectedCategories = [],dispatch) => {
 
     useEffect(() => {
         const fetchListings = async () => {
-            if (selectedCategories.length === 0) {
-                try {
-                    const response = await fetch("http://localhost:8080/listing/get-listings", options);
-                    const data = await response.json();
-                    setProducts(data);
-
-
-
-
-
-                } catch (error) {
-                    console.error('Error fetching all listings:', error);
-                    dispatch(failedListingFetch(error));
+            dispatch(loadingFetch());
+            const options = {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
                 }
-            } else {
-                try {
-                    const requests = selectedCategories.map( async (category)  =>  {
+            };
+
+            try {
+                let endpoint = "http://localhost:8080/listing/get-listings";
+
+                if (searchedText) {
+                    endpoint = `http://localhost:8080/listing/get-listing/game?game=${encodeURIComponent(searchedText)}`;
+                } else if (selectedCategories.length > 0) {
+                    const requests = selectedCategories.map(async (category) => {
                         let [type, value] = category.split(':');
 
-                        switch (type) {
+                        switch (type.toLowerCase()) {
                             case "categoria":
-                                type = "category"
+                                type = "category";
                                 break;
                             case "dificultad":
-                                type = "difficulty"
+                                type = "difficulty";
                                 break;
                             case "duracion":
-                                type = "duration"
+                                type = "duration";
                                 break;
                             case "marca":
-                                type = "brand"
+                                type = "brand";
+                                break;
+                            case "cantidad de jugadores":
+                                type = "players";
                                 break;
                         }
 
-                        const response = await  fetch(`http://localhost:8080/listing/get-listing/${type}?${type}=${value.toLowerCase()}`, options)
-                        return response.json()
+                        const response = await fetch(`http://localhost:8080/listing/get-listing/${type.toLowerCase()}?${type.toLowerCase()}=${encodeURIComponent(value.toLowerCase())}`, options);
+                        return response.json();
                     });
 
                     const responses = await Promise.all(requests);
-                    const data = responses.flat();
+                    let data = responses.flat();
 
                     const uniqueIds = new Set();
                     const uniqueProducts = data.filter(product => {
@@ -122,30 +118,60 @@ const useFetchListings = (selectedCategories = [],dispatch) => {
                     });
 
                     setProducts(uniqueProducts);
-                } catch (error) {
-                    console.error('Error fetching filtered listings:', error);
+                    dispatch(fetchAlListings(uniqueProducts));
+                    return;
                 }
+
+                const response = await fetch(endpoint, options);
+                const data = await response.json();
+                setProducts(data);
+            } catch (error) {
+                console.error('Error fetching listings:', error);
+                dispatch(failedListingFetch(error));
             }
         };
 
         fetchListings();
-    }, [selectedCategories]);
+    }, [selectedCategories, searchedText]);
+
 
 
     useEffect(() => {
         if (productos.length > 0) {
-            const listingStock = productos.filter(listing => listing.stock > 0);
-            dispatch(fetchListingsWithStock(listingStock));
+
+
+
+            const listingStock = productos.filter(listing => listing.stock > 0 );
+                const filteredProducts = listingStock.filter(listing => listing.listingState === true);
+
+
+                    setProducts(filteredProducts);
+                    dispatch(fetchListings(listingStock));
+                    dispatch(setListings(listingStock));
+
+
+
+
+
+
+
+
         }
-    }, [productos, dispatch]);
+
+    }, [productos]);
+
 
     return productos;
+
+
+
 };
 
 
-const useFetchListingsByUser  = (userId)  =>  {
+const UseFetchListingsByUser  = ()  =>  {
     const [listings, setListings] = useState([]);
-    const token = useSelector(state => state.auth.token);
+    const token = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
     const options = {
         method: 'GET',
         headers: {
@@ -170,5 +196,53 @@ const useFetchListingsByUser  = (userId)  =>  {
 }
 
 
+//PUT
+const fetchListingUpdate = async (listingDTO) => {
+    const token = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("userId");
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + token
+        },
+        body: JSON.stringify(listingDTO)
+    };
+    console.log(listingDTO)
 
-export {useFetchListingDialog, useState,useFetchListings,useFetchListingsByUser}
+        try{
+
+            const response = await fetch('http://localhost:8080/listing/update-listing', options)
+            return await response.json();
+        } catch (error){
+            console.log("Error updating listing:", error)
+            return error;
+        }
+
+
+}
+
+const deleteUserListing = async (id,) =>  {
+    const token = sessionStorage.getItem("token");
+
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + token
+        },
+
+    };
+    try{
+        const response = await fetch(`http://localhost:8080/listing/delete-listing?id=${id}`, options);
+        return await response.json();
+    }catch(error){
+       return ("Error deleting listing:",error)
+    }
+}
+
+
+
+
+
+export {useFetchListingDialog, useState,useFetchListings,UseFetchListingsByUser,fetchListingUpdate,deleteUserListing}
