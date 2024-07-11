@@ -1,8 +1,8 @@
 import {useEffect, useState} from "react";
-import {useSelector} from "react-redux";
 import {
-    failedListingFetch, fetchAlListings, fetchListingWithStock,
-
+    failedListingFetch,
+    fetchAlListings,
+    fetchListingWithStock,
     loadingFetch
 } from "../redux/slices/listingsSlice.js";
 import {setListings} from "../redux/slices/shoppingCartSlice.js";
@@ -20,10 +20,21 @@ export const getListingByUserMail = async (email) => {
 
     try{
         const response = await fetch(`http://localhost:8080/listing/get-listing/user?email=${email}`,options)
-        const data = await response.json();
-        console.log('response here');
+        const statusCode = response.status;
 
-        return data;
+        if(statusCode >= 200 && statusCode < 300){
+            return await response.json();
+        }
+        else if(statusCode > 400 && statusCode < 500){
+            alert("not found")
+        } else if(statusCode >= 500){
+            alert("Error interno del  server")
+        }
+
+
+
+
+
     }
     catch(err){
         console.log(err);
@@ -45,7 +56,13 @@ const useFetchListingDialog = (data,token) => {
         console.log(JSON.stringify(data));
 
         const fetchData = async () => {
-            const data = await fetch("http://localhost:8080/listing/create-listing", options)
+            const response = await fetch("http://localhost:8080/listing/create-listing", options)
+            const statusCode =  response.status;
+            if(statusCode >= 200 && statusCode < 300){
+                alert("Publicacion creada correctamente");
+            } else {
+                alert(`Error al crear publicacion ${statusCode}`);
+            }
 
         }
         fetchData()
@@ -96,35 +113,49 @@ const useFetchListings = (selectedCategories = [], dispatch, searchedText) => {
                         }
 
                         const response = await fetch(`http://localhost:8080/listing/get-listing/${type.toLowerCase()}?${type.toLowerCase()}=${encodeURIComponent(value.toLowerCase())}`, options);
-                        return response.json();
+                       const statusCode = response.status;
+                       if(statusCode >= 200 && statusCode < 300) {
+                           return response.json();
+                       }
+
                     });
 
                     const responses = await Promise.all(requests);
-                    let data = responses.flat();
 
-                    const uniqueIds = new Set();
-                    const uniqueProducts = data.filter(product => {
-                        if (!uniqueIds.has(product.listingId) && product.listingState === true && product.stock > 0) {
-                            uniqueIds.add(product.listingId);
-                            return true;
-                        }
-                        return false;
-                    });
 
-                    setProducts(uniqueProducts);
-                    dispatch(fetchAlListings(uniqueProducts));
+
+                        let data = responses.flat();
+
+                        const uniqueIds = new Set();
+                        const uniqueProducts = data.filter(product => {
+                            if (!uniqueIds.has(product.listingId) && product.listingState === true && product.stock > 0) {
+                                uniqueIds.add(product.listingId);
+                                return true;
+                            }
+                            return false;
+                        });
+                        setProducts(uniqueProducts);
+                        dispatch(fetchAlListings(uniqueProducts));
+
+
                     return;
                 }
 
                 const response = await fetch(endpoint, options);
-                const data = await response.json();
 
-                const filteredProducts = data.filter(product => product.listingState === true);
+                const statusCode =  response.status;
 
-                dispatch(setListings(data.filter(product => product.stock > 0)));
-                dispatch(fetchListingWithStock(data.filter(product => product.stock > 0)));
-                setProducts(filteredProducts);
-                dispatch(fetchAlListings(data));
+                if(statusCode >= 200 && statusCode < 300){
+                    const data = await response.json();
+                    const filteredProducts = data.filter(product => product.listingState === true);
+                    dispatch(setListings(data.filter(product => product.stock > 0)));
+                    dispatch(fetchListingWithStock(data.filter(product => product.stock > 0)));
+                    setProducts(filteredProducts);
+                    dispatch(fetchAlListings(data));
+
+                }
+
+
 
             } catch (error) {
                 console.error('Error fetching listings:', error);
@@ -205,12 +236,20 @@ const fetchListingUpdate = async (listingDTO) => {
         },
         body: JSON.stringify(listingDTO)
     };
-    console.log(listingDTO)
+
 
         try{
 
             const response = await fetch('http://localhost:8080/listing/update-listing', options)
-            return await response.json();
+            const statusCode =  response.status;
+            if(statusCode >= 200 && statusCode < 300){
+                alert("Publicacion actualizada exitosamente")
+                return await response.json();
+            } else {
+                alert("Error al actualizar la publicacion")
+                return null;
+            }
+
         } catch (error){
             console.log("Error updating listing:", error)
             return error;
@@ -232,7 +271,15 @@ const deleteUserListing = async (id,) =>  {
     };
     try{
         const response = await fetch(`http://localhost:8080/listing/delete-listing?id=${id}`, options);
-        return await response.json();
+        const statusCode =  response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            alert("Publicacion eliminado correctamente");
+            return await response.json();
+        } else {
+            alert("Error al eliminar la publicacion")
+            return null;
+        }
+
     }catch(error){
        return ("Error deleting listing:",error)
     }

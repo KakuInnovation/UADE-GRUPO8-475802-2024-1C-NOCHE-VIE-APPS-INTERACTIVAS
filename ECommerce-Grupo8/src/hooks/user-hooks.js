@@ -1,6 +1,4 @@
-import {useEffect, useState} from "react";
-import {failedLogin, fetchLogin, loadingLogin, setUserData} from "../redux/slices/authSlice.js";
-import {useDispatch, useSelector} from "react-redux";
+import {failedLogin, fetchLogin, loadingLogin} from "../redux/slices/authSlice.js";
 import {setAllUsers, setLoading} from "../redux/slices/userSlice.js";
 
 
@@ -24,7 +22,7 @@ export const useLogin = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Failed to authenticate');
+                alert('email o contraseña incorrecta');
             }
 
             const data = await response.json();
@@ -57,7 +55,9 @@ export const signUp = async (userDTO) => {
             });
 
             if (response.ok) {
-               console.log('user created successfully');
+               alert("Usuario creado correctamente");
+            } else {
+                alert("Error al crear al usuario")
             }
 
         } catch (error) {
@@ -109,10 +109,13 @@ export const fetchUserData = async (email) => {
 
     try{
         const response =await fetch(`http://localhost:8080/user/get-user/email?email=${email}`,options);
-        const data = await response.json();
+        const statusCode = response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            return await response.json();
+        } else{
+            alert("Error al traer los datos del usuario")
+        }
 
-        console.log('response user here')
-        return data;
 
     }catch (error) {
         console.error('Error fetching in:', error);
@@ -131,14 +134,20 @@ export const fetchAllUsers = async ( dispatch) => {
      dispatch(setLoading())
     try{
         const response = await fetch("http://localhost:8080/user/get-all-users",options);
-        const data = await response.json();
-        console.log("data",data)
-        if(data){
-            dispatch(setAllUsers(data));
+        const statusCode = response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            const data = await response.json();
             console.log("data",data)
+            if(data){
+                dispatch(setAllUsers(data));
+                console.log("data",data)
 
+            }
+            return data;
+        } else {
+            alert("Error al traer todos los usuarios")
         }
-        return data;
+
 
     } catch (error){
         console.error('Error fetching in:', error);
@@ -148,8 +157,8 @@ export const fetchAllUsers = async ( dispatch) => {
 
 
 
-export const fetchUpdateUserData = (userData,token) => {
-
+export const fetchUpdateUserData = (userData) => {
+    const token = sessionStorage.getItem("token");
 
     const userDTO = {
         userId: userData.find(item => item.key === 'userId').data,
@@ -176,8 +185,14 @@ export const fetchUpdateUserData = (userData,token) => {
         const updateUserData = async () => {
             try {
                 const response = await fetch('http://localhost:8080/user/update-user', options);
+                const statusCode = response.status;
 
-                console.log(response,'User updated successfully');
+                if(statusCode >= 200 && statusCode < 300){
+                    alert("Usuario actualizado correctamente");
+                } else {
+                    alert("Error al actualizar al usuario")
+                }
+
             } catch (error) {
                 console.error('Error updating user:', error);
             }
@@ -186,7 +201,8 @@ export const fetchUpdateUserData = (userData,token) => {
 
 };
 
-export const updateUserRoleToSeller = (email,token) => {
+export const updateUserRoleToSeller = (email,a) => {
+    const token = sessionStorage.getItem('token');
     const userDTO = {
         username: email,
         role: 'SELLER'
@@ -204,7 +220,14 @@ export const updateUserRoleToSeller = (email,token) => {
     const updateRoleToSeller = async () => {
         try{
             const response = await fetch('http://localhost:8080/user/update-user-role',options);
-            const data = await response.json();
+            const statusCode = response.status;
+
+            if(statusCode >= 200 && statusCode < 300){
+                alert("Ya sos vendedor!")
+            } else {
+                alert("Error al actualizar tu rol");
+            }
+
         } catch (error){
             console.log('Error updating user: ',error)
         }

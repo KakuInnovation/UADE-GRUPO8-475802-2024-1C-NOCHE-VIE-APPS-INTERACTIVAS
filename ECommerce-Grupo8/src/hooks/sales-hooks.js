@@ -13,9 +13,13 @@ export const fetchSalesByUser = async (userId) => {
 
 
         const response = await fetch(`http://localhost:8080/get-sales/user?userId=${userId}`,options);
+        const statusCode = response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            return await response.json();
+        } else{
+            alert("Error interno al traer las ventas del usuario")
+        }
 
-        const data = await response.json();
-        return data;
     } catch (error){
         console.log(error);
     }
@@ -42,7 +46,12 @@ export const fetchBuy = async (shoppingCart,subtotal,dispatch) => {
     }
     try{
         const response = await fetch("http://localhost:8080/create-sale",options)
-        await response.json();
+        const statusCode = response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            alert("Compra realizada existosamente")
+        } else {
+            alert("Error al realizar la compra")
+        }
 
     } catch(error) {
         console.log(error);
@@ -63,9 +72,13 @@ export const getBuys = async ( userId) => {
 
     try{
         const response = await fetch(`http://localhost:8080/get-purchases?userId=${userId}`, options)
-        const data = await response.json();
-        console.log("array:",Object.values(data))
-        return data;
+        const statusCode = response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            return await response.json();
+        } else {
+            alert("Error interno al traer las compras")
+        }
+
     } catch(error){
         console.log(error);
     }

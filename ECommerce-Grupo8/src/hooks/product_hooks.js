@@ -26,11 +26,22 @@ const useFetchProducts =  async (dispatch) => {
     };
     try{
         const response = await fetch("http://localhost:8080/get-all-products", options)
-        const data = await response.json();
-        console.log("fetching",data)
+        const statusCode =  response.status;
+        let data = null;
+        if(statusCode >= 200 && statusCode < 300){
+            data = await response.json();
+            dispatch(fetchProducts(data));
 
-        dispatch(fetchProducts(data));
+        } else if (statusCode >  400 && statusCode < 500){
+            console.error('Error fetching products from product',statusCode);
+        } else if (statusCode >= 500){
+            console.error('Error fetching products from product ',statusCode);
+        }
+
+
         return data;
+
+
 
     }
      catch(error){
@@ -53,6 +64,16 @@ export const createProduct = async (productDTO,dispatch) => {
 
     try{
         const response = await fetch(`http://localhost:8080/create-product`, options)
+        const statusCode =  response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            alert("Usuario creado correctamente")
+        }
+        else if(statusCode > 400 && statusCode < 500){
+            alert("400 error")
+        }
+        else if(statusCode >= 500){
+            alert("Error interno del  server")
+        }
         const data = await response.json();
 
 
@@ -75,8 +96,18 @@ export const fetchProductUpdate = async(productDTO,dispatch ) => {
 
     try{
         const response = await fetch(`http://localhost:8080/update-product`, options)
-        const data = await response.json();
-        console.log('Product update response:', data);
+        const statusCode =  response.status;;
+        if(statusCode >= 200 && statusCode < 300){
+            const data = await response.json();
+            alert("Producto actualizado correctaemnte")
+        } else if(statusCode > 400 && statusCode < 500){
+            alert("Not found")
+        } else if(statusCode === 500){
+            alert("Server Error")
+        } else {
+            console.log(`Unexpected status code: ${statusCode}`)
+        }
+
 
     } catch (error){
         console.log("error:",error.response);
@@ -96,8 +127,11 @@ const useFetchGetCategories = async (dispatch) => {
 
     try{
         const response = await fetch(`http://localhost:8080/get-categories`, options)
-        const data = await response.json();
-        dispatch(fetchCategory(data));
+        const statusCode =  response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            const data = await response.json();
+            dispatch(fetchCategory(data));
+        }
 
     } catch (error){
         console.log(error)
@@ -117,8 +151,13 @@ const useFetchPlayers =  async (dispatch) => {
 
     try{
         const response = await fetch(`http://localhost:8080/get-all-players`, options)
-        const data = await response.json();
-        dispatch(fetchPlayer(data));
+        const statusCode =  response.status;
+
+        if(statusCode >= 200 && statusCode < 300){
+            const data = await response.json();
+            dispatch(fetchPlayer(data));
+        }
+
 
     } catch (error){
         console.log(error)
@@ -139,8 +178,12 @@ const useFetchBrand = async (dispatch) => {
 
     try{
         const response = await fetch(`http://localhost:8080/get-brands`, options)
-        const data = await response.json();
-        dispatch(fetchBrand(data));
+        const statusCode =  response.status;
+        if(statusCode >= 200 && statusCode < 300){
+            const data = await response.json();
+            dispatch(fetchBrand(data));
+        }
+
 
     } catch (error){
         console.log(error)
@@ -161,8 +204,13 @@ const useFetchDifficulty = async (dispatch) => {
 
     try{
         const response = await fetch(`http://localhost:8080/get-all-difficulties`, options)
-        const data = await response.json();
-        dispatch(fetchDifficulties(data));
+        const statusCode =  response.status;
+
+        if(statusCode >= 200 && statusCode < 300){
+            const data = await response.json();
+            dispatch(fetchDifficulties(data));
+        }
+
 
     } catch (error){
         console.log(error)
@@ -181,9 +229,13 @@ const useFetchDuration = async (dispatch) => {
 
     try{
         const response = await fetch(`http://localhost:8080/get-all-durations`, options)
-        const data = await response.json();
+        const statusCode =  response.status;
 
-        dispatch(fetchDurations(data));
+        if(statusCode >= 200 && statusCode < 300){
+            const data = await response.json();
+            dispatch(fetchDurations(data));
+        }
+
 
     } catch (error){
         console.log(error)
@@ -202,7 +254,13 @@ export const deleteProduct = async (productId) => {
         },
     };
     try{
-        await fetch(`http://localhost:8080/delete-product?productId=${productId}`, options)
+       const response =  await fetch(`http://localhost:8080/delete-product?productId=${productId}`, options)
+        const statusCode =  response.status;
+       if(statusCode >= 200 && statusCode < 300){
+           alert("Producto eliminado correctamente")
+       } else if(statusCode > 300){
+           alert("Error al eliminar el producto")
+       }
     }
     catch(error) {
         console.log(error);
