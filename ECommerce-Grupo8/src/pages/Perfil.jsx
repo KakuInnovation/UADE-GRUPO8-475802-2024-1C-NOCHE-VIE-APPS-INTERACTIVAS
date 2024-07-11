@@ -68,7 +68,7 @@ const Perfil = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const listingsDTOs = await getListingByUserMail(email, email);
+                const listingsDTOs = await getListingByUserMail(email);
                 setListingDTO(listingsDTOs);
                 setIsLoading(false);
             } catch (error) {
@@ -85,7 +85,7 @@ const Perfil = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userInfo = await fetchUserData(token, email);
+                const userInfo = await fetchUserData( email);
                 setUserData(userInfo); // Actualización del estado local de userData
             } catch (error) {
                 console.error('Error fetching user data', error);
@@ -98,9 +98,7 @@ const Perfil = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const id = userData.userId;
-                console.log(id)
-                const sales = await fetchSalesByUser(userId, token);
+                const sales = await fetchSalesByUser(userId);
                 if (sales) {
                     setSalesDTO(sales);
                 }
@@ -118,7 +116,7 @@ const Perfil = () => {
         const fetchData = async () => {
             try {
 
-                const sales = await getBuys(token, userId);
+                const sales = await getBuys( userId);
                 if(sales){
                     setPurchasesDTO(sales);
                 }
@@ -167,14 +165,14 @@ const Perfil = () => {
                 </Grid>
                 <Grid item  xs={12} md={12}>
                     <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-                        <CreateListing open={open} handleOpen={handleOpen} handleClose={handleClose} setEditListing={setEditListing} editListing={editListing}></CreateListing>
+                        <CreateListing open={open} handleOpen={handleOpen} handleClose={handleClose} setEditListing={setEditListing} editListing={editListing} userId={userId}></CreateListing>
                         <SellerSelector></SellerSelector>
                     </Box>
 
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <Listings listingsDTO={listingsDTO} open={open} handleOpen={handleOpen} handleClose={handleClose} setEditListing={setEditListing} setAction={setActionListing}
-                    action={actionListing}></Listings>
+                    action={actionListing} ></Listings>
                 </Grid>
                 <Grid item xs={12} md={12}>
                     <Shopping purchasesDTO={purchasesDTO}></Shopping>

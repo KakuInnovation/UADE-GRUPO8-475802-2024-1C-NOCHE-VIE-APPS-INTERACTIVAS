@@ -5,7 +5,7 @@ import * as React from "react";
 
 const SellerSelector = () => {
     const [open, setOpen] = useState(false);
-
+    const role = sessionStorage.getItem("rol");
 
     const handleOpen = () => {
         setOpen(true);
@@ -19,7 +19,7 @@ const SellerSelector = () => {
 
     const sx_Selector ={
         box:{
-            display:'flex',
+            display:role === "USER"?'flex': 'none',
             cursor:'pointer',
             width:'70%',
             justifyContent:'end',

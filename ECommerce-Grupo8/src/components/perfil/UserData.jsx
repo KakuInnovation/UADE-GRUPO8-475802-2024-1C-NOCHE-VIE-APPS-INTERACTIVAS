@@ -21,7 +21,7 @@ const UserData = ({userInfo,setAction,action}) => {
             setUserData([
                 { key: 'Nombre', data: userInfo.firstName || '' },
                 { key: 'Apellido', data: userInfo.lastName || '' },
-                { key: 'Email', data: email || '' },
+                { key: 'Email', data: userInfo.username || '' },
                 { key: "Contraseña", data: password || '' },
                 { key: "Telefono", data: userInfo.phoneNumber || '' },
                 { key: "Direccion", data: userInfo.address || '' },

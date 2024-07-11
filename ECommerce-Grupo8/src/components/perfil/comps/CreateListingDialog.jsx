@@ -21,8 +21,8 @@ import {sx_dialog} from "../../../assets/styles/profile/sx_profile_create_update
 
 
 // eslint-disable-next-line react/prop-types
-const CreateListingDialog = ({open,handleClose}) => {
-    const userId = useSelector(state => state.auth.userId);
+const CreateListingDialog = ({open,handleClose, userId}) => {
+
     const background = 'radial-gradient(circle at 50% -20.71%, #d6d4f1 0, #dad3ef 6.25%, #dfd2ed 12.5%, #e3d0ea 18.75%, #e7cfe8 25%, #eacfe4 31.25%, #edcee1 37.5%, #f0cdde 43.75%, #f2cdda 50%, #f4cdd6 56.25%, #f5cdd3 62.5%, #f5cdcf 68.75%, #f5cdcb 75%, #f5cec8 81.25%, #f4cec5 87.5%, #f3cfc2 93.75%, #f1d0c0 100%)'
     let listingToEdit = useSelector(state => state.user_slice.userListings);
     const [images, setImages] = useState(Array(4).fill(null));
@@ -161,7 +161,7 @@ const CreateListingDialog = ({open,handleClose}) => {
                     },
                     productBrand:{
                         brandId: brandId,
-                        brandName: productBrand.brandName
+                        brandName: productBrand?productBrand.brandName:brandName
                     },
                     durationDTO: {
                         id : durationId,

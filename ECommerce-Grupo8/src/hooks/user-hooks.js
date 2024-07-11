@@ -96,7 +96,7 @@ export const useFetchUserData =  async (email,token) => {
 
 }
 
-export const fetchUserData = async (dispatch) => {
+export const fetchUserData = async (email) => {
     const token = sessionStorage.getItem('token');
     const options = {
         method: 'GET',
@@ -106,7 +106,7 @@ export const fetchUserData = async (dispatch) => {
         }
     };
 
-    const email = sessionStorage.getItem('email');
+
     try{
         const response =await fetch(`http://localhost:8080/user/get-user/email?email=${email}`,options);
         const data = await response.json();
@@ -211,9 +211,10 @@ export const updateUserRoleToSeller = (email,token) => {
 
     }
     updateRoleToSeller();
-
-
 }
+
+
+
 
 
 
