@@ -233,7 +233,7 @@ const CreateProductDialog = ({open,handleClose}) => {
                             <Box sx={{ ...sx_dialog.box }}>
                                 <Typography sx={{fontFamily:'Tisa Sans Pro Regular', width: {lg:'26%'}, textAlign:'center'}}>Marca:</Typography>
                                 <ComboBox
-                                    data={brandNames}
+                                    data={brandNames? brandNames : []}
                                     selectedItem = { brandName || selectedGame }
                                     setSelectedItem ={setBrandName}
                                     product={productDTO}

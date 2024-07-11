@@ -51,7 +51,6 @@ export const ListingFilter = (props) => {
     const handleChange = (event, category, tag) => {
         const categoryType = category.toLowerCase(); // Asume que el título del item es el tipo de categoria
         const tagWithType = `${categoryType}:${tag}`;
-
         // eslint-disable-next-line react/prop-types
         props.setSelectedCategories(prev => {
             const currentIndex = prev.indexOf(tagWithType);

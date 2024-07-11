@@ -44,7 +44,7 @@ export const SideBarAdmin = ({handleChange,setSelectedCategories , selectedCateg
                 </Box>
                 <SidebarUserFilter  handleChange={handleChange}></SidebarUserFilter>
                 <Box sx={{...sideBar_sx.title, justifyContent:'center'}}>
-                    <Typography sx={{color:'#636363'}}>Publicacion</Typography>
+                    <Typography sx={{color:'#63636'}}>Publicacion</Typography>
                 </Box>
 
                 <ListingFilter setSelectedCategories ={setSelectedCategories}  selectedCategories = {selectedCategories}></ListingFilter>
