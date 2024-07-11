@@ -59,7 +59,6 @@ const CreateProductDialog = ({open,handleClose}) => {
 
 
     useEffect( () => {
-        console.log(selectedGame)
     },[selectedGame])
 
     useEffect(() => {
@@ -204,7 +203,7 @@ const CreateProductDialog = ({open,handleClose}) => {
         <Dialog open={open} sx={{...sx_dialog.layout}} maxWidth='md' fullWidth>
             <DialogContent sx={{...sx_dialog.dialogContext}}>
                 <DialogContentText sx={{...sx_dialog.dialogContentText}}>
-                    <Typography variant="h4" sx={{ ...sx_dialog.dialogContentText_typo }}>Crea tu publicación!</Typography>
+                    <Typography variant="h4" sx={{ ...sx_dialog.dialogContentText_typo }}>Crea o modifica un producto</Typography>
                 </DialogContentText>
                 <Box component="form" sx={{...sx_dialog.firstBox, width: '100%' ,}}>
                     <Grid container sx={{display:'flex', gap:'10px'}}>

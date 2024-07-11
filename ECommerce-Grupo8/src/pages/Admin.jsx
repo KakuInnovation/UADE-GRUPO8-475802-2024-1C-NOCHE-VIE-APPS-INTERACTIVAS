@@ -21,7 +21,8 @@ export const AdminView = () => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [listings, setListings] = useState([])
 
-    const productos = useFetchListings(selectedCategories, dispatch);
+    
+    
     const products = useSelector(state => state.product_slice.products)
 
 
@@ -62,7 +63,7 @@ export const AdminView = () => {
             await useFetchProducts(dispatch); // Asegúrate de despachar la acción de obtener productos
         };
         fetchProductsData();
-    }, [dispatch]);
+    }, []);
 
 
 
