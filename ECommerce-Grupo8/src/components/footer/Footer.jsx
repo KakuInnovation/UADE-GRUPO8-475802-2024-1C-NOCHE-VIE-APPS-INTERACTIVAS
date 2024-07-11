@@ -4,14 +4,14 @@ const sx_footer = {
     layout: {
         backgroundColor:'rgba(0,0,0,0.54)',
         display:'flex',
-        height: {xs:"", md:'100px'},
+        height: {xs:"", md:'200px'},
         justifyContent:'center',
         alignItems: 'center',
     },
     content:{
         backgroundColor:'#222121',
         width:'100%',
-        height:'80%',
+        height:'60%',
         marginLeft:'10%',
         marginRight:'10%',
         display:'flex',
@@ -28,7 +28,7 @@ const Footer = () => {
             <Box sx={{...sx_footer.layout}}>
                 <Box sx={{...sx_footer.content}}>
                     <Container maxWidth="md">
-                            <Typography variant="body1" color="inherit" sx={{textAlign:'center'}}>
+                            <Typography variant="body1" color="white" sx={{textAlign:'center'}}>
                                 © {new Date().getFullYear()} Mi Sitio Web. Todos los derechos reservados.
                             </Typography>
                     </Container>
