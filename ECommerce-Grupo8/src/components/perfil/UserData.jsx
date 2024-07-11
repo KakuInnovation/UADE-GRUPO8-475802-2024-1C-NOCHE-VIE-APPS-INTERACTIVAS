@@ -102,6 +102,8 @@ const UserData = ({userInfo,setAction,action}) => {
             borderTopRightRadius:'10px',
         }
     }
+
+
     return(
         <Box sx={{...sx_userData.layout}}>
             <Box sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
@@ -117,11 +119,12 @@ const UserData = ({userInfo,setAction,action}) => {
                             <ListItem key={index} sx={{...sx_userData.userDataItem}}>
                                 <Box sx={{...sx_userData.userDataListBox,}}>
                                     <Typography sx={{width:{xs:'',md:'30%'},display:{xs:'',md:'flex'},justifyContent:'end', fontFamily:'Tisa Sans Pro Bold', fontSize:'17px'}}>{item.key}:</Typography>
-                                    {item.key === 'Tipo usuario' || item.key === 'userId'?
+                                    { item.key === 'userId'?
                                         <Typography sx={{}}>{item.data}</Typography>
                                         :
                                         <TextField
                                             value={item.data}
+                                            disabled={sessionStorage.getItem('rol') !== "ADMIN" && item.key ==='Tipo usuario'}
                                             type={item.key === "Contraseña" ? (showPassword ? 'text' : 'password') : 'text'}
                                             onClick={item.key === "Contraseña" ?handleTogglePasswordVisibility:''}
                                             sx={{width:{xs:'auto',md:'300px'},

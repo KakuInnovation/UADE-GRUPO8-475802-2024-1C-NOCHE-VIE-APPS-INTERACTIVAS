@@ -170,7 +170,8 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
                     difficultyDTO:{
                         id: difficultyId,
                         difficultyName : difficulty
-                    }
+                    },
+
             } )
 
 
@@ -192,7 +193,7 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
             stock : stock,
             userId: userId,
             productDTO: listingToEdit?listingToEdit.productDTO:productDTO?productDTO:newProduct,
-            listingState: listingState,
+            listingState: listingToEdit?listingToEdit.listingState: true,
             images: images,
             price: price
         }
