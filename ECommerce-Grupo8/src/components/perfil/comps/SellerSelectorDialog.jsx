@@ -76,6 +76,7 @@ const SellerSelectorDialog = ({open,handleClose}) => {
     const handleChangeRole = () => {
         if(isChecked){
             updateUserRoleToSeller(email, token)
+            sessionStorage.setItem('rol','SELLER')
         }
     }
 
