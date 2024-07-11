@@ -213,8 +213,8 @@ export const UsersData = ({usersData}) => {
                 }
 
             </List>
-            <Box>
-                <Button variant="outlined" color="primary" onClick={handleOpenDialog}>
+            <Box sx={{height:'100px', display:'flex', justifyContent:'center', alignItems: 'center'}}>
+                <Button variant="outlined" color="primary" sx={{backgroundColor:'grey',width:'100%',fontSize:'25px'}} onClick={handleOpenDialog}>
                     Crear Usuario
                 </Button>
                 <CreateUserDialog open={openDialog} handleClose={handleCloseDialog}/>
