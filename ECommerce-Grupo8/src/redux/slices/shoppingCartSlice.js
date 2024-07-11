@@ -12,6 +12,7 @@ export const shoppingCartSlice = createSlice({
     reducers: {
         setListings: (state, action) => {
             state.listings = action.payload;
+
         },
         addToCart: (state, action) => {
             const { id, quantity } = action.payload;
@@ -81,6 +82,14 @@ export const shoppingCartSlice = createSlice({
             state.subtotal = state.subtotal - (discount * state.subtotal / 100);
             alert(state.subtotal);
 
+        },
+        emptyCart: (state) => {
+            state.shoppingCart = [];
+            state.coupon = "";
+            state.subtotal = 0;
+            state.productQuantity = 0;
+
+
         }
     },
 });
@@ -91,6 +100,7 @@ export const { setListings,
     removeFromCart,
     sellProducts,
     applyDiscount,
+    emptyCart
 } = shoppingCartSlice.actions;
 
 export default shoppingCartSlice.reducer;

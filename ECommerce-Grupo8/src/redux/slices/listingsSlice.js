@@ -19,7 +19,7 @@ export const listings = createSlice(
             loadingFetch:(state) => {
                 state.isLoading = true;
             },
-            fetchListings:(state, action) => {
+            fetchListingWithStock:(state, action) => {
                 state.listingsWithStock = action.payload;
                 console.log("listings",state.listingsWithStock);
                 state.isLoading = false;
@@ -60,7 +60,7 @@ export const listings = createSlice(
 
 export const {
     loadingFetch,
-    fetchListings,
+    fetchListingWithStock,
     failedListingFetch,
     fetchBrand,
     fetchPlayer,

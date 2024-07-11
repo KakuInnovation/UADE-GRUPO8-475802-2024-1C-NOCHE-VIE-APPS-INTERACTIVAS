@@ -1,13 +1,15 @@
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {
-    failedListingFetch, fetchAlListings,
-    fetchListings,
+    failedListingFetch, fetchAlListings, fetchListingWithStock,
+
     loadingFetch
 } from "../redux/slices/listingsSlice.js";
 import {setListings} from "../redux/slices/shoppingCartSlice.js";
 
-export const getListingByUserMail = async (email,token) => {
+export const getListingByUserMail = async (email) => {
+    const token = sessionStorage.getItem("token");
+
     const options = {
         method: 'GET',
         headers: {
@@ -52,17 +54,9 @@ const useFetchListingDialog = (data,token) => {
 
 }
 //componente para traer las publicaciones
-const useFetchListings = (selectedCategories = [],dispatch,searchedText) => {
+const useFetchListings = (selectedCategories = [], dispatch, searchedText) => {
     const [productos, setProducts] = useState([]);
-    const [search,setSearch] = useState(searchedText);
-    dispatch(loadingFetch());
-    const options = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-
-        }
-    };
+    const [search, setSearch] = useState(searchedText);
 
     useEffect(() => {
         const fetchListings = async () => {
@@ -110,7 +104,7 @@ const useFetchListings = (selectedCategories = [],dispatch,searchedText) => {
 
                     const uniqueIds = new Set();
                     const uniqueProducts = data.filter(product => {
-                        if (!uniqueIds.has(product.listingId)) {
+                        if (!uniqueIds.has(product.listingId) && product.listingState === true && product.stock > 0) {
                             uniqueIds.add(product.listingId);
                             return true;
                         }
@@ -124,7 +118,14 @@ const useFetchListings = (selectedCategories = [],dispatch,searchedText) => {
 
                 const response = await fetch(endpoint, options);
                 const data = await response.json();
-                setProducts(data);
+
+                const filteredProducts = data.filter(product => product.listingState === true);
+
+                dispatch(setListings(data.filter(product => product.stock > 0)));
+                dispatch(fetchListingWithStock(data.filter(product => product.stock > 0)));
+                setProducts(filteredProducts);
+                dispatch(fetchAlListings(data));
+
             } catch (error) {
                 console.error('Error fetching listings:', error);
                 dispatch(failedListingFetch(error));
@@ -134,7 +135,9 @@ const useFetchListings = (selectedCategories = [],dispatch,searchedText) => {
         fetchListings();
     }, [selectedCategories, searchedText]);
 
-
+    return productos;
+};
+/*
 
     useEffect(() => {
         if (productos.length > 0) {
@@ -142,8 +145,8 @@ const useFetchListings = (selectedCategories = [],dispatch,searchedText) => {
 
 
             const listingStock = productos.filter(listing => listing.stock > 0 );
-                const filteredProducts = listingStock.filter(listing => listing.listingState === true);
-
+            const filteredProducts = listingStock.filter(item => item.listingState === true);
+                    console.log("PRODUCTOS:", filteredProducts)
 
                     setProducts(filteredProducts);
                     dispatch(fetchListings(listingStock));
@@ -158,15 +161,9 @@ const useFetchListings = (selectedCategories = [],dispatch,searchedText) => {
 
         }
 
-    }, [productos]);
+    }, []);
 
-
-    return productos;
-
-
-
-};
-
+    */
 
 const UseFetchListingsByUser  = ()  =>  {
     const [listings, setListings] = useState([]);

@@ -21,15 +21,17 @@ const Layout = ({text}) => {
     const [products,setProducts] = useState([]);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const dispatch = useDispatch();
-    const {listing} = useParams();
+    let {listing} = useParams();
+
     const productos = useFetchListings(selectedCategories, dispatch, listing);
     const listings = useSelector(state => state.listing_stock.listings);
-
+    console.log("bringL",productos)
     const [searchedListing,setSearchedListing] = useState(listing);
     const [filteredProducts, setFilteredProducts] = useState([]);
-
+    listing = "";
     useEffect(() => {
-        setFilteredProducts(productos);
+        setProducts(productos);
+        console.log("traidos",productos)
     }, [ productos]);
 
 
@@ -51,7 +53,7 @@ const Layout = ({text}) => {
                 <SidebarFilter  setSelectedCategories ={setSelectedCategories}  selectedCategories = {selectedCategories}></SidebarFilter>
             </Grid>
             <Grid item xs={4} sm={4} md={10} sx={{padding:'5px'}} >
-                <CatalogView  productos={filteredProducts} ></CatalogView>
+                <CatalogView  productos={products} ></CatalogView>
             </Grid>
         </Grid>
     );
