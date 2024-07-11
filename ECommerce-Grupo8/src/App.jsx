@@ -11,7 +11,7 @@ import Payment from "./pages/payment/Payment.jsx";
 import Perfil from "./pages/Perfil.jsx";
 import CreateListingDialog from "./components/perfil/comps/CreateListingDialog.jsx";
 import SignInSide from "./pages/SignInSide.jsx";
-import SignUp from "./pages/SignUp.jsx";
+
 import {Provider, useDispatch, useSelector} from "react-redux";
 import Home from "./pages/Home.jsx";
 import ProtectedRouteProfile from "./protected_routes/PrivateRoute.jsx";
@@ -27,6 +27,7 @@ import {
 import {AdminView} from "./pages/Admin.jsx";
 import PrivateAdminRoute from "./protected_routes/PrivateAdminRoute.jsx";
 import {useFetchListings} from "./hooks/listing-hooks.js";
+import SignUp from "./pages/SignUp.jsx";
 
 
 function App() {
