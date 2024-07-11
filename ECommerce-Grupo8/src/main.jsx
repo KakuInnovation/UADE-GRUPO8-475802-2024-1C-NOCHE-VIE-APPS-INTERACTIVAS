@@ -22,13 +22,13 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
-    <React.StrictMode>
+
         <BrowserRouter>
         <ThemeProvider theme={theme}>
             <CssBaseline/>
             <App/>
         </ThemeProvider>
         </BrowserRouter>
-    </React.StrictMode>
+
     </Provider>
 )

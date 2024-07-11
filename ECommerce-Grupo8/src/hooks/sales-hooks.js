@@ -1,7 +1,7 @@
-export const fetchSalesByUser = async () => {
+export const fetchSalesByUser = async (userId) => {
     try{
         const token = sessionStorage.getItem("token");
-        const userId = sessionStorage.getItem("userId");
+
         const options = {
             method: 'GET',
             headers: {
@@ -49,9 +49,9 @@ export const fetchBuy = async (shoppingCart,subtotal,dispatch) => {
     }
 }
 
-export const getBuys = async ( ) => {
+export const getBuys = async ( userId) => {
     const token = sessionStorage.getItem("token");
-    const userId = sessionStorage.getItem("userId");
+
     const options = {
         method: 'GET',
         headers: {

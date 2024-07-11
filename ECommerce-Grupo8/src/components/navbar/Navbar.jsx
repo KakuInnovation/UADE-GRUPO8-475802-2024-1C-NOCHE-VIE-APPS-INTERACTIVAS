@@ -130,15 +130,19 @@ export default function Navbar() {
     const t = sessionStorage.getItem("token");
     const role = sessionStorage.getItem("rol");
     const email = sessionStorage.getItem("email");
+
     const handleSearch = () => {
-        if(searchText === ''){
-            navigate('/catalogo')
-        }
-        else{
             dispatch( fetchSearchedText(searchText))
             navigate(`/catalogo/${searchText}`);
-        }
+
     }
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+
+
+            handleSearch();
+        }
+    };
 
     const handleOptionsClick = (option) => {
         // Navega a la página de catálogo al hacer clic en el carrito
@@ -192,6 +196,7 @@ export default function Navbar() {
                                 size={"small"}
                                 id="outlined-basic"
                                 onChange={(e) => setSearchText(e.target.value)}
+                                onKeyDown={handleKeyDown}
                             />
                             <IconButton
                                 sx={{display:'flex',justifyContent:'center',backgroundImage:background, boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)', }}

@@ -16,6 +16,7 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchBuy} from "../../hooks/sales-hooks.js";
+import {emptyCart} from "../../redux/slices/shoppingCartSlice.js";
 
 const steps = ['Datos del cliente', 'Metodos de Pago', 'Revision de Mensaje'];
 
@@ -43,6 +44,7 @@ export default function Checkout() {
         setActiveStep(activeStep + 1);
         if (activeStep === steps.length - 1) {
             fetchBuy(shoppingCart,subtotal,dispatch)
+            dispatch(emptyCart())
         }
     };
 
