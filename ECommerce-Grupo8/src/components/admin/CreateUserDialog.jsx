@@ -120,16 +120,7 @@ const CreateUserDialog = ({ open, handleClose }) => {
                                 onChange={handleChange}
                             />
                         </Grid>
-                        <Grid item xs={12} sx={{ ...sx_dialog.formControl }}>
-                            <TextField
-                                fullWidth
-                                margin="normal"
-                                label="Username"
-                                name="username"
-                                value={formData.username}
-                                onChange={handleChange}
-                            />
-                        </Grid>
+
                         <Grid item xs={12} sx={{ ...sx_dialog.formControl }}>
                             <TextField
                                 fullWidth
