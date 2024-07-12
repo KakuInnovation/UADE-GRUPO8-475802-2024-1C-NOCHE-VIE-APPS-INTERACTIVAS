@@ -44,6 +44,7 @@ export default function Review() {
     const shoppingCart = useSelector (state => state.shopping_cart.shoppingCart);
     const subtotal = useSelector(state => state.shopping_cart.subtotal);
     const userId = useSelector(state => state.auth.userId);
+    const coupon =  useSelector(state => state.shopping_cart.coupon);
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -59,29 +60,23 @@ export default function Review() {
                 <ListItem sx={{ py: 1, px: 0 }}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        {subtotal}
+                        ${subtotal}
+                    </Typography>
+                </ListItem>
+                <ListItem sx={{ py: 1, px: 0 }}>
+                    <ListItemText primary="Total" />
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                        ${subtotal}
+                    </Typography>
+                </ListItem>
+                <ListItem sx={{ py: 1, px: 0 }}>
+                    <ListItemText primary="Cupon" />
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                        {coupon?coupon:"SIN CUPON"}
                     </Typography>
                 </ListItem>
             </List>
-            <Grid container spacing={2}>
-                <Grid item container direction="column" xs={12} sm={6}>
-                    <Typography variant="h6" gutterBottom sx={{ mt: 2 }}>
-                        Payment details
-                    </Typography>
-                    <Grid container>
-                        {payments.map((payment) => (
-                            <React.Fragment key={payment.name}>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.name}</Typography>
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Typography gutterBottom>{payment.detail}</Typography>
-                                </Grid>
-                            </React.Fragment>
-                        ))}
-                    </Grid>
-                </Grid>
-            </Grid>
+
         </React.Fragment>
     );
 }
