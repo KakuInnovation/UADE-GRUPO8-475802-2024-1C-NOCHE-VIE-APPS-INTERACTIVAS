@@ -8,6 +8,7 @@ export const shoppingCartSlice = createSlice({
         productQuantity: 0,
         subtotal:0,
         coupon:"",
+        discount: 0,
     },
     reducers: {
         setListings: (state, action) => {
@@ -17,7 +18,7 @@ export const shoppingCartSlice = createSlice({
         addToCart: (state, action) => {
             const { id, quantity } = action.payload;
             const listingToAdd = state.listings.find(item => item.listingId === id);
-            console.log(state.listings);
+
             if (listingToAdd && listingToAdd.stock >= quantity) {
                 const existingItemIndex = state.shoppingCart.findIndex(item => item.listingId === id);
 
@@ -36,6 +37,7 @@ export const shoppingCartSlice = createSlice({
 
                 listingToAdd.stock -= quantity;
             }
+            else{alert("stock maximo")}
         },
         decrementToCart: (state, action) => {
             const { id, quantity } = action.payload;
@@ -71,6 +73,13 @@ export const shoppingCartSlice = createSlice({
                 state.productQuantity -= 1;
                 state.shoppingCart = state.shoppingCart.filter(item => item.listingId !== id);
                 state.subtotal -= (listingToDelete.price) * listingToDelete.quantity;
+                state.coupon = null;
+
+                state.discount = 0;
+                if(state.shoppingCart.length === 0){
+                    state.subtotal = 0;
+                }
+
             }
         },
         sellProducts: (state) => {
@@ -79,8 +88,9 @@ export const shoppingCartSlice = createSlice({
         applyDiscount: (state,action) => {
             const {coupon,discount} = action.payload;
             state.coupon = coupon;
+            state.discount = discount;
             state.subtotal = state.subtotal - (discount * state.subtotal / 100);
-            alert(state.subtotal);
+
 
         },
         emptyCart: (state) => {

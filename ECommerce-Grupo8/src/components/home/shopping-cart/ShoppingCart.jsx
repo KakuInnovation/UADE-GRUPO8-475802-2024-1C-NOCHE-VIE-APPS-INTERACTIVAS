@@ -55,6 +55,7 @@ const TemporaryDrawer = () => {
             case "PROMO5%":
                 coupon = "PROMO5%";
                 dispatch(applyDiscount({coupon,discount:5}));
+
                 setCouponSubmited(true)
                 break;
             case "PROMO10%":
