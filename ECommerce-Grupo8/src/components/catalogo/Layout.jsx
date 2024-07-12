@@ -24,24 +24,15 @@ const Layout = ({text}) => {
     let {listing} = useParams();
 
     const productos = useFetchListings(selectedCategories, dispatch, listing);
-    const listings = useSelector(state => state.listing_stock.listings);
-    console.log("bringL",productos)
-    const [searchedListing,setSearchedListing] = useState(listing);
-    const [filteredProducts, setFilteredProducts] = useState([]);
+
+
+
     listing = "";
     useEffect(() => {
         setProducts(productos);
-        console.log("traidos",productos)
+
     }, [ productos]);
 
-
-
-    useEffect(() => {
-        useFetchPlayers();
-        useFetchBrand(dispatch);
-        useFetchDuration();
-        useFetchDifficulty();
-    }, []);
 
 
 
