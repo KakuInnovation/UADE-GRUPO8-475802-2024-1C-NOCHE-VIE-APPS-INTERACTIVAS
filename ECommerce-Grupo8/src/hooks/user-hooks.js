@@ -1,7 +1,7 @@
 import {failedLogin, fetchLogin, loadingLogin} from "../redux/slices/authSlice.js";
 import {setAllUsers, setLoading} from "../redux/slices/userSlice.js";
 
-
+/**POST LOGIN**/
 export const useLogin = () => {
     let token = "";
 
@@ -44,6 +44,7 @@ export const useLogin = () => {
     };
 }
 
+/**POST CREATE USER**/
 export const signUp = async (userDTO) => {
         try {
             const response = await fetch('http://localhost:8080/api/v1/auth/register', {
@@ -96,6 +97,7 @@ export const useFetchUserData =  async (email,token) => {
 
 }
 
+/**GET DATOS DE USUARIO**/
 export const fetchUserData = async (email) => {
     const token = sessionStorage.getItem('token');
     const options = {
@@ -122,6 +124,7 @@ export const fetchUserData = async (email) => {
     }
 }
 
+/**GET TOODOS LOS USUARIOS**/
 export const fetchAllUsers = async ( dispatch) => {
     const token = sessionStorage.getItem('token');
     const options = {
@@ -156,7 +159,7 @@ export const fetchAllUsers = async ( dispatch) => {
 }
 
 
-
+/**PUT ACTUALIZACION DE USUARIO**/
 export const fetchUpdateUserData = (userData) => {
     const token = sessionStorage.getItem("token");
 
@@ -201,7 +204,8 @@ export const fetchUpdateUserData = (userData) => {
 
 };
 
-export const updateUserRoleToSeller = (email,a) => {
+/**PUT ACTUALIZAR ROL DE USUARIO**/
+export const updateUserRoleToSeller = (email,tokenn) => {
     const token = sessionStorage.getItem('token');
     const userDTO = {
         username: email,
@@ -217,6 +221,8 @@ export const updateUserRoleToSeller = (email,a) => {
         },
         body: JSON.stringify(userDTO),
     };
+
+    //ESTE FETCH NO SE USA
     const updateRoleToSeller = async () => {
         try{
             const response = await fetch('http://localhost:8080/user/update-user-role',options);

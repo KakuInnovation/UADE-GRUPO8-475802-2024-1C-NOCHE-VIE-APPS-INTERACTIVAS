@@ -1,3 +1,5 @@
+
+// GET VENTAS DE USUARIO
 export const fetchSalesByUser = async (userId) => {
     try{
         const token = sessionStorage.getItem("token");
@@ -25,6 +27,8 @@ export const fetchSalesByUser = async (userId) => {
     }
 }
 
+
+//POST COMPRA DE USUARIO
 export const fetchBuy = async (shoppingCart,subtotal,dispatch) => {
 
 
@@ -58,6 +62,7 @@ export const fetchBuy = async (shoppingCart,subtotal,dispatch) => {
     }
 }
 
+//GET COMPRAS DE USUARIO
 export const getBuys = async ( userId) => {
     const token = sessionStorage.getItem("token");
 

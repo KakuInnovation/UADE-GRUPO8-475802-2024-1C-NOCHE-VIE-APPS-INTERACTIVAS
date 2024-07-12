@@ -14,6 +14,8 @@ import {
     updateProductInList
 } from "../redux/slices/product_slice.js";
 
+
+/**GET TODOS LOS PRODUCTOS**/
 const useFetchProducts =  async (dispatch) => {
 
 
@@ -49,7 +51,7 @@ const useFetchProducts =  async (dispatch) => {
      }
 
 }
-
+/**POST CREACION PRODUCTOS**/
 export const createProduct = async (productDTO,dispatch) => {
     const token = sessionStorage.getItem("token");
     const options = {
@@ -82,6 +84,7 @@ export const createProduct = async (productDTO,dispatch) => {
     }
 }
 
+/**PUT ACTUALIZACION DE PRODUCTOS**/
 export const fetchProductUpdate = async(productDTO,dispatch ) => {
     dispatch(loadingProductFetch());
     const token = sessionStorage.getItem("token");
@@ -116,7 +119,7 @@ export const fetchProductUpdate = async(productDTO,dispatch ) => {
 
 }
 
-
+/**GET CATEGORIAS**/
 const useFetchGetCategories = async (dispatch) => {
     const options = {
         method: 'GET',
@@ -139,13 +142,12 @@ const useFetchGetCategories = async (dispatch) => {
 
 }
 
-
+/**GET CANTIDAD DE JUGADORES**/
 const useFetchPlayers =  async (dispatch) => {
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-
         },
     };
 
@@ -158,21 +160,19 @@ const useFetchPlayers =  async (dispatch) => {
             dispatch(fetchPlayer(data));
         }
 
-
     } catch (error){
         console.log(error)
     }
 
 }
 
+
+/**GET MARCAS**/
 const useFetchBrand = async (dispatch) => {
-
-
     const options = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-
         },
     };
 
@@ -192,7 +192,7 @@ const useFetchBrand = async (dispatch) => {
 
 
 }
-
+/**GET DIFICULTADES**/
 const useFetchDifficulty = async (dispatch) => {
     const options = {
         method: 'GET',
@@ -218,6 +218,8 @@ const useFetchDifficulty = async (dispatch) => {
 
 }
 
+
+/**GET DURACION**/
 const useFetchDuration = async (dispatch) => {
     const options = {
         method: 'GET',
@@ -243,6 +245,7 @@ const useFetchDuration = async (dispatch) => {
 
 }
 
+/**DELETE PRODUCTO**/
 export const deleteProduct = async (productId) => {
     const token = sessionStorage.getItem("token");
     const options = {

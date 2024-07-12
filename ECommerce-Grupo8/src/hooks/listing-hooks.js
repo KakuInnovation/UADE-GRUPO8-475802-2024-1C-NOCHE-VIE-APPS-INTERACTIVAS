@@ -7,6 +7,8 @@ import {
 } from "../redux/slices/listingsSlice.js";
 import {setListings} from "../redux/slices/shoppingCartSlice.js";
 
+
+/**GET PUBLICACIONES POR USUARIO**/
 export const getListingByUserMail = async (email) => {
     const token = sessionStorage.getItem("token");
 
@@ -31,10 +33,6 @@ export const getListingByUserMail = async (email) => {
             alert("Error interno del  server")
         }
 
-
-
-
-
     }
     catch(err){
         console.log(err);
@@ -42,7 +40,7 @@ export const getListingByUserMail = async (email) => {
 }
 
 
-//crear publicacion
+/**POST CREAR PUBLICACION**/
 const useFetchListingDialog = (data,token) => {
     const options = {
         method: 'POST',
@@ -70,7 +68,7 @@ const useFetchListingDialog = (data,token) => {
 
 
 }
-//componente para traer las publicaciones
+/**GET PUBLICACIONES -> POR SEARCHBAR - CATEGORIAS ELEGIDAS - TODOS **/
 const useFetchListings = (selectedCategories = [], dispatch, searchedText) => {
     const [productos, setProducts] = useState([]);
     const [search, setSearch] = useState(searchedText);
@@ -153,6 +151,8 @@ const useFetchListings = (selectedCategories = [], dispatch, searchedText) => {
                     setProducts(filteredProducts);
                     dispatch(fetchAlListings(data));
 
+                } else{
+                    alert('error fetching data');
                 }
 
 
@@ -168,33 +168,7 @@ const useFetchListings = (selectedCategories = [], dispatch, searchedText) => {
 
     return productos;
 };
-/*
 
-    useEffect(() => {
-        if (productos.length > 0) {
-
-
-
-            const listingStock = productos.filter(listing => listing.stock > 0 );
-            const filteredProducts = listingStock.filter(item => item.listingState === true);
-                    console.log("PRODUCTOS:", filteredProducts)
-
-                    setProducts(filteredProducts);
-                    dispatch(fetchListings(listingStock));
-                    dispatch(setListings(listingStock));
-
-
-
-
-
-
-
-
-        }
-
-    }, []);
-
-    */
 
 const UseFetchListingsByUser  = ()  =>  {
     const [listings, setListings] = useState([]);
@@ -224,7 +198,7 @@ const UseFetchListingsByUser  = ()  =>  {
 }
 
 
-//PUT
+/**PUT UPDATE PUBLICACION**/
 const fetchListingUpdate = async (listingDTO) => {
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("userId");
@@ -257,7 +231,7 @@ const fetchListingUpdate = async (listingDTO) => {
 
 
 }
-
+/**DELETE PUBLICACION**/
 const deleteUserListing = async (id,) =>  {
     const token = sessionStorage.getItem("token");
 
