@@ -23,5 +23,5 @@
  ];
 
 
-
+ /**OBSOLETE**/
 export {data_navbar};

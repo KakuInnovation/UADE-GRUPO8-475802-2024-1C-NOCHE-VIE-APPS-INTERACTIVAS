@@ -60,13 +60,13 @@ export const AdminView = () => {
 
     useEffect(() => {
         const fetchProductsData = async () => {
-            await useFetchProducts(dispatch); // Asegúrate de despachar la acción de obtener productos
+            await useFetchProducts(dispatch);
         };
         fetchProductsData();
     }, []);
 
 
-
+        // OBSOLETO
     const handleChange = (event, action, tag) => {
         const isChecked = event? event.target.checked:'';
         switch (action) {
