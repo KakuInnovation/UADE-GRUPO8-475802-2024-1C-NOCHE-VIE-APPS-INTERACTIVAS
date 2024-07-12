@@ -20,7 +20,8 @@ export default function ComboBox({data,setSelectedItem, selectedItem,type,listin
                 disablePortal
                 id="combo-box-demo"
                 options={data}
-                disabled={!!product&&!admin}
+                disabled={!!product&&!admin||listingToEdit}
+
                 freeSolo={true}
                 sx={{ width: 300 }}
                 value={listingToEdit || product? selectedItem : ""}
