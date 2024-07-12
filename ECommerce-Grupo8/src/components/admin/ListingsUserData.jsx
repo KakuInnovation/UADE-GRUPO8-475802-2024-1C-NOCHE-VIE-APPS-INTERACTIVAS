@@ -96,7 +96,7 @@ export const ListingsUserData = ({listing}) => {
                             <ListItemText  sx={{width:'16%',display:'flex',justifyContent:'center', alignItems: 'center',textAlign:'center',  backgroundColor:'grey',padding:'5px',color:"white"}}><Typography sx={{backgroundColor:'grey'}}>{item.userId}</Typography></ListItemText>
 
                             <ListItemText  sx={{width:'8%',display:'flex',justifyContent:'center', alignItems: 'center',textAlign:'center',  backgroundColor:'grey',padding:'5px',color:"white"}}><Typography>{item.price}</Typography></ListItemText>
-                            <Button sx={{backgroundColor:"black"}} onClick={() => handleClick(item)}>perfil</Button>
+                            <Button sx={{backgroundColor:"black"}} onClick={() => handleClick(item)}>Publicacion</Button>
 
                         </ListItem>
 
