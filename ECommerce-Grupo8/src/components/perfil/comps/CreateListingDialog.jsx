@@ -69,10 +69,6 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
 
 
 
-    useEffect( () => {
-        console.log(selectedGame)
-    },[selectedGame])
-
     useEffect(() => {
 
         if (open) {
@@ -119,9 +115,6 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
             }, [selectedGame]);
 
 
-    useEffect(() => {
-        console.log(category)
-    }, [category]);
 
 
     const productNames = products.map((product) => product.productName);
@@ -140,7 +133,7 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
 
         const duration_ = durations.find((item) => item.durationName === duration);
         const durationId = duration_ ? duration_.id : null;
-        alert(durationId);
+
         const difficulty_ = difficulties.find((item) => item.difficultyName === difficulty);
 
         const difficultyId = difficulty_ ? difficulty_.id : null;
@@ -187,6 +180,7 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
         }
 
         const listingDTO = {
+
             listingId : listingToEdit?listingToEdit.listingId:null,
             title: title,
             description: description,
@@ -200,17 +194,7 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
 
         if(isEditing){
 
-
            const data  =  fetchListingUpdate(listingDTO, token);
-
-            if(data.response === 200){
-                alert('Publicacion actualizada correctamente')
-            }
-            else{
-                alert("Error al actualizar la publicacion:",data);
-            }
-
-
 
         }
         else{
@@ -238,7 +222,6 @@ const CreateListingDialog = ({open,handleClose, userId}) => {
             dispatch(setEditing())
             setImages(null);
             listingToEdit = null;
-
 
 
             handleClose();
