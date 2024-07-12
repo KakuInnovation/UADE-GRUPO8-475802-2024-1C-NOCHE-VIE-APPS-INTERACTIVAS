@@ -17,6 +17,7 @@ import Review from './Review';
 import {useDispatch, useSelector} from "react-redux";
 import {fetchBuy} from "../../hooks/sales-hooks.js";
 import {emptyCart} from "../../redux/slices/shoppingCartSlice.js";
+import {useNavigate} from "react-router-dom";
 
 const steps = ['Datos del cliente', 'Metodos de Pago', 'Revision de Mensaje'];
 
@@ -39,12 +40,14 @@ export default function Checkout() {
     const subtotal = useSelector(state => state.shopping_cart.subtotal);
     const userId = useSelector(state => state.auth.userId);
     const token = useSelector(state => state.auth.token);
+    const navigate = useNavigate();
     const dispatch =  useDispatch();
     const handleNext = () => {
         setActiveStep(activeStep + 1);
         if (activeStep === steps.length - 1) {
             fetchBuy(shoppingCart,subtotal,dispatch)
             dispatch(emptyCart())
+            navigate("/");
         }
     };
 
