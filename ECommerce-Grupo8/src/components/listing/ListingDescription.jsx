@@ -59,6 +59,10 @@ export const ListingDescription = ({listing}) => {
                         />
                     </ListItem>
                 </List>
+                <Box sx={{...listing_details_sx.listing_description_box}}>
+                    <Typography sx={{...listing_details_sx.listing_description_title}}>Descripcion de producto</Typography>
+                    <Typography sx={{...listing_details_sx.listing_description_text}}>{listing.productDTO.productDescription}</Typography>
+                </Box>
 
                 <Box sx={{...listing_details_sx.listing_description_box}}>
                     <Typography sx={{...listing_details_sx.listing_description_title}}>Descripcion</Typography>

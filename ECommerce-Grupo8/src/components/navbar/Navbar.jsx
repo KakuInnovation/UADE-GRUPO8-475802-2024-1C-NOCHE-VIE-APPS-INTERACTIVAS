@@ -17,6 +17,7 @@ import {openDrawer} from "../../redux/slices/drawerSlice.js";
 import TemporaryDrawer from "../home/shopping-cart/ShoppingCart.jsx";
 import {fetchSearchedText} from "../../redux/slices/listingsSlice.js";
 import Cookies from "js-cookie";
+import {emptyCart} from "../../redux/slices/shoppingCartSlice.js";
 
 
 

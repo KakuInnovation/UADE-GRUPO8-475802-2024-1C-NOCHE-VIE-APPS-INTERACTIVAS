@@ -126,7 +126,7 @@ const useFetchListings = (selectedCategories = [], dispatch, searchedText) => {
 
                         const uniqueIds = new Set();
                         const uniqueProducts = data.filter(product => {
-                            if (!uniqueIds.has(product.listingId) && product.listingState === true && product.stock > 0) {
+                            if (!uniqueIds.has(product.listingId) && product.listingState === true ) { //&& product.stock > 0
                                 uniqueIds.add(product.listingId);
                                 return true;
                             }
@@ -220,7 +220,7 @@ const fetchListingUpdate = async (listingDTO) => {
                 alert("Publicacion actualizada exitosamente")
                 return await response.json();
             } else {
-                alert("Error al actualizar la publicacion")
+                alert("Error al actualizar la publicacion. Proba apretando Enter en los inputs")
                 return null;
             }
 

@@ -40,7 +40,7 @@ const Home = () => {
                        <Box  sx={{...sx_user_styles.grid_item_title_container}}>
                            <Typography sx={{...sx_user_styles.grid_item_title}}>Mas vendidos!</Typography>
                        </Box>
-                       <Box sx={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+                       <Box sx={{display:'flex', justifyContent:'space-between', width:'100%',height:'550px'}}>
                            <Carousel listings={listings}></Carousel>
                        </Box>
                    </Box>

@@ -4,8 +4,8 @@ const background_card_catalog =   'radial-gradient(circle at 50% -20.71%, #cbe7e
 const sx_cardsGrid = {
 
     cardLayout:{
-        width: { xs: '300px', md: '300px', lg: '310px' },
-        height:{ xs: '260px', md: '260px', lg: '400px' },
+        width: { xs: '300px', md: '300px', lg: '315px' },
+        height:{ xs: '260px', md: '260px', lg: '435px' },
         padding:'0px',
         cursor:'pointer',
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.7)',
@@ -65,7 +65,8 @@ const sx_cardsGrid = {
         display:'flex',
         justifyContent: 'center',
         textAlign:'center',
-        padding:'0',
+        padding:'',
+
         gap:'1px',
     },
 
@@ -82,7 +83,8 @@ const sx_cardsGrid = {
         fontWeight: 'normal',
         lineHeight: '1.5',
         fontSize:'13px',
-        textAlign:'center'
+        textAlign:'center',
+
     }
 
 }

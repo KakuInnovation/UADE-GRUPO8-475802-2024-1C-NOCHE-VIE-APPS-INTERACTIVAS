@@ -68,13 +68,13 @@ export const createProduct = async (productDTO,dispatch) => {
         const response = await fetch(`http://localhost:8080/create-product`, options)
         const statusCode =  response.status;
         if(statusCode >= 200 && statusCode < 300){
-            alert("Usuario creado correctamente")
+            alert("Producto creado correctamente")
         }
         else if(statusCode > 400 && statusCode < 500){
             alert("400 error")
         }
         else if(statusCode >= 500){
-            alert("Error interno del  server")
+            alert("Error interno del  server, . Proba apretando Enter en los inputs")
         }
         const data = await response.json();
 
@@ -102,11 +102,11 @@ export const fetchProductUpdate = async(productDTO,dispatch ) => {
         const statusCode =  response.status;;
         if(statusCode >= 200 && statusCode < 300){
             const data = await response.json();
-            alert("Producto actualizado correctaemnte")
+            alert("Producto actualizado correctamente")
         } else if(statusCode > 400 && statusCode < 500){
             alert("Not found")
         } else if(statusCode === 500){
-            alert("Server Error")
+            alert("Server Error,. Proba apretando Enter en los inputs")
         } else {
             console.log(`Unexpected status code: ${statusCode}`)
         }

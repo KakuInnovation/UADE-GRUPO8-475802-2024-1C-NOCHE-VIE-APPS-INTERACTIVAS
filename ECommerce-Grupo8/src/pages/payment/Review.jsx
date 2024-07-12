@@ -5,6 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import {useSelector} from "react-redux";
+import {useState} from "react";
 
 const products = [
     {
@@ -45,6 +46,7 @@ export default function Review() {
     const subtotal = useSelector(state => state.shopping_cart.subtotal);
     const userId = useSelector(state => state.auth.userId);
     const coupon =  useSelector(state => state.shopping_cart.coupon);
+    const total = shoppingCart.reduce((acc, listing) => acc + listing.price * listing.quantity, 0);
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -54,17 +56,17 @@ export default function Review() {
                 {shoppingCart.map((listing) => (
                     <ListItem key={listing.name} sx={{ py: 1, px: 0 }}>
                         <ListItemText primary={listing.productDTO.productName + " x "+listing.quantity} secondary={listing.desc} />
-                        <Typography variant="body2">{listing.price* listing.quantity}</Typography>
+                        <Typography variant="body2">$ {listing.price* listing.quantity}</Typography>
                     </ListItem>
                 ))}
                 <ListItem sx={{ py: 1, px: 0 }}>
                     <ListItemText primary="Total" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-                        ${subtotal}
+                        ${total}
                     </Typography>
                 </ListItem>
                 <ListItem sx={{ py: 1, px: 0 }}>
-                    <ListItemText primary="Total" />
+                    <ListItemText primary="Total con descuento" />
                     <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
                         ${subtotal}
                     </Typography>

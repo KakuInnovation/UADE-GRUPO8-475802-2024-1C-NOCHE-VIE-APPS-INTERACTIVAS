@@ -91,7 +91,7 @@ const ProductCard = ({item}) => {
                             </ListItem>
                             <ListItem sx={{...sx_cardsGrid.list_item, width: '50%'}}>
                                 <Typography sx={{...sx_cardsGrid.description_bold,}}>Precio:</Typography>
-                                <Typography sx={{...sx_cardsGrid.description_regular}}>{item.price}</Typography>
+                                <Typography sx={{...sx_cardsGrid.description_regular}}>${item.price}</Typography>
                             </ListItem>
                             <Divider sx={{width: '100%', height: '2px', backgroundColor: '#fff'}}/>
                             <ListItem sx={{...sx_cardsGrid.list_item, width: '50%', padding: '5px'}}>

@@ -90,11 +90,7 @@ export default function Checkout() {
                             <Typography variant="h5" gutterBottom>
                                 Mensaje enviado correctamente.
                             </Typography>
-                            <Typography variant="subtitle1">
-                                Tu numero de orden es #2001539. Se envio un email con la confirmacion del mensaje,
-                                el docente se comunicara pronto.
 
-                            </Typography>
                         </React.Fragment>
                     ) : (
                         <React.Fragment>
